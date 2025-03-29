@@ -1,0 +1,66 @@
+/* Footer Styles */
+.footer {
+    background-color: #212529;
+}
+
+.footer h5 {
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.footer a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #664000bc !important;
+}
+
+.footer ul li {
+    margin-bottom: 0.5rem;
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+    background-color: #6641003f;
+    transform: translateY(-3px);
+}
+
+.newsletter-form .input-group {
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.newsletter-form .form-control {
+    background-color: #343a40;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+}
+
+.newsletter-form .btn {
+    padding: 0 20px;
+    background-color: #664000bc;
+    border: none;
+}
+
+.newsletter-form .btn:hover {
+    background-color: #664000bc;
+}
+
+.footer hr {
+    opacity: 0.1;
+}
