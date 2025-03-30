@@ -1,0 +1,77 @@
+   /* login */
+ .login-container {
+  background: white;
+ padding: 2.5rem;
+  border-radius: 10px;
+ box-shadow: 0 0 20px rgba(0,0,0,0.1);
+ width: 100%;
+ max-width: 400px;
+}
+                                                                
+.login-header {
+ text-align: center;
+ margin-bottom: 2rem;
+     }
+                                                                
+ .password-toggle {
+ position: absolute;
+ right: 15px;
+ top: 50%;
+ transform: translateY(-50%);
+cursor: pointer;
+color: #666;
+}
+                                                                
+.forgot-pasword {
+text-align: right;
+margin: 1rem 0;
+}
+                                                                
+.forgot-password a {
+color: #666;
+text-decoration: none;
+font-size: 0.9rem;
+}
+                                                                
+.error-message {
+color: #dc3545;
+font-size: 0.875rem;
+margin-top: 0.5rem;
+display: none;
+}
+#loginForm
+{
+width: 50%;
+margin: 5px auto;
+text-align: center;
+padding: 20px;
+border-top: 1px solid  #856b00d3;
+}
+#loginForm input{
+width:50%;
+margin: 5px auto;
+}
+#loginForm #login-btn{
+                                                                  
+background-color:#856b00d3
+                                                                   
+}
+                                                                
+#loginForm #register-url{
+color:#856b00d3
+}
+#loginForm #forgot-password-url{
+color:#856b00d3
+}
+.register-url {
+margin-top: 1rem;
+color: #7f8c8d;
+}
+                                                                
+.register-url a {
+color: #856b00d3;
+                                                    
+margin-left: 5px;
+}
+                                                              
+                                                               

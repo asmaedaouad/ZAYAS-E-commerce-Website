@@ -80,7 +80,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const headerWishlist = document.getElementById('wishlist-icon');
     if (headerWishlist) {
         headerWishlist.addEventListener('click', function(e) {
-            e.preventDefault();
             showNotification('View your wishlist');
         });
     }
@@ -89,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const accountIcon = document.getElementById('account-icon');
     if (accountIcon) {
         accountIcon.addEventListener('click', function(e) {
-            e.preventDefault();
             showNotification('Account menu');
         });
     }
@@ -98,7 +96,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cartIcon = document.getElementById('cart-icon');
     if (cartIcon) {
         cartIcon.addEventListener('click', function(e) {
-            e.preventDefault();
             showNotification('View your cart');
         });
     }

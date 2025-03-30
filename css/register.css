@@ -1,0 +1,38 @@
+  /*register*/
+  .error-message1 {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+    }
+  #registerform{
+
+    width: 50%;
+    margin: 5px auto;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid  #856b00d3;
+   }
+   #registerform input{
+        width:50%;
+        margin: 5px auto;
+    }
+    #registerform #register-btn{
+      
+        background-color:#856b00d3
+       
+    }
+    #registerform #login-url{
+        color:#856b00d3
+    }
+    .login-url {
+        margin-top: 1rem;
+        color: #7f8c8d;
+    }
+    
+    .login-url a {
+        color: #856b00d3;
+
+        margin-left: 5px;
+    }
+  

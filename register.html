@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAYAS Store</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/cart.css">
+    <link rel="stylesheet" href="css/checkout.css">
+    <link rel="stylesheet" href="css/account.css">
+    <link rel="stylesheet" href="css/register.css">
+    <!-- titre -->
+    <title>register</title>
+</head>
+<body>
+    
+    <!-- Header -->
+    <header class="header">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container position-relative">
+                <a class="navbar-brand brand-name" href="#" style="font-size: 2rem; font-weight: 700;">ZAYAS</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Home.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="collections.html">Collections</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about.html">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                    </ul>
+                    
+                    <div class="d-flex align-items-center">
+                        <div class="search-box me-3">
+                            <i class="fas fa-search"></i>
+                            <input class="form-control" type="search" placeholder="Search...">
+                        </div>
+                        
+                        <div class="header-icons">
+                            <a href="#" id="wishlist-icon">
+                                <i class="far fa-heart"></i>
+                            </a>
+                            <a href="login.html" id="account-icon">
+                                <i class="far fa-user"></i>
+                            </a>
+                            <a href="cart.html" id="cart-icon">
+                                <i class="fas fa-shopping-bag"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <!-- Login Form -->
+    <main>
+        
+        <section  class="hero-slider my-5 py-2">
+           <div class="container text-center mt-3 pt-4">
+                   <h2 class="form-weight-bould">Register</h2>
+                       
+            </div>
+
+              <div class="mx-auto container">
+
+               <form id="registerform">
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="register-name" name= "name" placeholder="name" required>
+             </div>
+                <div class="form-group">
+                       <label>Email</label>
+                       <input type="email" class="form-control" id="login email" name= "email" placeholder="email" required>
+                </div>
+                <div class="form-group">
+                       <label>Password</label>
+                       <input type="password" class="form-control" id="register-Password" name= "Password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" class="form-control" id="register-confirm-Password" name= "confirmPassword" placeholder="Confirm Password" required>
+             </div>
+
+                <div class="error-message1" id="errorMessage"></div>
+                <div class="form-group">
+                 <input type="submit" class="btn" id="register-btn" value="Rejister"/>
+                 </div>
+                
+       
+                <div class="form-group">
+                    <p class="login-url">Do you have an account? <a href="login.html">Login</a></p>
+                </div>
+                </form>
+
+            </div>
+        </section>
+    </main>
+ <!-- Footer -->
+ <footer class="footer py-5 text-white">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 mb-lg-0">
+                <h5 class="mb-4">ZAYAS</h5>
+                <p>Discover the perfect blend of tradition and contemporary style with our curated collection of Islamic fashion.</p>
+                <div class="social-icons mt-4">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="mb-4">Shop</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white-50">Abayas</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Dresses</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Hijabs</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Sale</a></li>
+                    <li><a href="#" class="text-white-50">New Arrivals</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-2 col-md-6 mb-4 mb-md-0">
+                <h5 class="mb-4">Help</h5>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><a href="#" class="text-white-50">Customer Service</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Track Order</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Returns & Exchanges</a></li>
+                    <li class="mb-2"><a href="#" class="text-white-50">Shipping Info</a></li>
+                    <li><a href="#" class="text-white-50">FAQ</a></li>
+                </ul>
+            </div>
+            
+            <div class="col-lg-4">
+                <h5 class="mb-4">Newsletter</h5>
+                <p>Subscribe to get updates on new arrivals and special offers.</p>
+                <form class="newsletter-form mt-4">
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Your email" required>
+                        <button class="btn btn-primary" type="submit">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <hr class="my-5 bg-secondary">
+        
+        <div class="row">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="small mb-0">© 2025 ZAYAS. All rights reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end">
+                <ul class="list-inline small mb-0">
+                    <li class="list-inline-item"><a href="#" class="text-white-50">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-white-50">Terms of Service</a></li>
+                    <li class="list-inline-item"><a href="#" class="text-white-50">Sitemap</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/login.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

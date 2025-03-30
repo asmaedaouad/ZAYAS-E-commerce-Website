@@ -1,0 +1,23 @@
+.error-message2 {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+    }
+    #checkoutform .checkout-small-element{
+        display : inline-block;
+        width: 48%;
+        margin: 10px auto;
+    }
+    #checkoutform .checkout-large-element{
+        width:95%; 
+    }
+    #checkoutform .checkout-btn-container{
+        margin:10px;
+        text-align:right;
+        margin-right: 40px;
+    }
+    #checkoutform #checkout-btn{
+        color:aliceblue;
+        background-color: #856b00d3;
+    }

@@ -648,3 +648,18 @@ function updateCollectionTitle(type) {
             description.textContent = 'Discover our curated selection';
     }
 }
+
+function navigateWithFallback(event, primaryLink, fallbackLink) {
+    event.preventDefault(); // Prevent default anchor behavior
+    
+    // Try scrolling to the primary link (anchor)
+    const targetElement = document.querySelector(primaryLink);
+    
+    if (targetElement) {
+        // If the anchor exists, scroll to it smoothly
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        // If the anchor doesn't exist, navigate to the fallback link
+        window.location.href = fallbackLink;
+    }
+}
