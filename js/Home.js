@@ -1,11 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize carousel
     const myCarousel = new bootstrap.Carousel(document.getElementById('mainCarousel'), {
-        interval: 6000, // Increased interval to 6 seconds
+        interval: 6000,
         ride: 'carousel',
-        pause: 'hover', // Pause on hover
-        wrap: true, // Infinite looping
-        touch: true // Enable touch swiping
+        pause: 'hover',
+        wrap: true,
+        touch: true
     });
     
     // Play videos when slide becomes active
@@ -26,6 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             video.pause();
         }
     });
+    
     // Handle window resize for video repositioning
     let resizeTimer;
     window.addEventListener('resize', function() {
@@ -39,6 +40,139 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }, 250);
     });
+    
+    // Load products for New Arrivals section
+    fetch('data/products.json')
+        .then(response => response.json())
+        .then(data => {
+            const newArrivals = data.products.filter(product => product.isNew);
+            renderNewArrivals(newArrivals);
+        })
+        .catch(error => {
+            console.error('Error loading products:', error);
+            document.querySelector('.featured-products .product-row').innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-exclamation-circle fa-3x text-danger mb-3"></i>
+                    <h4>Failed to load products</h4>
+                    <p class="text-muted">Please try refreshing the page</p>
+                </div>
+            `;
+        });
+    
+    // Render New Arrivals products
+    function renderNewArrivals(products) {
+        const productRow = document.querySelector('.featured-products .product-row');
+        
+        if (!products.length) {
+            productRow.innerHTML = `
+                <div class="col-12 text-center py-5">
+                    <i class="fas fa-box-open fa-3x text-muted mb-3"></i>
+                    <h4>No new arrivals found</h4>
+                    <p class="text-muted">Check back later for new products</p>
+                </div>
+            `;
+            return;
+        }
+        
+        productRow.innerHTML = products.map(product => `
+            <div class="col-md-6 col-lg-3">
+                <div class="product-card" data-product-id="${product.id}">
+                    <div class="product-image">
+                        <img src="${product.image}" alt="${product.name}" loading="lazy">
+                        
+                        <div class="product-badges">
+                            ${product.isNew ? '<span class="badge badge-new">New</span>' : ''}
+                            ${product.oldPrice ? '<span class="badge badge-sale">Sale</span>' : ''}
+                            ${product.quantity === 0 ? '<span class="badge badge-sold-out">Sold Out</span>' : ''}
+                        </div>
+                        
+                        <button class="wishlist-btn">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="product-info mt-3">
+                        <h5>${product.name}</h5>
+                        <p class="product-description">${product.category}</p>
+                        
+                        <div class="product-price">
+                            <span class="price">$${product.price.toFixed(2)}</span>
+                            ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                        
+                        <a href="#" class="btn btn-outline-dark w-100 ${product.quantity === 0 ? 'disabled' : ''}">
+                            ${product.quantity === 0 ? 'Out of Stock' : 'Add to Cart'}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        
+        // Initialize scroll functionality
+        setupProductScrolling();
+        
+        // Reattach event listeners
+        setupProductCardInteractions();
+    }
+    
+    // Set up product scrolling functionality
+    function setupProductScrolling() {
+        const productRow = document.querySelector('.featured-products .product-row');
+        const leftArrow = document.querySelector('.scroll-arrow.left');
+        const rightArrow = document.querySelector('.scroll-arrow.right');
+        
+        if (!productRow || !leftArrow || !rightArrow) return;
+        
+        const getScrollAmount = () => {
+            const card = productRow.querySelector('.col-md-6.col-lg-3');
+            if (!card) return 300; // fallback
+            return card.offsetWidth + 30; // card width + margin
+        };
+    
+        const updateArrowStates = () => {
+            const scrollLeft = productRow.scrollLeft;
+            const maxScroll = productRow.scrollWidth - productRow.clientWidth;
+            
+            leftArrow.classList.toggle('disabled', scrollLeft <= 0);
+            rightArrow.classList.toggle('disabled', scrollLeft >= maxScroll - 1);
+        };
+    
+        updateArrowStates();
+    
+        leftArrow.addEventListener('click', () => {
+            if (leftArrow.classList.contains('disabled')) return;
+            productRow.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+        });
+    
+        rightArrow.addEventListener('click', () => {
+            if (rightArrow.classList.contains('disabled')) return;
+            productRow.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+        });
+    
+        productRow.addEventListener('scroll', updateArrowStates);
+        window.addEventListener('resize', updateArrowStates);
+    }
+    
+    // Set up product card interactions (wishlist, etc.)
+    function setupProductCardInteractions() {
+        // Wishlist button functionality
+        document.querySelectorAll('.wishlist-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const icon = this.querySelector('i');
+                icon.classList.toggle('far');
+                icon.classList.toggle('fas');
+                
+                if (icon.classList.contains('fas')) {
+                    const headerWishlist = document.querySelector('#wishlist-icon i');
+                    headerWishlist.classList.add('fas');
+                    headerWishlist.classList.remove('far');
+                    showNotification('Item added to your wishlist');
+                }
+            });
+        });
+    }
+    
     // Add smooth scrolling to all links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -52,26 +186,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 targetElement.scrollIntoView({
                     behavior: 'smooth'
                 });
-            }
-        });
-    });
-    
-    // Wishlist button functionality
-    document.querySelectorAll('.wishlist-btn').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const icon = this.querySelector('i');
-            icon.classList.toggle('far');
-            icon.classList.toggle('fas');
-            
-            // Update header wishlist icon if item is added
-            if (icon.classList.contains('fas')) {
-                const headerWishlist = document.querySelector('#wishlist-icon i');
-                headerWishlist.classList.add('fas');
-                headerWishlist.classList.remove('far');
-                
-                // Show notification
-                showNotification('Item added to your wishlist');
             }
         });
     });
@@ -117,12 +231,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Helper function to show notifications
     function showNotification(message) {
-        // Create notification element
         const notification = document.createElement('div');
         notification.className = 'notification alert alert-success';
         notification.textContent = message;
         
-        // Style notification
         notification.style.position = 'fixed';
         notification.style.bottom = '20px';
         notification.style.right = '20px';
@@ -132,10 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
         notification.style.boxShadow = '0 3px 10px rgba(0,0,0,0.2)';
         notification.style.transition = 'all 0.3s ease';
         
-        // Add to body
         document.body.appendChild(notification);
         
-        // Remove after 3 seconds
         setTimeout(() => {
             notification.style.opacity = '0';
             notification.style.transform = 'translateY(20px)';
@@ -144,48 +254,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300);
         }, 3000);
     }
-    const productRow = document.querySelector('.featured-products .product-row');
-    const leftArrow = document.querySelector('.scroll-arrow.left');
-    const rightArrow = document.querySelector('.scroll-arrow.right');
-    
-    if (productRow && leftArrow && rightArrow) {
-        // Calculate scroll amount based on card width
-        const getScrollAmount = () => {
-            const card = productRow.querySelector('.col-md-6.col-lg-3');
-            if (!card) return 300; // fallback
-            return card.offsetWidth + 30; // card width + margin
-        };
-    
-        // Update arrow states based on scroll position
-        const updateArrowStates = () => {
-            const scrollLeft = productRow.scrollLeft;
-            const maxScroll = productRow.scrollWidth - productRow.clientWidth;
-            
-            leftArrow.classList.toggle('disabled', scrollLeft <= 0);
-            rightArrow.classList.toggle('disabled', scrollLeft >= maxScroll - 1);
-        };
-    
-        // Initialize arrow states
-        updateArrowStates();
-    
-        // Scroll left
-        leftArrow.addEventListener('click', () => {
-            if (leftArrow.classList.contains('disabled')) return;
-            productRow.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
-        });
-    
-        // Scroll right
-        rightArrow.addEventListener('click', () => {
-            if (rightArrow.classList.contains('disabled')) return;
-            productRow.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
-        });
-    
-        // Update arrows on scroll
-        productRow.addEventListener('scroll', updateArrowStates);
-    
-        // Update arrows on resize
-        window.addEventListener('resize', () => {
-            updateArrowStates();
-        });
-    }       
 });
