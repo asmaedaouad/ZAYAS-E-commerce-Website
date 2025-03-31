@@ -9,6 +9,13 @@
     letter-spacing: 0.5px;
 }
 
+.brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+}
+
 .footer a {
     color: rgba(255,255,255,0.7);
     text-decoration: none;

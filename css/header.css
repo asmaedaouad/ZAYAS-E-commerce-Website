@@ -6,6 +6,13 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
+.brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #000;
+}
+
 .navbar-brand {
     font-size: 2rem; /* Adjust this value to make it bigger (e.g., 1.5rem, 2rem, 2.5rem) */
     font-weight: 700; /* Makes it bolder */

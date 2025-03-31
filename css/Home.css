@@ -10,13 +10,6 @@ h1, h2, h3, h4, h5, .section-title {
     font-weight: 500;
 }
 
-.brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: #000;
-}
-
 /* Categories Section */
 .section-header {
     position: relative;
