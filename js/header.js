@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle dropdown menus on mobile
     dropdownToggles.forEach(function(toggle) {
         toggle.addEventListener('click', function(e) {
-            // Only for mobile view
+            // Only prevent default for mobile view
             if (window.innerWidth < 992) {
                 e.preventDefault();
                 const dropdownMenu = this.nextElementSibling;
@@ -65,6 +65,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Toggle current dropdown
                 this.setAttribute('aria-expanded', !expanded);
                 dropdownMenu.classList.toggle('show');
+            }
+        });
+    });
+    
+    // Close menu when clicking a dropdown item (for mobile)
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(function(item) {
+        item.addEventListener('click', function() {
+            if (window.innerWidth < 992) {
+                navbarCollapse.classList.remove('show');
+                menuBackdrop.classList.remove('show');
+                document.body.classList.remove('menu-open');
             }
         });
     });
