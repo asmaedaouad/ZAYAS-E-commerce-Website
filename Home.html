@@ -14,24 +14,57 @@
     <link rel="stylesheet" href="css/Home.css">
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/about.css">
-    <link rel="stylesheet" href="css/cart.css">
-    <link rel="stylesheet" href="css/checkout.css">
-    <link rel="stylesheet" href="css/account.css">
-    <link rel="stylesheet" href="css/register.css">
-    <link rel="stylesheet" href="css/login.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container position-relative">
-                <a class="navbar-brand brand-name" href="#" style="font-size: 2rem; font-weight: 700;">ZAYAS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                <!-- Logo/Brand -->
+                <a class="navbar-brand brand-name" href="Home.html">ZAYAS</a>
                 
+                <!-- Header Icons for Mobile - Always visible -->
+                <div class="mobile-header-icons d-flex d-lg-none align-items-center">
+                    <div class="search-box me-2">
+                        <button class="search-toggle" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div class="search-input-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                            <i class="fas fa-times close-search"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="header-icons">
+                        <a href="#" id="wishlist-icon" aria-label="Wishlist">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <a href="login.html" id="account-icon" aria-label="Account">
+                            <i class="far fa-user"></i>
+                        </a>
+                        <a href="cart.html" id="cart-icon" aria-label="Shopping cart">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge">0</span>
+                        </a>
+                    </div>
+                    
+                    <!-- Burger Menu Toggle -->
+                    <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                
+                <!-- Dark backdrop for mobile menu -->
+                <div class="navbar-collapse-backdrop" id="menuBackdrop"></div>
+                
+                <!-- Collapsible Navigation Menu -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Close button for mobile -->
+                    <button type="button" class="mobile-menu-close d-lg-none" aria-label="Close menu">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="Home.html">Home</a>
@@ -50,21 +83,29 @@
                         </li>
                     </ul>
                     
-                    <div class="d-flex align-items-center">
-                        <div class="search-box me-3">
-                            <i class="fas fa-search"></i>
-                            <input class="form-control" type="search" placeholder="Search...">
+                    <!-- Desktop Header Icons - Only visible on desktop -->
+                    <div class="d-none d-lg-flex align-items-center">
+                        <div class="search-box">
+                            <button class="search-toggle" aria-label="Search">
+                                <i class="fas fa-search"></i>
+                            </button>
+                            <div class="search-input-container">
+                                <i class="fas fa-search search-icon"></i>
+                                <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                                <i class="fas fa-times close-search"></i>
+                            </div>
                         </div>
                         
                         <div class="header-icons">
-                            <a href="#" id="wishlist-icon">
+                            <a href="#" id="wishlist-icon-desktop" aria-label="Wishlist">
                                 <i class="far fa-heart"></i>
                             </a>
-                            <a href="login.html" id="account-icon">
+                            <a href="login.html" id="account-icon-desktop" aria-label="Account">
                                 <i class="far fa-user"></i>
                             </a>
-                            <a href="cart.html" id="cart-icon">
+                            <a href="cart.html" id="cart-icon-desktop" aria-label="Shopping cart">
                                 <i class="fas fa-shopping-bag"></i>
+                                <span class="cart-badge">0</span>
                             </a>
                         </div>
                     </div>
@@ -129,7 +170,7 @@
                 <div class="row g-4">
                     <!-- Abaya Category -->
                     <div class="col-md-4">
-                        <a href="#" class="category-card">
+                        <a href="shop.html?type=abaya" class="category-card">
                             <div class="category-image">
                                 <img src="images/blacksimpleabaya.png" alt="Elegant Abayas" loading="lazy">
                                 <div class="category-overlay">
@@ -144,7 +185,7 @@
                     
                     <!-- Dress Category -->
                     <div class="col-md-4">
-                        <a href="#" class="category-card">
+                        <a href="shop.html?type=dress" class="category-card">
                             <div class="category-image">
                                 <img src="images/bluedress1.png" alt="Stylish Dresses" loading="lazy">
                                 <div class="category-overlay">
@@ -159,7 +200,7 @@
                     
                     <!-- Hijab Category -->
                     <div class="col-md-4">
-                        <a href="#" class="category-card">
+                        <a href="shop.html?type=hijab" class="category-card">
                             <div class="category-image">
                                 <img src="images/biegehijab.png" alt="Premium Hijabs" loading="lazy">
                                 <div class="category-overlay">
@@ -291,5 +332,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="js/Home.js"></script>
+    <script src="js/header.js"></script>
 </body>
 </html>

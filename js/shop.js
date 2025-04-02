@@ -26,10 +26,18 @@ document.addEventListener('DOMContentLoaded', function() {
             const urlParams = new URLSearchParams(window.location.search);
             const typeParam = urlParams.get('type');
             
-            if (typeParam) {
+            if (typeParam && ['abaya', 'dress', 'hijab'].includes(typeParam)) {
                 activeFilters.type = typeParam;
                 updateCategoryBubbles(typeParam);
                 updateCollectionTitle(typeParam);
+                
+                // Smooth scroll to products section
+                setTimeout(() => {
+                    document.querySelector('.products-section').scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }, 300);
             }
             
             // Apply filters and render products
@@ -441,7 +449,7 @@ function createProductCard(product) {
         <div class="col-md-6 col-lg-4 mb-4">
             <div class="product-card" data-product-id="${product.id}">
                 <div class="product-image">
-                    <img src="${product.image}" alt="${product.name}">
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
                     
                     <div class="product-badges">
                         ${product.isNew ? '<span class="badge badge-new">New</span>' : ''}
@@ -578,4 +586,66 @@ function updateCollectionTitle(type) {
         default:
             description.textContent = 'Discover our curated selection';
     }
+}
+
+// Quick View Modal Setup (basic implementation)
+function setupQuickViewModal(product) {
+    if (!product) return;
+    
+    // Update modal content
+    document.getElementById('modal-product-image').src = product.image;
+    document.getElementById('modal-product-name').textContent = product.name;
+    document.getElementById('modal-product-rating').innerHTML = generateStarRating(product.rating);
+    document.getElementById('modal-product-reviews').textContent = `(${product.reviews} reviews)`;
+    document.getElementById('modal-product-price').textContent = `$${product.price.toFixed(2)}`;
+    
+    if (product.oldPrice) {
+        document.getElementById('modal-product-old-price').textContent = `$${product.oldPrice.toFixed(2)}`;
+        document.getElementById('modal-product-old-price').style.display = 'inline';
+    } else {
+        document.getElementById('modal-product-old-price').style.display = 'none';
+    }
+    
+    document.getElementById('modal-product-description').textContent = product.description || 'No description available';
+    
+    // Update colors
+    const colorsContainer = document.getElementById('modal-product-colors');
+    colorsContainer.innerHTML = '';
+    product.colors.forEach(color => {
+        const colorElement = document.createElement('div');
+        colorElement.className = 'color-circle';
+        colorElement.style.backgroundColor = color;
+        colorElement.title = color.charAt(0).toUpperCase() + color.slice(1);
+        colorsContainer.appendChild(colorElement);
+    });
+    
+    // Update sizes
+    const sizesContainer = document.getElementById('modal-product-sizes');
+    sizesContainer.innerHTML = '';
+    product.sizes.forEach(size => {
+        const sizeElement = document.createElement('div');
+        sizeElement.className = 'size-option';
+        sizeElement.textContent = size;
+        sizesContainer.appendChild(sizeElement);
+    });
+    
+    // Set up quantity buttons
+    document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const action = this.getAttribute('data-action');
+            const quantityInput = document.getElementById('quantity');
+            let quantity = parseInt(quantityInput.value);
+            
+            if (action === 'increase') {
+                quantity++;
+            } else if (action === 'decrease' && quantity > 1) {
+                quantity--;
+            }
+            
+            quantityInput.value = quantity;
+        });
+    });
+    
+    // Set up "See All Details" button
+    document.getElementById('see-all-details-btn').href = `product-details.html?id=${product.id}`;
 }
