@@ -89,6 +89,36 @@ function setupEventListeners() {
         applyFilters();
     });
     
+    // Mobile filter button
+    const mobileFilterBtn = document.getElementById('mobile-filter-btn');
+    const filterSidebar = document.querySelector('.filter-sidebar');
+    const filterOverlay = document.createElement('div');
+    filterOverlay.className = 'filter-overlay';
+    document.body.appendChild(filterOverlay);
+    
+    // Add close button to filter sidebar
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'btn-close filter-close-btn d-lg-none';
+    closeBtn.setAttribute('aria-label', 'Close');
+    filterSidebar.insertBefore(closeBtn, filterSidebar.firstChild);
+    
+    // Toggle filter sidebar
+    mobileFilterBtn.addEventListener('click', () => {
+        filterSidebar.classList.add('active');
+        filterOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    // Close filter sidebar
+    closeBtn.addEventListener('click', closeFilter);
+    filterOverlay.addEventListener('click', closeFilter);
+    
+    function closeFilter() {
+        filterSidebar.classList.remove('active');
+        filterOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    
     // Clear all filters
     document.getElementById('clear-filters').addEventListener('click', function() {
         // Reset filter values
@@ -506,105 +536,6 @@ function setupProductCards() {
     });
 }
 
-// Set up quick view modal with product data
-function setupQuickViewModal(product) {
-    // Set basic product info
-    document.getElementById('modal-product-name').textContent = product.name;
-    document.getElementById('modal-product-image').src = product.image;
-    document.getElementById('modal-product-image').alt = product.name;
-    document.getElementById('modal-product-price').textContent = `$${product.price.toFixed(2)}`;
-    document.getElementById('modal-product-description').textContent = product.description;
-    
-    // Set rating
-    const modalRating = document.getElementById('modal-product-rating');
-    modalRating.innerHTML = generateStarRating(product.rating);
-    
-    // Set reviews
-    document.getElementById('modal-product-reviews').textContent = `(${product.reviews} reviews)`;
-    
-    // Set old price if it exists
-    const oldPriceElement = document.getElementById('modal-product-old-price');
-    if (product.oldPrice) {
-        oldPriceElement.textContent = `$${product.oldPrice.toFixed(2)}`;
-        oldPriceElement.classList.remove('d-none');
-    } else {
-        oldPriceElement.textContent = '';
-        oldPriceElement.classList.add('d-none');
-    }
-    
-    // Generate color options
-    const colorsContainer = document.getElementById('modal-product-colors');
-    colorsContainer.innerHTML = '';
-    
-    product.colors.forEach(color => {
-        const colorElement = document.createElement('div');
-        colorElement.className = 'modal-color-option';
-        colorElement.style.backgroundColor = color;
-        colorElement.setAttribute('data-color', color);
-        colorElement.setAttribute('title', color.charAt(0).toUpperCase() + color.slice(1));
-        
-        colorElement.addEventListener('click', function() {
-            document.querySelectorAll('.modal-color-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            this.classList.add('selected');
-        });
-        
-        colorsContainer.appendChild(colorElement);
-    });
-    
-    // Select first color by default
-    if (colorsContainer.firstChild) {
-        colorsContainer.firstChild.classList.add('selected');
-    }
-    
-    // Generate size options
-    const sizesContainer = document.getElementById('modal-product-sizes');
-    sizesContainer.innerHTML = '';
-    
-    product.sizes.forEach(size => {
-        const sizeElement = document.createElement('div');
-        sizeElement.className = 'modal-size-option';
-        sizeElement.textContent = size;
-        sizeElement.setAttribute('data-size', size);
-        
-        sizeElement.addEventListener('click', function() {
-            document.querySelectorAll('.modal-size-option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            this.classList.add('selected');
-        });
-        
-        sizesContainer.appendChild(sizeElement);
-    });
-    
-    // Select first size by default
-    if (sizesContainer.firstChild) {
-        sizesContainer.firstChild.classList.add('selected');
-    }
-    
-    // Set up quantity buttons
-    const quantityInput = document.getElementById('quantity');
-    quantityInput.value = 1;
-    
-    document.querySelectorAll('.quantity-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            const action = this.getAttribute('data-action');
-            let quantity = parseInt(quantityInput.value);
-            
-            if (action === 'increase') {
-                if (quantity < product.quantity) {
-                    quantityInput.value = quantity + 1;
-                }
-            } else if (action === 'decrease') {
-                if (quantity > 1) {
-                    quantityInput.value = quantity - 1;
-                }
-            }
-        });
-    });
-}
-
 // Update category bubbles to highlight active category
 function updateCategoryBubbles(activeType) {
     document.querySelectorAll('.category-bubble').forEach(bubble => {
@@ -623,8 +554,8 @@ function updateCollectionTitle(type) {
     const description = document.getElementById('collection-description');
     
     if (!type) {
-        title.textContent = 'Collection';
-        description.textContent = 'Discover our curated selection of premium products';
+        title.textContent = 'Shop';
+        description.textContent = 'Discover our complete collection of premium Islamic fashion';
         return;
     }
     
@@ -646,20 +577,5 @@ function updateCollectionTitle(type) {
             break;
         default:
             description.textContent = 'Discover our curated selection';
-    }
-}
-
-function navigateWithFallback(event, primaryLink, fallbackLink) {
-    event.preventDefault(); // Prevent default anchor behavior
-    
-    // Try scrolling to the primary link (anchor)
-    const targetElement = document.querySelector(primaryLink);
-    
-    if (targetElement) {
-        // If the anchor exists, scroll to it smoothly
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-    } else {
-        // If the anchor doesn't exist, navigate to the fallback link
-        window.location.href = fallbackLink;
     }
 }
