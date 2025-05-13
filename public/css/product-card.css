@@ -14,14 +14,31 @@
     transition: transform 0.5s ease;
 }
 
-.product-image img {
+.product-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%; /* Ensure it takes full width */
+}
+
+.product-image a {
+    display: block;
     width: 100%;
-    object-fit: cover;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.product-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* This ensures the image covers the entire container */
     transition: transform 0.5s ease;
+    max-width: none !important; /* Override Bootstrap's img-fluid */
 }
 
 .product-card:hover .product-image img {
-    transform: scale(1.05);
+    transform: scale(1.15); /* Simple scale effect on hover */
 }
 
 /* Wishlist Icon */
@@ -143,8 +160,8 @@
 .badge {
     position: absolute;
     top: 10px;
-    left: 10px;
-    z-index: 10;
+    right: 10px; /* Changed from left to right */
+    z-index: 11; /* Increased z-index to be above wishlist icon */
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }

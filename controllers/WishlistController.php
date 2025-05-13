@@ -45,13 +45,13 @@ class WishlistController {
             if ($productId > 0) {
                 $this->wishlistModel->removeFromWishlist($_SESSION['user_id'], $productId);
 
-                // Redirect back to wishlist
-                redirect('/views/user/wishlist.php');
+                // Redirect back to account page wishlist tab
+                redirect('/views/user/account.php#wishlist');
             }
         }
 
         // Invalid request
-        redirect('/views/user/wishlist.php');
+        redirect('/views/user/account.php#wishlist');
     }
 
     // Get user's wishlist

@@ -69,5 +69,44 @@
 <!-- Home page specific JS -->
 <script src="<?php echo url('/public/js/home.js'); ?>"></script>
 <?php endif; ?>
+
+<!-- Scroll Position Handling -->
+<script>
+// Save scroll position before form submission
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we need to restore scroll position
+    <?php if (isset($_SESSION['scroll_position'])): ?>
+    window.scrollTo(0, <?php echo $_SESSION['scroll_position']; ?>);
+    <?php
+    // Clear the scroll position from session after using it
+    unset($_SESSION['scroll_position']);
+    ?>
+    <?php endif; ?>
+
+    // Add event listeners to all wishlist and cart forms
+    const wishlistForms = document.querySelectorAll('form[action*="wishlist/add.php"]');
+    const cartForms = document.querySelectorAll('form[action*="cart/add.php"]');
+
+    // Function to save scroll position
+    function saveScrollPosition(e) {
+        // Create a hidden input field to store scroll position
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'scroll_position';
+        input.value = window.pageYOffset || document.documentElement.scrollTop;
+        this.appendChild(input);
+    }
+
+    // Add event listener to wishlist forms
+    wishlistForms.forEach(form => {
+        form.addEventListener('submit', saveScrollPosition);
+    });
+
+    // Add event listener to cart forms
+    cartForms.forEach(form => {
+        form.addEventListener('submit', saveScrollPosition);
+    });
+});
+</script>
 </body>
 </html>

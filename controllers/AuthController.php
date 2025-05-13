@@ -3,8 +3,10 @@ require_once __DIR__ . '/../models/UserModel.php';
 
 class AuthController {
     private $userModel;
+    private $db;
 
     public function __construct($db) {
+        $this->db = $db;
         $this->userModel = new UserModel($db);
     }
 
@@ -43,13 +45,19 @@ class AuthController {
                     $_SESSION['is_delivery'] = $user['is_delivery'];
                     $_SESSION['logged_in'] = true;
 
+                    // Transfer cart items from session to database
+                    require_once __DIR__ . '/CartController.php';
+                    $cartController = new CartController($this->db);
+                    $cartController->transferCartOnLogin($user['id']);
+
                     // Redirect based on user role
                     if ($user['is_admin']) {
                         redirect('/admin/dashboard.php');
                     } elseif ($user['is_delivery']) {
                         redirect('/delivery/dashboard.php');
                     } else {
-                        redirect('/index.php');
+                        // Redirect regular users to their account page
+                        redirect('/views/user/account.php');
                     }
                 } else {
                     $errors[] = 'Invalid email or password';

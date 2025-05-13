@@ -57,35 +57,51 @@ class OrderController {
                 $errors[] = 'Phone is required';
             }
 
+            // Validate cart items
+            if (count($cart['items']) === 0) {
+                $errors[] = 'Your cart is empty';
+                redirect('/views/user/cart.php');
+            }
+
             // If no errors, create order
             if (empty($errors)) {
                 // Prepare order items
                 $orderItems = [];
                 foreach ($cart['items'] as $item) {
-                    $orderItems[$item['product']['id']] = [
-                        'quantity' => $item['quantity'],
-                        'price' => $item['product']['price']
-                    ];
+                    // Check if product is in stock
+                    $product = $this->productModel->getProductById($item['product']['id']);
+                    if ($product && $product['quantity'] >= $item['quantity']) {
+                        $orderItems[$item['product']['id']] = [
+                            'quantity' => $item['quantity'],
+                            'price' => $item['product']['price']
+                        ];
+                    } else {
+                        // Product is out of stock or not enough quantity
+                        $errors[] = 'Product "' . $item['product']['name'] . '" is not available in the requested quantity';
+                        continue;
+                    }
                 }
 
-                // Create order
-                $orderId = $this->orderModel->createOrder($_SESSION['user_id'], $orderItems, $cart['total_price']);
+                if (empty($errors)) {
+                    // Create order - all items in one order
+                    $orderId = $this->orderModel->createOrder($_SESSION['user_id'], $orderItems, $cart['total_price']);
 
-                if ($orderId) {
-                    // Create delivery record
-                    $deliveryId = $this->deliveryModel->createDelivery($orderId, $address, $city, $postalCode, $phone, $notes);
+                    if ($orderId) {
+                        // Create delivery record
+                        $deliveryId = $this->deliveryModel->createDelivery($orderId, $address, $city, $postalCode, $phone, $notes);
 
-                    if ($deliveryId) {
-                        // Clear cart
-                        $this->cartController->clearCart();
+                        if ($deliveryId) {
+                            // Clear cart after successful order
+                            $this->cartController->clearCart();
 
-                        // Redirect to order confirmation
-                        redirect('/views/user/order-confirmation.php?id=' . $orderId);
+                            // Redirect to order confirmation
+                            redirect('/views/user/order-confirmation.php?id=' . $orderId);
+                        } else {
+                            $errors[] = 'Failed to create delivery record';
+                        }
                     } else {
-                        $errors[] = 'Failed to create delivery record';
+                        $errors[] = 'Failed to create order';
                     }
-                } else {
-                    $errors[] = 'Failed to create order';
                 }
             }
 

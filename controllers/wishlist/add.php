@@ -16,6 +16,11 @@ $db = $database->getConnection();
 // Create wishlist controller
 $wishlistController = new WishlistController($db);
 
+// Save scroll position to session if provided
+if (isset($_POST['scroll_position'])) {
+    $_SESSION['scroll_position'] = (int)$_POST['scroll_position'];
+}
+
 // Handle add to wishlist
 $wishlistController->addToWishlist();
 

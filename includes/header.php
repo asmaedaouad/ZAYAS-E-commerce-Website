@@ -5,15 +5,6 @@ if (!defined('BASE_DIR')) {
     require_once '../../config/config.php';
     require_once '../../config/Database.php';
 
-    // Check if session handlers exist
-    if (file_exists('../../config/SessionHandler.php')) {
-        require_once '../../config/SessionHandler.php';
-        // Start session safely if the function exists
-        if (function_exists('safe_session_start')) {
-            safe_session_start();
-        }
-    }
-
     // Include controllers if they exist
     if (file_exists('../../controllers/CartController.php')) {
         require_once '../../controllers/CartController.php';
@@ -24,15 +15,6 @@ if (!defined('BASE_DIR')) {
 } else {
     // When included from index.php
     require_once BASE_DIR . '/config/Database.php';
-
-    // Check if session handlers exist
-    if (file_exists(BASE_DIR . '/config/SessionHandler.php')) {
-        require_once BASE_DIR . '/config/SessionHandler.php';
-        // Start session safely if the function exists
-        if (function_exists('safe_session_start')) {
-            safe_session_start();
-        }
-    }
 
     // Include controllers if they exist
     if (file_exists(BASE_DIR . '/controllers/CartController.php')) {
@@ -49,13 +31,23 @@ $wishlistCount = 0;
 
 // Get cart count if CartController exists
 if (class_exists('CartController')) {
-    $cartController = new CartController();
+    // Create database connection if not already created
+    if (!isset($db)) {
+        $database = new Database();
+        $db = $database->getConnection();
+    }
+    $cartController = new CartController($db);
     $cartCount = $cartController->getCartCount();
 }
 
 // Get wishlist count if user is logged in and WishlistController exists
 if (isset($_SESSION['user_id']) && class_exists('WishlistController')) {
-    $wishlistController = new WishlistController();
+    // Create database connection for wishlist
+    if (!isset($db)) {
+        $database = new Database();
+        $db = $database->getConnection();
+    }
+    $wishlistController = new WishlistController($db);
     $wishlistCount = $wishlistController->getWishlistCount();
 }
 
@@ -112,9 +104,11 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                         <i class="fas fa-search"></i>
                     </button>
                     <div class="search-input-container">
-                        <i class="fas fa-search search-icon"></i>
-                        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
-                        <i class="fas fa-times close-search"></i>
+                        <form action="<?php echo url('/views/home/shop.php'); ?>" method="GET" class="search-form">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control" type="search" name="search" placeholder="Search..." aria-label="Search">
+                            <i class="fas fa-times close-search"></i>
+                        </form>
                     </div>
                 </div>
 
@@ -195,7 +189,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                         <a class="nav-link" href="<?php echo url('/views/user/account.php'); ?>">My Account</a>
                     </li>
                     <li class="nav-item d-lg-none">
-                        <a class="nav-link" href="<?php echo url('/views/auth/logout.php'); ?>">Logout</a>
+                        <a class="nav-link logout-link" href="javascript:void(0);" onclick="confirmLogout('<?php echo url('/views/auth/logout.php'); ?>')">Logout</a>
                     </li>
                     <?php endif; ?>
                 </ul>
@@ -207,9 +201,11 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                             <i class="fas fa-search"></i>
                         </button>
                         <div class="search-input-container">
-                            <i class="fas fa-search search-icon"></i>
-                            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
-                            <i class="fas fa-times close-search"></i>
+                            <form action="<?php echo url('/views/home/shop.php'); ?>" method="GET" class="search-form">
+                                <i class="fas fa-search search-icon"></i>
+                                <input class="form-control" type="search" name="search" placeholder="Search..." aria-label="Search">
+                                <i class="fas fa-times close-search"></i>
+                            </form>
                         </div>
                     </div>
 
@@ -243,7 +239,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                                 <li><a class="dropdown-item" href="<?php echo url('/views/user/account.php#cart'); ?>">My Cart</a></li>
                                 <?php endif; ?>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="<?php echo url('/views/auth/logout.php'); ?>">Logout</a></li>
+                                <li><a class="dropdown-item logout-link" href="javascript:void(0);" onclick="confirmLogout('<?php echo url('/views/auth/logout.php'); ?>')">Logout</a></li>
                             </ul>
                             <?php endif; ?>
                         </div>
@@ -262,97 +258,3 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
     </nav>
 </header>
 
-<!-- Custom CSS for header elements (added inline to avoid creating a separate CSS file) -->
-<style>
-.wishlist-badge {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #856b00d3;
-    color: white;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    font-size: 0.7rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.icon-link {
-    position: relative;
-}
-
-.icon-tooltip {
-    position: absolute;
-    bottom: -25px;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #212529;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 4px;
-    font-size: 0.7rem;
-    white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-}
-
-.icon-tooltip:after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 0 5px 5px 5px;
-    border-style: solid;
-    border-color: transparent transparent #212529 transparent;
-}
-
-.icon-link:hover .icon-tooltip {
-    opacity: 1;
-    visibility: visible;
-}
-
-.view-cart-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #f8f9fa;
-    color: #212529;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
-    padding: 8px 16px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    margin-top: 10px;
-}
-
-.view-cart-btn:hover {
-    background-color: #e9ecef;
-    color: #212529;
-    text-decoration: none;
-}
-
-.view-cart-btn i {
-    margin-right: 8px;
-}
-
-.username-display {
-    text-decoration: none !important;
-    border-bottom: none !important;
-}
-
-/* Remove all underlines from header links */
-header a,
-header a:hover,
-header a:focus,
-header a:active {
-    text-decoration: none !important;
-    border-bottom: none !important;
-}
-</style>

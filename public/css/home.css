@@ -256,19 +256,43 @@ a:hover {
     transform: scale(1.05);
 }
 
+/* Product badge styling */
 .badge {
     position: absolute;
     top: 15px;
-    left: 15px;
+    right: 15px;
     padding: 5px 10px;
     font-size: 0.75rem;
     font-weight: 600;
+    z-index: 11;
+    display: inline-block;
+    width: auto;
+    border-radius: 4px;
+}
+
+/* Override Bootstrap badge styles */
+.product-badge {
+    width: auto !important;
+    display: inline-block !important;
+    max-width: 120px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.badge.bg-success {
+    background-color: #28a745 !important;
+    color: white !important;
+}
+
+.badge.bg-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
 }
 
 .btn-wishlist {
     position: absolute;
     top: 15px;
-    right: 15px;
+    left: 15px; /* Changed from right to left */
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -278,12 +302,13 @@ a:hover {
     align-items: center;
     justify-content: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 0;
+    opacity: 1; /* Always visible */
     transition: all 0.3s ease;
+    z-index: 10;
 }
 
 .product-card:hover .btn-wishlist {
-    opacity: 1;
+    transform: scale(1.1);
 }
 
 .btn-wishlist:hover {
@@ -293,10 +318,15 @@ a:hover {
 
 .btn-wishlist i {
     color: #666;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
 }
 
 .btn-wishlist:hover i {
+    color: #dc3545;
+}
+
+.btn-wishlist.active i {
     color: #dc3545;
 }
 

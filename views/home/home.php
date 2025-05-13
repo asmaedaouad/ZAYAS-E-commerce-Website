@@ -169,25 +169,23 @@ if (!defined('BASE_DIR')) {
                             <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
                         </a>
                         <?php if ($product['quantity'] <= 0): ?>
-                        <span class="badge bg-danger">Out of Stock</span>
+                        <span class="badge bg-danger product-badge">Out of Stock</span>
                         <?php elseif ($product['is_new']): ?>
-                        <span class="badge bg-success">New</span>
+                        <span class="badge bg-success product-badge">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
-                        <div class="wishlist-icon">
-                            <?php if (isLoggedIn()): ?>
-                            <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
-                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <button type="submit" class="btn-wishlist">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </form>
-                            <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                        <?php if (isLoggedIn()): ?>
+                        <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <button type="submit" class="btn-wishlist">
                                 <i class="far fa-heart"></i>
-                            </a>
-                            <?php endif; ?>
-                        </div>
+                            </button>
+                        </form>
+                        <?php else: ?>
+                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <?php endif; ?>
                     </div>
                     <div class="product-info">
                         <h3><a href="<?php echo url('/views/home/product.php?id=' . $product['id']); ?>"><?php echo htmlspecialchars($product['name']); ?></a></h3>
@@ -235,25 +233,23 @@ if (!defined('BASE_DIR')) {
                             <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
                         </a>
                         <?php if ($product['quantity'] <= 0): ?>
-                        <span class="badge bg-danger">Out of Stock</span>
+                        <span class="badge bg-danger product-badge">Out of Stock</span>
                         <?php elseif ($product['is_new']): ?>
-                        <span class="badge bg-success">New</span>
+                        <span class="badge bg-success product-badge">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
-                        <div class="wishlist-icon">
-                            <?php if (isLoggedIn()): ?>
-                            <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
-                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                <button type="submit" class="btn-wishlist">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </form>
-                            <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                        <?php if (isLoggedIn()): ?>
+                        <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <button type="submit" class="btn-wishlist">
                                 <i class="far fa-heart"></i>
-                            </a>
-                            <?php endif; ?>
-                        </div>
+                            </button>
+                        </form>
+                        <?php else: ?>
+                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <?php endif; ?>
                     </div>
                     <div class="product-info">
                         <h3><a href="<?php echo url('/views/home/product.php?id=' . $product['id']); ?>"><?php echo htmlspecialchars($product['name']); ?></a></h3>

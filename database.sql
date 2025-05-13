@@ -94,3 +94,22 @@ INSERT INTO products (name, type, description, price, old_price, image_path, is_
 -- Insert admin user (password: admin123)
 INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES
 ('Admin', 'User', 'admin@zayas.com', '$2y$10$8WxYR0AIj5usILK.Ug.9.uMkC5yrA.L5xYwaTZOqj4vR0olHlz4Hy', 1);
+
+-- Create cart table in the database
+USE zayas_simple;
+
+-- Create cart table
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE,
+    UNIQUE KEY (user_id, product_id)
+);
+
+-- Add an index for faster cart retrieval
+CREATE INDEX idx_cart_user_id ON cart(user_id);

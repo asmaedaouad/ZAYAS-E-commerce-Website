@@ -2,16 +2,19 @@
 require_once __DIR__ . '/../models/UserModel.php';
 require_once __DIR__ . '/../controllers/OrderController.php';
 require_once __DIR__ . '/../controllers/WishlistController.php';
+require_once __DIR__ . '/../controllers/CartController.php';
 
 class UserController {
     private $userModel;
     private $orderController;
     private $wishlistController;
+    private $cartController;
 
     public function __construct($db) {
         $this->userModel = new UserModel($db);
         $this->orderController = new OrderController($db);
         $this->wishlistController = new WishlistController($db);
+        $this->cartController = new CartController($db);
     }
 
     // Display user account
@@ -29,10 +32,14 @@ class UserController {
         // Get user wishlist
         $wishlist = $this->wishlistController->viewWishlist();
 
+        // Get user cart
+        $cart = $this->cartController->viewCart();
+
         return [
             'user' => $user,
             'orders' => $orders['orders'],
-            'wishlist' => $wishlist['wishlist']
+            'wishlist' => $wishlist['wishlist'],
+            'cart' => $cart
         ];
     }
 

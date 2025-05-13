@@ -76,15 +76,7 @@ class HomeController {
 
     // Display contact page
     public function contact() {
-        // Handle contact form submission
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // In a real application, you would process the form data here
-            // For simplicity, we'll just return a success message
-            return [
-                'success' => 'Your message has been sent!'
-            ];
-        }
-
+        // No form handling needed anymore
         return [];
     }
 }

@@ -19,6 +19,6 @@ $wishlistController = new WishlistController($db);
 // Handle remove from wishlist
 $wishlistController->removeFromWishlist();
 
-// Redirect back to wishlist page (this should not be reached as removeFromWishlist redirects)
-redirect('/views/user/wishlist.php');
+// Redirect back to account page wishlist tab (this should not be reached as removeFromWishlist redirects)
+redirect('/views/user/account.php#wishlist');
 ?>
