@@ -93,7 +93,9 @@ include_once '../../includes/header.php';
                     <?php foreach ($products as $product): ?>
                     <div class="col-6 col-md-4 col-lg-3 mb-4">
                         <div class="product-card">
-                            <?php if ($product['is_new']): ?>
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <span class="badge bg-danger">Out of Stock</span>
+                            <?php elseif ($product['is_new']): ?>
                             <span class="badge bg-success">New</span>
                             <?php endif; ?>
 
@@ -133,10 +135,22 @@ include_once '../../includes/header.php';
                                 </div>
 
                                 <div class="product-actions">
-                                    <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
-                                        <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                        <button type="submit" class="btn-add-to-cart">Add to Cart</button>
-                                    </form>
+                                    <?php if (isLoggedIn()): ?>
+                                        <?php if ($product['quantity'] <= 0): ?>
+                                        <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                                        <?php else: ?>
+                                        <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
+                                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                            <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+                                        </form>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <?php if ($product['quantity'] <= 0): ?>
+                                        <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                                        <?php else: ?>
+                                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         </div>

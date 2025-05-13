@@ -51,6 +51,26 @@ include_once '../../includes/header.php';
             <div class="col-md-6">
                 <div class="product-image">
                     <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
+                    <!-- Wishlist heart icon at the top -->
+                    <div class="wishlist-icon">
+                        <?php if (isLoggedIn()): ?>
+                        <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post">
+                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                            <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
+                                <i class="<?php echo $isInWishlist ? 'fas' : 'far'; ?> fa-heart"></i>
+                            </button>
+                        </form>
+                        <?php else: ?>
+                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                    <?php if ($product['quantity'] <= 0): ?>
+                    <span class="product-badge out-of-stock">Out of Stock</span>
+                    <?php elseif ($product['is_new']): ?>
+                    <span class="product-badge new">New</span>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -83,6 +103,7 @@ include_once '../../includes/header.php';
                     </div>
 
                     <div class="product-actions">
+                        <?php if (isLoggedIn()): ?>
                         <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post" class="add-to-cart-form">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
 
@@ -96,21 +117,30 @@ include_once '../../includes/header.php';
                             </div>
 
                             <div class="action-buttons">
-                                <button type="submit" class="btn-add-to-cart" <?php echo $product['quantity'] <= 0 ? 'disabled' : ''; ?>>
+                                <?php if ($product['quantity'] <= 0): ?>
+                                <button type="button" class="btn-add-to-cart disabled" disabled>
+                                    Out of Stock
+                                </button>
+                                <?php else: ?>
+                                <button type="submit" class="btn-add-to-cart">
                                     Add to Cart
                                 </button>
-
-                                <?php if (isLoggedIn()): ?>
-                                <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post" class="wishlist-form">
-                                    <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                    <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
-                                        <i class="<?php echo $isInWishlist ? 'fas' : 'far'; ?> fa-heart"></i>
-                                        <?php echo $isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist'; ?>
-                                    </button>
-                                </form>
                                 <?php endif; ?>
                             </div>
                         </form>
+                        <?php else: ?>
+                        <div class="action-buttons">
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <button type="button" class="btn-add-to-cart disabled" disabled>
+                                Out of Stock
+                            </button>
+                            <?php else: ?>
+                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">
+                                Add to Cart
+                            </a>
+                            <?php endif; ?>
+                        </div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -129,8 +159,10 @@ include_once '../../includes/header.php';
             <?php if ($relatedProduct['id'] != $product['id']): ?>
             <div class="col-6 col-md-3 mb-4">
                 <div class="product-card">
-                    <?php if ($relatedProduct['is_new']): ?>
-                    <span class="product-badge">New</span>
+                    <?php if ($relatedProduct['quantity'] <= 0): ?>
+                    <span class="product-badge out-of-stock">Out of Stock</span>
+                    <?php elseif ($relatedProduct['is_new']): ?>
+                    <span class="product-badge new">New</span>
                     <?php endif; ?>
 
                     <div class="product-image-container">
@@ -169,19 +201,24 @@ include_once '../../includes/header.php';
                         </div>
 
                         <div class="product-actions">
-                            <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
-                                <input type="hidden" name="product_id" value="<?php echo $relatedProduct['id']; ?>">
-                                <button type="submit" class="btn-add-to-cart">Add to Cart</button>
-                            </form>
-
                             <?php if (isLoggedIn()): ?>
-                            <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
-                                <input type="hidden" name="product_id" value="<?php echo $relatedProduct['id']; ?>">
-                                <button type="submit" class="btn-wishlist">
-                                    <i class="far fa-heart"></i>
-                                </button>
-                            </form>
+                                <?php if ($relatedProduct['quantity'] <= 0): ?>
+                                <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                                <?php else: ?>
+                                <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
+                                    <input type="hidden" name="product_id" value="<?php echo $relatedProduct['id']; ?>">
+                                    <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+                                </form>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <?php if ($relatedProduct['quantity'] <= 0): ?>
+                                <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                                <?php else: ?>
+                                <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                                <?php endif; ?>
                             <?php endif; ?>
+
+
                         </div>
                     </div>
                 </div>

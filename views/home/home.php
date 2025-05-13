@@ -168,7 +168,9 @@ if (!defined('BASE_DIR')) {
                         <a href="<?php echo url('/views/home/product.php?id=' . $product['id']); ?>">
                             <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
                         </a>
-                        <?php if ($product['is_new']): ?>
+                        <?php if ($product['quantity'] <= 0): ?>
+                        <span class="badge bg-danger">Out of Stock</span>
+                        <?php elseif ($product['is_new']): ?>
                         <span class="badge bg-success">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
@@ -196,10 +198,22 @@ if (!defined('BASE_DIR')) {
                             <?php endif; ?>
                             <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
                         </div>
-                        <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
-                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                            <button type="submit" class="btn-add-to-cart">Add to Cart</button>
-                        </form>
+                        <?php if (isLoggedIn()): ?>
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                            <?php else: ?>
+                            <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+                            </form>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                            <?php else: ?>
+                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -220,7 +234,9 @@ if (!defined('BASE_DIR')) {
                         <a href="<?php echo url('/views/home/product.php?id=' . $product['id']); ?>">
                             <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
                         </a>
-                        <?php if ($product['is_new']): ?>
+                        <?php if ($product['quantity'] <= 0): ?>
+                        <span class="badge bg-danger">Out of Stock</span>
+                        <?php elseif ($product['is_new']): ?>
                         <span class="badge bg-success">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
@@ -248,10 +264,22 @@ if (!defined('BASE_DIR')) {
                             <?php endif; ?>
                             <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
                         </div>
-                        <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
-                            <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                            <button type="submit" class="btn-add-to-cart">Add to Cart</button>
-                        </form>
+                        <?php if (isLoggedIn()): ?>
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                            <?php else: ?>
+                            <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post">
+                                <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
+                                <button type="submit" class="btn-add-to-cart">Add to Cart</button>
+                            </form>
+                            <?php endif; ?>
+                        <?php else: ?>
+                            <?php if ($product['quantity'] <= 0): ?>
+                            <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
+                            <?php else: ?>
+                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                            <?php endif; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

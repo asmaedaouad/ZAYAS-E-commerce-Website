@@ -68,27 +68,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Add to cart functionality
-    document.querySelectorAll('.btn-add-cart').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const productId = this.getAttribute('data-product-id');
-            if (productId) {
-                addToCart(productId);
-            }
-        });
-    });
+    // We're using standard form submission for cart functionality
+    // No JavaScript event handler needed
 
-    // Add to wishlist functionality
-    document.querySelectorAll('.btn-wishlist').forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const productId = this.getAttribute('data-product-id');
-            if (productId) {
-                addToWishlist(productId);
-            }
-        });
-    });
+    // We're using standard form submission for wishlist functionality
+    // No JavaScript event handler needed
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
