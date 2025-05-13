@@ -1,0 +1,153 @@
+<?php
+require_once __DIR__ . '/../models/UserModel.php';
+
+class AuthController {
+    private $userModel;
+
+    public function __construct($db) {
+        $this->userModel = new UserModel($db);
+    }
+
+    // Handle login
+    public function login() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $email = isset($_POST['email']) ? sanitize($_POST['email']) : '';
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
+
+            // Validate input
+            $errors = [];
+
+            if (empty($email)) {
+                $errors[] = 'Email is required';
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'Invalid email format';
+            }
+
+            if (empty($password)) {
+                $errors[] = 'Password is required';
+            }
+
+            // If no errors, attempt login
+            if (empty($errors)) {
+                $user = $this->userModel->login($email, $password);
+
+                if ($user) {
+                    // Set session variables
+                    $_SESSION['user_id'] = $user['id'];
+                    $_SESSION['first_name'] = $user['first_name'];
+                    $_SESSION['last_name'] = $user['last_name'];
+                    $_SESSION['email'] = $user['email'];
+                    $_SESSION['is_admin'] = $user['is_admin'];
+                    $_SESSION['is_delivery'] = $user['is_delivery'];
+                    $_SESSION['logged_in'] = true;
+
+                    // Redirect based on user role
+                    if ($user['is_admin']) {
+                        redirect('/admin/dashboard.php');
+                    } elseif ($user['is_delivery']) {
+                        redirect('/delivery/dashboard.php');
+                    } else {
+                        redirect('/index.php');
+                    }
+                } else {
+                    $errors[] = 'Invalid email or password';
+                }
+            }
+
+            // If we get here, there were errors
+            return [
+                'errors' => $errors,
+                'email' => $email
+            ];
+        }
+
+        // Display login form
+        return [
+            'errors' => [],
+            'email' => ''
+        ];
+    }
+
+    // Handle registration
+    public function register() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $firstName = isset($_POST['first_name']) ? sanitize($_POST['first_name']) : '';
+            $lastName = isset($_POST['last_name']) ? sanitize($_POST['last_name']) : '';
+            $email = isset($_POST['email']) ? sanitize($_POST['email']) : '';
+            $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $confirmPassword = isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '';
+
+            // Validate input
+            $errors = [];
+
+            if (empty($firstName)) {
+                $errors[] = 'First name is required';
+            }
+
+            if (empty($lastName)) {
+                $errors[] = 'Last name is required';
+            }
+
+            if (empty($email)) {
+                $errors[] = 'Email is required';
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors[] = 'Invalid email format';
+            } elseif ($this->userModel->emailExists($email)) {
+                $errors[] = 'Email already exists';
+            }
+
+            if (empty($password)) {
+                $errors[] = 'Password is required';
+            } elseif (strlen($password) < 6) {
+                $errors[] = 'Password must be at least 6 characters';
+            }
+
+            if ($password !== $confirmPassword) {
+                $errors[] = 'Passwords do not match';
+            }
+
+            // If no errors, register user
+            if (empty($errors)) {
+                if ($this->userModel->register($firstName, $lastName, $email, $password)) {
+                    // Redirect to login page
+                    redirect('/views/auth/login.php?registered=1');
+                } else {
+                    $errors[] = 'Registration failed';
+                }
+            }
+
+            // If we get here, there were errors
+            return [
+                'errors' => $errors,
+                'first_name' => $firstName,
+                'last_name' => $lastName,
+                'email' => $email
+            ];
+        }
+
+        // Display registration form
+        return [
+            'errors' => [],
+            'first_name' => '',
+            'last_name' => '',
+            'email' => ''
+        ];
+    }
+
+    // Handle logout
+    public function logout() {
+        // Unset all session variables
+        $_SESSION = [];
+
+        // Destroy the session
+        session_destroy();
+
+        // Redirect to home page
+        redirect('/index.php');
+    }
+}
+?>

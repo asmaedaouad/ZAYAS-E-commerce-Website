@@ -1,0 +1,358 @@
+<?php
+// Check if BASE_DIR is defined (when included from index.php)
+if (!defined('BASE_DIR')) {
+    // When accessed directly
+    require_once '../../config/config.php';
+    require_once '../../config/Database.php';
+
+    // Check if session handlers exist
+    if (file_exists('../../config/SessionHandler.php')) {
+        require_once '../../config/SessionHandler.php';
+        // Start session safely if the function exists
+        if (function_exists('safe_session_start')) {
+            safe_session_start();
+        }
+    }
+
+    // Include controllers if they exist
+    if (file_exists('../../controllers/CartController.php')) {
+        require_once '../../controllers/CartController.php';
+    }
+    if (file_exists('../../controllers/WishlistController.php')) {
+        require_once '../../controllers/WishlistController.php';
+    }
+} else {
+    // When included from index.php
+    require_once BASE_DIR . '/config/Database.php';
+
+    // Check if session handlers exist
+    if (file_exists(BASE_DIR . '/config/SessionHandler.php')) {
+        require_once BASE_DIR . '/config/SessionHandler.php';
+        // Start session safely if the function exists
+        if (function_exists('safe_session_start')) {
+            safe_session_start();
+        }
+    }
+
+    // Include controllers if they exist
+    if (file_exists(BASE_DIR . '/controllers/CartController.php')) {
+        require_once BASE_DIR . '/controllers/CartController.php';
+    }
+    if (file_exists(BASE_DIR . '/controllers/WishlistController.php')) {
+        require_once BASE_DIR . '/controllers/WishlistController.php';
+    }
+}
+
+// Initialize cart and wishlist counts
+$cartCount = 0;
+$wishlistCount = 0;
+
+// Get cart count if CartController exists
+if (class_exists('CartController')) {
+    $cartController = new CartController();
+    $cartCount = $cartController->getCartCount();
+}
+
+// Get wishlist count if user is logged in and WishlistController exists
+if (isset($_SESSION['user_id']) && class_exists('WishlistController')) {
+    $wishlistController = new WishlistController();
+    $wishlistCount = $wishlistController->getWishlistCount();
+}
+
+// Check if user is logged in
+$isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
+$firstName = $isLoggedIn ? $_SESSION['first_name'] : '';
+
+// Check if user is admin or delivery personnel
+$isAdmin = $isLoggedIn && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+$isDelivery = $isLoggedIn && isset($_SESSION['is_delivery']) && $_SESSION['is_delivery'] == 1;
+
+// Only regular users can access wishlist and cart
+$canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - ' : ''; ?>ZAYAS</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="<?php echo url('/public/css/header.css'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/public/css/footer.css'); ?>">
+    <link rel="stylesheet" href="<?php echo url('/public/css/product-card.css'); ?>">
+
+    <!-- Page-specific CSS -->
+    <?php if (isset($customCss)): ?>
+    <link rel="stylesheet" href="<?php echo url('/public/css/' . $customCss); ?>">
+    <?php endif; ?>
+</head>
+<body>
+<header class="header">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container position-relative">
+            <!-- Logo/Brand -->
+            <a class="navbar-brand brand-name" href="<?php echo url('/'); ?>">ZAYAS</a>
+
+            <!-- Header Icons for Mobile - Always visible -->
+            <div class="mobile-header-icons d-flex d-lg-none align-items-center">
+                <div class="search-box me-2">
+                    <button class="search-toggle" aria-label="Search">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    <div class="search-input-container">
+                        <i class="fas fa-search search-icon"></i>
+                        <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                        <i class="fas fa-times close-search"></i>
+                    </div>
+                </div>
+
+                <div class="header-icons">
+                    <?php if (!$isAdmin && !$isDelivery): ?>
+                    <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#wishlist') : url('/views/auth/login.php'); ?>" id="wishlist-icon" aria-label="Wishlist" class="icon-link">
+                        <i class="far fa-heart"></i>
+                        <?php if ($wishlistCount > 0): ?>
+                            <span class="wishlist-badge"><?php echo $wishlistCount; ?></span>
+                        <?php endif; ?>
+                        <span class="icon-tooltip">Wishlist</span>
+                    </a>
+                    <?php endif; ?>
+                    <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>" id="account-icon" aria-label="Account" class="icon-link">
+                        <i class="far fa-user"></i>
+                        <span class="icon-tooltip">Account</span>
+                    </a>
+                    <?php if (!$isAdmin && !$isDelivery): ?>
+                    <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/login.php'); ?>" id="cart-icon" aria-label="Shopping cart" class="icon-link">
+                        <i class="fas fa-shopping-bag"></i>
+                        <span class="cart-badge"><?php echo $cartCount; ?></span>
+                        <span class="icon-tooltip">Cart</span>
+                    </a>
+                    <?php endif; ?>
+                </div>
+
+                <!-- Burger Menu Toggle -->
+                <button class="navbar-toggler ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <!-- Dark backdrop for mobile menu -->
+            <div class="navbar-collapse-backdrop" id="menuBackdrop"></div>
+
+            <!-- Collapsible Navigation Menu -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <!-- Close button for mobile -->
+                <button type="button" class="mobile-menu-close d-lg-none" aria-label="Close menu">
+                    <i class="fas fa-times"></i>
+                </button>
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo url('/'); ?>">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo url('/views/home/shop.php'); ?>">Shop</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="collectionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Collections
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="collectionsDropdown">
+                            <li><a class="dropdown-item" href="<?php echo url('/views/home/shop.php?type=abaya'); ?>">Abayas</a></li>
+                            <li><a class="dropdown-item" href="<?php echo url('/views/home/shop.php?type=dress'); ?>">Dresses</a></li>
+                            <li><a class="dropdown-item" href="<?php echo url('/views/home/shop.php?type=hijab'); ?>">Hijabs</a></li>
+                        </ul>
+                    </li>
+                    <div class="collection-info d-lg-none">
+                        <h6>Explore Our Collections</h6>
+                        <p>Discover our latest designs crafted with elegance and modesty in mind.</p>
+                        <div class="collection-links">
+                            <a href="<?php echo url('/views/home/shop.php?type=abaya'); ?>">Abayas</a>
+                            <a href="<?php echo url('/views/home/shop.php?type=dress'); ?>">Dresses</a>
+                            <a href="<?php echo url('/views/home/shop.php?type=hijab'); ?>">Hijabs</a>
+                        </div>
+                    </div>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo url('/views/home/about.php'); ?>">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?php echo url('/views/home/contact.php'); ?>">Contact</a>
+                    </li>
+
+                    <?php if ($isLoggedIn): ?>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="<?php echo url('/views/user/account.php'); ?>">My Account</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link" href="<?php echo url('/views/auth/logout.php'); ?>">Logout</a>
+                    </li>
+                    <?php endif; ?>
+                </ul>
+
+                <!-- Desktop Header Icons - Only visible on desktop -->
+                <div class="d-none d-lg-flex align-items-center">
+                    <div class="search-box">
+                        <button class="search-toggle" aria-label="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <div class="search-input-container">
+                            <i class="fas fa-search search-icon"></i>
+                            <input class="form-control" type="search" placeholder="Search..." aria-label="Search">
+                            <i class="fas fa-times close-search"></i>
+                        </div>
+                    </div>
+
+                    <div class="header-icons">
+                        <?php if (!$isAdmin && !$isDelivery): ?>
+                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#wishlist') : url('/views/auth/login.php'); ?>" id="wishlist-icon-desktop" aria-label="Wishlist" class="icon-link">
+                            <i class="far fa-heart"></i>
+                            <?php if ($wishlistCount > 0): ?>
+                                <span class="wishlist-badge"><?php echo $wishlistCount; ?></span>
+                            <?php endif; ?>
+                            <span class="icon-tooltip">Wishlist</span>
+                        </a>
+                        <?php endif; ?>
+
+                        <div class="dropdown">
+                            <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>"
+                                id="account-icon-desktop" aria-label="Account" <?php echo $isLoggedIn ? 'data-bs-toggle="dropdown"' : ''; ?> class="icon-link">
+                                <i class="far fa-user"></i>
+                                <?php if ($isLoggedIn): ?>
+                                    <span class="ms-1 d-none d-xl-inline-block username-display"><?php echo htmlspecialchars($firstName); ?></span>
+                                <?php endif; ?>
+                                <span class="icon-tooltip">Account</span>
+                            </a>
+
+                            <?php if ($isLoggedIn): ?>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="account-icon-desktop">
+                                <li><a class="dropdown-item" href="<?php echo url('/views/user/account.php'); ?>">My Account</a></li>
+                                <?php if (!$isAdmin && !$isDelivery): ?>
+                                <li><a class="dropdown-item" href="<?php echo url('/views/user/account.php#orders'); ?>">My Orders</a></li>
+                                <li><a class="dropdown-item" href="<?php echo url('/views/user/account.php#wishlist'); ?>">My Wishlist</a></li>
+                                <li><a class="dropdown-item" href="<?php echo url('/views/user/account.php#cart'); ?>">My Cart</a></li>
+                                <?php endif; ?>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="<?php echo url('/views/auth/logout.php'); ?>">Logout</a></li>
+                            </ul>
+                            <?php endif; ?>
+                        </div>
+
+                        <?php if (!$isAdmin && !$isDelivery): ?>
+                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/login.php'); ?>" id="cart-icon-desktop" aria-label="Shopping cart" class="icon-link">
+                            <i class="fas fa-shopping-bag"></i>
+                            <span class="cart-badge"><?php echo $cartCount; ?></span>
+                            <span class="icon-tooltip">Cart</span>
+                        </a>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Custom CSS for header elements (added inline to avoid creating a separate CSS file) -->
+<style>
+.wishlist-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #856b00d3;
+    color: white;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-link {
+    position: relative;
+}
+
+.icon-tooltip {
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #212529;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.icon-tooltip:after {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 5px 5px 5px;
+    border-style: solid;
+    border-color: transparent transparent #212529 transparent;
+}
+
+.icon-link:hover .icon-tooltip {
+    opacity: 1;
+    visibility: visible;
+}
+
+.view-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    color: #212529;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.view-cart-btn:hover {
+    background-color: #e9ecef;
+    color: #212529;
+    text-decoration: none;
+}
+
+.view-cart-btn i {
+    margin-right: 8px;
+}
+
+.username-display {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+
+/* Remove all underlines from header links */
+header a,
+header a:hover,
+header a:focus,
+header a:active {
+    text-decoration: none !important;
+    border-bottom: none !important;
+}
+</style>
