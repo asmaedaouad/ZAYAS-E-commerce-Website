@@ -31,8 +31,19 @@ function isAdmin() {
     return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
 }
 
-// Sanitize input
+// Sanitize input - enhanced to prevent HTML/code injection
 function sanitize($input) {
-    return htmlspecialchars(trim($input), ENT_QUOTES, 'UTF-8');
+    // First trim the input to remove leading/trailing whitespace
+    $input = trim($input);
+
+    // Strip HTML and PHP tags
+    $input = strip_tags($input);
+
+    // Convert special characters to HTML entities
+    // ENT_QUOTES handles both single and double quotes
+    // ENT_HTML5 provides HTML5 compatibility
+    $input = htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    return $input;
 }
 ?>

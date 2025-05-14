@@ -23,8 +23,8 @@ class AuthController {
 
             if (empty($email)) {
                 $errors[] = 'Email is required';
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors[] = 'Invalid email format';
+            } elseif (!preg_match('/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/', $email)) {
+                $errors[] = 'Invalid email format. Email must be like: user@example.com (username must start with a letter, domain must contain only letters)';
             }
 
             if (empty($password)) {
@@ -94,16 +94,20 @@ class AuthController {
 
             if (empty($firstName)) {
                 $errors[] = 'First name is required';
+            } elseif (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\'\-\s]{2,50}$/', $firstName)) {
+                $errors[] = 'First name must be 2-50 characters and contain only letters, spaces, apostrophes, and hyphens';
             }
 
             if (empty($lastName)) {
                 $errors[] = 'Last name is required';
+            } elseif (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\'\-\s]{2,50}$/', $lastName)) {
+                $errors[] = 'Last name must be 2-50 characters and contain only letters, spaces, apostrophes, and hyphens';
             }
 
             if (empty($email)) {
                 $errors[] = 'Email is required';
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors[] = 'Invalid email format';
+            } elseif (!preg_match('/^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z]+\.[a-zA-Z]{2,}$/', $email)) {
+                $errors[] = 'Invalid email format. Email must be like: user@example.com (username must start with a letter, domain must contain only letters)';
             } elseif ($this->userModel->emailExists($email)) {
                 $errors[] = 'Email already exists';
             }

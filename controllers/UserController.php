@@ -63,10 +63,18 @@ class UserController {
 
             if (empty($firstName)) {
                 $errors[] = 'First name is required';
+            } elseif (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\'\-\s]{2,50}$/', $firstName)) {
+                $errors[] = 'First name must be 2-50 characters and contain only letters, spaces, apostrophes, and hyphens';
             }
 
             if (empty($lastName)) {
                 $errors[] = 'Last name is required';
+            } elseif (!preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\'\-\s]{2,50}$/', $lastName)) {
+                $errors[] = 'Last name must be 2-50 characters and contain only letters, spaces, apostrophes, and hyphens';
+            }
+
+            if (!empty($city) && !preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\s\'\-]{2,50}$/', $city)) {
+                $errors[] = 'City must contain only letters, spaces, apostrophes, and hyphens';
             }
 
             // If no errors, update profile

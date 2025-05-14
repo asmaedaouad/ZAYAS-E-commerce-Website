@@ -209,6 +209,20 @@ include_once '../../includes/header.php';
                         <div class="account-card">
                             <h2 class="card-title">My Orders</h2>
 
+                            <?php if (isset($_SESSION['order_success'])): ?>
+                            <div class="alert alert-success">
+                                <?php echo $_SESSION['order_success']; ?>
+                                <?php unset($_SESSION['order_success']); ?>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php if (isset($_SESSION['order_error'])): ?>
+                            <div class="alert alert-danger">
+                                <?php echo $_SESSION['order_error']; ?>
+                                <?php unset($_SESSION['order_error']); ?>
+                            </div>
+                            <?php endif; ?>
+
                             <?php if (empty($orders)): ?>
                             <div class="empty-orders">
                                 <p>You have no orders yet.</p>
@@ -233,14 +247,24 @@ include_once '../../includes/header.php';
                                             <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
                                             <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
                                             <td>
-                                                <span class="order-status <?php echo strtolower($order['status']); ?>">
-                                                    <?php echo ucfirst($order['status']); ?>
+                                                <span class="order-status <?php echo strtolower($order['delivery']['delivery_status']); ?>">
+                                                    <?php echo ucfirst(str_replace('_', ' ', $order['delivery']['delivery_status'])); ?>
                                                 </span>
                                             </td>
-                                            <td>
-                                                <a href="<?php echo url('/views/user/order-details.php?id=' . $order['id']); ?>" class="btn-view">
-                                                    View Details
-                                                </a>
+                                            <td class="order-actions-cell">
+                                                <div class="order-actions-container">
+                                                    <a href="<?php echo url('/views/user/order-details.php?id=' . $order['id']); ?>" class="btn-view">
+                                                        View Details
+                                                    </a>
+                                                    <?php if (in_array(strtolower($order['delivery']['delivery_status']), ['pending', 'assigned'])): ?>
+                                                    <form action="<?php echo url('/controllers/order/cancel.php'); ?>" method="post" class="cancel-order-form" onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                                                        <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                                        <button type="submit" class="btn-cancel-x" title="Cancel Order">
+                                                            <i class="fas fa-times"></i>
+                                                        </button>
+                                                    </form>
+                                                    <?php endif; ?>
+                                                </div>
                                             </td>
                                         </tr>
                                         <?php endforeach; ?>

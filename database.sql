@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     total_amount DECIMAL(10, 2) NOT NULL,
-    status ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
+    status ENUM('pending', 'assigned', 'in_transit', 'delivered', 'cancelled', 'returned') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS delivery (
     phone VARCHAR(20) NOT NULL,
     delivery_notes TEXT,
     delivery_date DATE,
-    delivery_status ENUM('pending', 'in_transit', 'delivered') DEFAULT 'pending',
+    delivery_status ENUM('pending', 'assigned', 'in_transit', 'delivered', 'cancelled', 'returned') DEFAULT 'pending',
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
