@@ -31,8 +31,8 @@ include_once './includes/header.php';
 <!-- Dashboard Content -->
 <div class="row">
     <!-- Statistics Cards -->
-    <div class="col-md-3">
-        <div class="stat-card">
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card sales">
             <div class="stat-icon sales">
                 <i class="fas fa-dollar-sign"></i>
             </div>
@@ -42,9 +42,9 @@ include_once './includes/header.php';
             </div>
         </div>
     </div>
-    
-    <div class="col-md-3">
-        <div class="stat-card">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card orders">
             <div class="stat-icon orders">
                 <i class="fas fa-shopping-cart"></i>
             </div>
@@ -54,9 +54,9 @@ include_once './includes/header.php';
             </div>
         </div>
     </div>
-    
-    <div class="col-md-3">
-        <div class="stat-card">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card customers">
             <div class="stat-icon customers">
                 <i class="fas fa-users"></i>
             </div>
@@ -66,9 +66,9 @@ include_once './includes/header.php';
             </div>
         </div>
     </div>
-    
-    <div class="col-md-3">
-        <div class="stat-card">
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stat-card products">
             <div class="stat-icon products">
                 <i class="fas fa-box"></i>
             </div>
@@ -80,94 +80,139 @@ include_once './includes/header.php';
     </div>
 </div>
 
-<div class="row">
-    <!-- Recent Orders -->
-    <div class="col-md-6">
-        <div class="card">
+<div class="row equal-height-row">
+    <!-- Custom Statistics Section -->
+    <div class="col-lg-8">
+        <div class="card mb-4">
             <div class="card-header">
-                <i class="fas fa-shopping-cart me-2"></i> Recent Orders
+                <i class="fas fa-chart-line me-2"></i> Custom Statistics
             </div>
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Order ID</th>
-                                <th>Customer</th>
-                                <th>Amount</th>
-                                <th>Status</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php if (empty($data['recent_orders'])): ?>
-                                <tr>
-                                    <td colspan="5" class="text-center">No recent orders</td>
-                                </tr>
-                            <?php else: ?>
-                                <?php foreach ($data['recent_orders'] as $order): ?>
-                                    <tr>
-                                        <td>#<?php echo $order['id']; ?></td>
-                                        <td><?php echo htmlspecialchars($order['first_name'] . ' ' . $order['last_name']); ?></td>
-                                        <td><?php echo $dashboardController->formatCurrency($order['total_amount']); ?></td>
-                                        <td>
-                                            <span class="badge <?php echo $dashboardController->getStatusBadgeClass($order['status']); ?>">
-                                                <?php echo $dashboardController->formatStatus($order['status']); ?>
-                                            </span>
-                                        </td>
-                                        <td><?php echo $dashboardController->formatDate($order['created_at']); ?></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </tbody>
-                    </table>
+                <div class="statistics-controls">
+                    <div class="statistics-control-item">
+                        <label for="dataType">Data Type</label>
+                        <div class="custom-select-container">
+                            <select id="dataType" class="form-select">
+                                <option value="Orders">Orders</option>
+                                <option value="Sales">Sales</option>
+                                <option value="Customers">Customers</option>
+                                <option value="Products">Products</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="statistics-control-item">
+                        <label for="chartType">Chart Type</label>
+                        <div class="custom-select-container">
+                            <select id="chartType" class="form-select">
+                                <option value="Bar Chart">Bar Chart</option>
+                                <option value="Line Chart">Line Chart</option>
+                                <option value="Pie Chart">Pie Chart</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="statistics-control-item">
+                        <label for="timePeriod">Time Period</label>
+                        <div class="custom-select-container">
+                            <select id="timePeriod" class="form-select">
+                                <option value="Monthly">Monthly</option>
+                                <option value="Weekly">Weekly</option>
+                                <option value="Quarterly">Quarterly</option>
+                                <option value="Yearly">Yearly</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-end mt-3">
-                    <a href="<?php echo url('/admin/orders.php'); ?>" class="btn btn-sm btn-outline-secondary">View All Orders</a>
+
+                <div class="statistics-chart-container">
+                    <h5 id="customChartTitle" class="statistics-chart-title">Orders by Monthly Period</h5>
+                    <div class="chart-container">
+                        <canvas id="customStatisticsChart"></canvas>
+                    </div>
+                    <div id="chartLegend" class="chart-legend"></div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <!-- Product Type Distribution -->
-    <div class="col-md-6">
-        <div class="card">
+    <div class="col-lg-4">
+        <div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-pie me-2"></i> Product Distribution
             </div>
             <div class="card-body">
-                <div class="chart-container">
-                    <canvas id="productTypeChart"></canvas>
+                <div class="product-distribution-container">
+                    <div class="chart-container">
+                        <canvas id="productTypeChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Recent Orders -->
 <div class="row">
-    <!-- Monthly Sales Chart -->
-    <div class="col-md-6">
-        <div class="card">
+    <div class="col-12">
+        <div class="card recent-orders-card">
             <div class="card-header">
-                <i class="fas fa-chart-line me-2"></i> Monthly Sales
+                <i class="fas fa-shopping-cart me-2"></i> Recent Orders
+                <a href="<?php echo url('/admin/orders.php'); ?>" class="view-all-link float-end">
+                    View all <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
             <div class="card-body">
-                <div class="chart-container">
-                    <canvas id="monthlySalesChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Monthly Orders Chart -->
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-chart-bar me-2"></i> Monthly Orders
-            </div>
-            <div class="card-body">
-                <div class="chart-container">
-                    <canvas id="monthlyOrdersChart"></canvas>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ORDER #</th>
+                                <th>CUSTOMER</th>
+                                <th>DATE</th>
+                                <th>AMOUNT</th>
+                                <th>STATUS</th>
+                                <th>ACTIONS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($data['recent_orders'])): ?>
+                                <tr>
+                                    <td colspan="6" class="text-center">No recent orders</td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($data['recent_orders'] as $order): ?>
+                                    <tr>
+                                        <td>#<?php echo $order['id']; ?></td>
+                                        <td>
+                                            <?php
+                                                $initials = strtoupper(substr($order['first_name'], 0, 1) . substr($order['last_name'], 0, 1));
+                                                $fullName = htmlspecialchars($order['first_name'] . ' ' . $order['last_name']);
+                                            ?>
+                                            <div class="d-flex align-items-center">
+                                                <div class="me-2" style="width: 30px; height: 30px; background-color: #e8d9c5; color: #5d4037; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 600;"><?php echo $initials; ?></div>
+                                                <?php echo $fullName; ?>
+                                            </div>
+                                        </td>
+                                        <td><?php echo $dashboardController->formatDate($order['created_at']); ?></td>
+                                        <td><?php echo $dashboardController->formatCurrency($order['total_amount']); ?></td>
+                                        <td>
+                                            <span class="badge <?php echo $dashboardController->getStatusBadgeClass($order['status']); ?>">
+                                                <i class="fas fa-circle fa-sm"></i> <?php echo $dashboardController->formatStatus($order['status']); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="<?php echo url('/admin/orders.php?id=' . $order['id']); ?>" class="action-btn" title="View Order">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="<?php echo url('/admin/orders.php?id=' . $order['id'] . '&edit=1'); ?>" class="action-btn" title="Edit Order">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
