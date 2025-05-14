@@ -1,0 +1,101 @@
+/* Order Details Page Specific Styles */
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+    background-color: #f8f9fa;
+    width: 30%;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Product Thumbnail */
+.product-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Status Badge Styles */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-assigned {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-in-transit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.badge-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-returned {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Section Headings */
+h5 {
+    color: #6c5648;
+    font-weight: 600;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Action Buttons */
+.btn-outline-secondary {
+    color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c5648;
+    border-color: #6c5648;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-primary:hover {
+    background-color: #5a4a3f;
+    border-color: #5a4a3f;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .product-thumbnail {
+        width: 40px;
+        height: 40px;
+    }
+}

@@ -1,0 +1,152 @@
+/* Delivery Page Specific Styles */
+
+/* Status Cards */
+.status-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.status-card {
+    flex: 1;
+    min-width: 120px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.status-card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.status-card-body {
+    padding: 15px;
+    text-align: center;
+}
+
+.status-card h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.status-card p {
+    margin: 5px 0 0;
+    color: #6c757d;
+}
+
+.status-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.status-card.active {
+    background-color: #6c5648;
+}
+
+.status-card.active h3,
+.status-card.active p {
+    color: #fff;
+}
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Status Badge Styles */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-assigned {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-in-transit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.badge-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-returned {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Action Buttons */
+.btn-outline-primary {
+    color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6c5648;
+    border-color: #6c5648;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-primary:hover {
+    background-color: #5a4a3f;
+    border-color: #5a4a3f;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .status-cards {
+        flex-wrap: wrap;
+    }
+    
+    .status-card {
+        flex: 1 0 calc(33.333% - 15px);
+    }
+}
+
+@media (max-width: 768px) {
+    .status-card {
+        flex: 1 0 calc(50% - 15px);
+    }
+    
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .status-card {
+        flex: 1 0 calc(100% - 15px);
+    }
+}

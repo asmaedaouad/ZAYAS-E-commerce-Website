@@ -1,0 +1,44 @@
+/* Dashboard Specific Styles */
+
+/* Stat Cards */
+.stat-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Chart Containers */
+.chart-container {
+    padding: 10px;
+}
+
+/* Recent Orders Table */
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Status Badges */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .stat-card {
+        margin-bottom: 15px;
+    }
+    
+    .chart-container {
+        height: 250px;
+    }
+}

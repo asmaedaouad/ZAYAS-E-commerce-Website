@@ -1,8 +1,8 @@
--- Create database
+-- 1. Create database
 CREATE DATABASE IF NOT EXISTS zayas_simple;
 USE zayas_simple;
 
--- Users table
+-- 2. Create users table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Products table
+-- 3. Create products table
 CREATE TABLE IF NOT EXISTS products (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS products (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Orders table
+-- 4. Create orders table (depends on users)
 CREATE TABLE IF NOT EXISTS orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- Order items table
+-- 5. Create order_items table (depends on orders and products)
 CREATE TABLE IF NOT EXISTS order_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS order_items (
     FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
--- Wishlist table
+-- 6. Create wishlist table (depends on users and products)
 CREATE TABLE IF NOT EXISTS wishlist (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS wishlist (
     UNIQUE KEY (user_id, product_id)
 );
 
--- Delivery table
+-- 7. Create delivery table (depends on orders)
 CREATE TABLE IF NOT EXISTS delivery (
     id INT AUTO_INCREMENT PRIMARY KEY,
     order_id INT NOT NULL,
@@ -78,27 +78,7 @@ CREATE TABLE IF NOT EXISTS delivery (
     FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
 );
 
--- Insert sample products
-INSERT INTO products (name, type, description, price, old_price, image_path, is_new, quantity) VALUES
-('Modern Cut Abaya', 'abaya', 'Elegant modern abaya with clean lines', 129.99, 149.99, '1.png', 0, 15),
-('Traditional Embroidered Abaya', 'abaya', 'Hand-embroidered traditional abaya', 179.99, NULL, '2.png', 1, 8),
-('Open Front Kimono Abaya', 'abaya', 'Stylish open front kimono-style abaya', 159.99, 199.99, '3.png', 0, 10),
-('Butterfly Abaya', 'abaya', 'Flowing butterfly style modern abaya', 139.99, NULL, '4.png', 1, 5),
-('Evening Glory Dress', 'dress', 'Luxurious evening dress for special occasions', 199.99, NULL, '5.png', 1, 12),
-('Casual Comfort Dress', 'dress', 'Comfortable everyday casual dress', 89.99, 109.99, '6.png', 0, 20),
-('Party Dress', 'dress', 'Elegant party dress with stylish details', 149.99, NULL, '7.png', 0, 7),
-('Premium Silk Hijab', 'hijab', 'Luxurious silk hijab with premium finish', 49.99, 59.99, '8.png', 0, 25),
-('Breathable Cotton Hijab', 'hijab', 'Comfortable cotton hijab for everyday wear', 29.99, NULL, '9.png', 1, 30),
-('Elegant Chiffon Hijab', 'hijab', 'Lightweight chiffon hijab with elegant drape', 39.99, NULL, '10.png', 0, 15);
-
--- Insert admin user (password: admin123)
-INSERT INTO users (first_name, last_name, email, password, is_admin) VALUES
-('Admin', 'User', 'admin@zayas.com', '$2y$10$8WxYR0AIj5usILK.Ug.9.uMkC5yrA.L5xYwaTZOqj4vR0olHlz4Hy', 1);
-
--- Create cart table in the database
-USE zayas_simple;
-
--- Create cart table
+-- 8. Create cart table (depends on users and products)
 CREATE TABLE IF NOT EXISTS cart (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -111,5 +91,18 @@ CREATE TABLE IF NOT EXISTS cart (
     UNIQUE KEY (user_id, product_id)
 );
 
--- Add an index for faster cart retrieval
+-- 9. Add index for cart
 CREATE INDEX idx_cart_user_id ON cart(user_id);
+
+-- 10. Insert sample products
+INSERT INTO products (name, type, description, price, old_price, image_path, is_new, quantity) VALUES
+('Modern Cut Abaya', 'abaya', 'Elegant modern abaya with clean lines', 129.99, 149.99, '1.png', 0, 15),
+('Traditional Embroidered Abaya', 'abaya', 'Hand-embroidered traditional abaya', 179.99, NULL, '2.png', 1, 8),
+('Open Front Kimono Abaya', 'abaya', 'Stylish open front kimono-style abaya', 159.99, 199.99, '3.png', 0, 10),
+('Butterfly Abaya', 'abaya', 'Flowing butterfly style modern abaya', 139.99, NULL, '4.png', 1, 5),
+('Evening Glory Dress', 'dress', 'Luxurious evening dress for special occasions', 199.99, NULL, '5.png', 1, 12),
+('Casual Comfort Dress', 'dress', 'Comfortable everyday casual dress', 89.99, 109.99, '6.png', 0, 20),
+('Party Dress', 'dress', 'Elegant party dress with stylish details', 149.99, NULL, '7.png', 0, 7),
+('Premium Silk Hijab', 'hijab', 'Luxurious silk hijab with premium finish', 49.99, 59.99, '8.png', 0, 25),
+('Breathable Cotton Hijab', 'hijab', 'Comfortable cotton hijab for everyday wear', 29.99, NULL, '9.png', 1, 30),
+('Elegant Chiffon Hijab', 'hijab', 'Lightweight chiffon hijab with elegant drape', 39.99, NULL, '10.png', 0, 15);

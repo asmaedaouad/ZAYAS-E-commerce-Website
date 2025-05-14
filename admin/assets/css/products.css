@@ -1,0 +1,58 @@
+/* Products Page Specific Styles */
+
+/* Product Thumbnail */
+.product-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Filter Card */
+.card-header {
+    font-weight: 600;
+}
+
+/* Action Buttons */
+.btn-outline-primary {
+    color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6c5648;
+    border-color: #6c5648;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-primary:hover {
+    background-color: #5a4a3f;
+    border-color: #5a4a3f;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+    
+    .product-thumbnail {
+        width: 40px;
+        height: 40px;
+    }
+}

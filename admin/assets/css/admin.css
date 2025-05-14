@@ -1,0 +1,287 @@
+/* Admin Panel Styles */
+
+/* General Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px;
+    background-color: #6c5648;
+    color: #fff;
+    position: fixed;
+    height: 100%;
+    overflow-y: auto;
+    transition: all 0.3s;
+}
+
+.sidebar-header {
+    padding: 20px;
+    background-color: #5a4a3f;
+    text-align: center;
+}
+
+.sidebar-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-menu li {
+    padding: 0;
+}
+
+.sidebar-menu li a {
+    padding: 15px 20px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+    border-left: 3px solid transparent;
+}
+
+.sidebar-menu li a i {
+    margin-right: 10px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #5a4a3f;
+    border-left-color: #fff;
+}
+
+.sidebar-menu li.active a {
+    background-color: #5a4a3f;
+    border-left-color: #fff;
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 0;
+    transition: all 0.3s;
+}
+
+/* Top Header Styles */
+.top-header {
+    background-color: #fff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.date {
+    color: #6c757d;
+}
+
+.admin-profile a {
+    color: #6c5648;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.admin-profile i {
+    margin-right: 5px;
+}
+
+/* Page Content Styles */
+.page-content {
+    padding: 30px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #6c5648;
+    font-weight: 600;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #fff;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 15px 20px;
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+/* Stat Card Styles */
+.stat-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-size: 1.5rem;
+}
+
+.stat-icon.sales {
+    background-color: rgba(108, 86, 72, 0.1);
+    color: #6c5648;
+}
+
+.stat-icon.orders {
+    background-color: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+}
+
+.stat-icon.customers {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+}
+
+.stat-icon.products {
+    background-color: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+}
+
+.stat-info h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+.stat-info p {
+    margin: 0;
+    color: #6c757d;
+}
+
+/* Table Styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+    border-top: none;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Status Badge Styles */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.badge-pending {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-assigned {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+.badge-in-transit {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.badge-delivered {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.badge-cancelled {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.badge-returned {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+/* Chart Styles */
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-bottom: 30px;
+}
+
+/* Responsive Styles */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        margin-left: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 0;
+        z-index: 1000;
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+    
+    .sidebar.active {
+        width: 250px;
+    }
+    
+    .top-header {
+        padding: 15px;
+    }
+    
+    .page-content {
+        padding: 15px;
+    }
+}

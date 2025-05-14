@@ -1,0 +1,62 @@
+/* Customers Page Specific Styles */
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    color: #6c5648;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Badge Styles */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.badge-primary {
+    background-color: #6c5648;
+    color: #fff;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+/* Action Buttons */
+.btn-outline-primary {
+    color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-outline-primary:hover {
+    background-color: #6c5648;
+    border-color: #6c5648;
+    color: #fff;
+}
+
+.btn-primary {
+    background-color: #6c5648;
+    border-color: #6c5648;
+}
+
+.btn-primary:hover {
+    background-color: #5a4a3f;
+    border-color: #5a4a3f;
+}
+
+/* Filter Card */
+.card-header {
+    font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+}
