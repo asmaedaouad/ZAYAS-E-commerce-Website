@@ -6,7 +6,7 @@ require_once './controllers/AdminDeliveryController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/admin/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Check if ID is provided
@@ -39,15 +39,15 @@ if (!$delivery) {
 // Handle status update
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $newStatus = isset($_POST['status']) ? sanitize($_POST['status']) : '';
-    
+
     if (!empty($newStatus)) {
         if ($deliveryController->updateDeliveryStatus($deliveryId, $newStatus)) {
             // Update order status
             $deliveryController->updateOrderStatus($delivery['order_id'], $newStatus);
-            
+
             // Refresh delivery data
             $delivery = $deliveryController->getDeliveryById($deliveryId);
-            
+
             $_SESSION['success_message'] = 'Delivery status updated successfully';
         } else {
             $_SESSION['error_message'] = 'Failed to update delivery status';
@@ -88,8 +88,8 @@ include_once './includes/header.php';
 
 <?php if (isset($_SESSION['success_message'])): ?>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <?php 
-        echo $_SESSION['success_message']; 
+        <?php
+        echo htmlspecialchars($_SESSION['success_message']);
         unset($_SESSION['success_message']);
         ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -98,8 +98,8 @@ include_once './includes/header.php';
 
 <?php if (isset($_SESSION['error_message'])): ?>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <?php 
-        echo $_SESSION['error_message']; 
+        <?php
+        echo htmlspecialchars($_SESSION['error_message']);
         unset($_SESSION['error_message']);
         ?>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -142,15 +142,19 @@ include_once './includes/header.php';
                     <div class="col-md-12">
                         <strong>Delivery Address:</strong>
                         <p class="mb-0">
-                            <?php echo htmlspecialchars($delivery['address']); ?><br>
-                            <?php echo htmlspecialchars($delivery['city']); ?>, <?php echo htmlspecialchars($delivery['postal_code']); ?>
+                            <?php echo !empty($delivery['address']) ? htmlspecialchars($delivery['address']) : 'N/A'; ?><br>
+                            <?php
+                                $city = !empty($delivery['city']) ? htmlspecialchars($delivery['city']) : 'N/A';
+                                $postalCode = !empty($delivery['postal_code']) ? htmlspecialchars($delivery['postal_code']) : '';
+                                echo $city . (!empty($postalCode) ? ', ' . $postalCode : '');
+                            ?>
                         </p>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <strong>Phone:</strong>
-                        <p class="mb-0"><?php echo htmlspecialchars($delivery['phone']); ?></p>
+                        <p class="mb-0"><?php echo !empty($delivery['phone']) ? htmlspecialchars($delivery['phone']) : 'N/A'; ?></p>
                     </div>
                     <div class="col-md-6">
                         <strong>Total Amount:</strong>
@@ -161,14 +165,14 @@ include_once './includes/header.php';
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <strong>Delivery Notes:</strong>
-                        <p class="mb-0"><?php echo htmlspecialchars($delivery['delivery_notes']); ?></p>
+                        <p class="mb-0"><?php echo !empty($delivery['delivery_notes']) ? htmlspecialchars($delivery['delivery_notes']) : 'N/A'; ?></p>
                     </div>
                 </div>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-    
+
     <!-- Customer Information -->
     <div class="col-md-6 mb-4">
         <div class="card">
@@ -179,24 +183,28 @@ include_once './includes/header.php';
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <strong>Name:</strong>
-                        <p class="mb-0"><?php echo htmlspecialchars($delivery['first_name'] . ' ' . $delivery['last_name']); ?></p>
+                        <p class="mb-0"><?php
+                            $firstName = !empty($delivery['first_name']) ? $delivery['first_name'] : '';
+                            $lastName = !empty($delivery['last_name']) ? $delivery['last_name'] : '';
+                            echo !empty($firstName) || !empty($lastName) ? htmlspecialchars($firstName . ' ' . $lastName) : 'N/A';
+                        ?></p>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <strong>Email:</strong>
-                        <p class="mb-0"><?php echo htmlspecialchars($delivery['email']); ?></p>
+                        <p class="mb-0"><?php echo !empty($delivery['email']) ? htmlspecialchars($delivery['email']) : 'N/A'; ?></p>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-12">
                         <strong>Phone:</strong>
-                        <p class="mb-0"><?php echo htmlspecialchars($delivery['user_phone']); ?></p>
+                        <p class="mb-0"><?php echo !empty($delivery['user_phone']) ? htmlspecialchars($delivery['user_phone']) : 'N/A'; ?></p>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Update Status -->
         <div class="card mt-4">
             <div class="card-header">

@@ -6,7 +6,7 @@ require_once './controllers/AdminOrderController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/admin/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Check if order ID is provided
@@ -41,19 +41,8 @@ $orderItems = $orderController->getOrderItems($orderId);
 // Get delivery information
 $deliveryInfo = $orderController->getDeliveryInfo($orderId);
 
-// Process status update
-$statusUpdateMessage = '';
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
-    $newStatus = $_POST['status'];
-
-    if ($orderController->updateOrderStatus($orderId, $newStatus)) {
-        $statusUpdateMessage = 'Order status updated successfully.';
-        // Refresh order details
-        $order = $orderController->getOrderById($orderId);
-    } else {
-        $statusUpdateMessage = 'Failed to update order status.';
-    }
-}
+// Status updates are now handled by delivery personnel only
+// No status update message variable needed
 
 // Include header
 include_once './includes/header.php';
@@ -70,12 +59,6 @@ include_once './includes/header.php';
                 </a>
             </div>
             <div class="card-body">
-                <?php if (!empty($statusUpdateMessage)): ?>
-                    <div class="alert alert-success">
-                        <?php echo $statusUpdateMessage; ?>
-                    </div>
-                <?php endif; ?>
-
                 <div class="row">
                     <div class="col-md-6">
                         <h5>Order Information</h5>
@@ -101,26 +84,6 @@ include_once './includes/header.php';
                                 <td><?php echo $orderController->formatCurrency($order['total_amount']); ?></td>
                             </tr>
                         </table>
-
-                        <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $orderId; ?>" class="mt-3">
-                            <div class="row g-3 align-items-center">
-                                <div class="col-auto">
-                                    <label for="status" class="col-form-label">Update Status:</label>
-                                </div>
-                                <div class="col-auto">
-                                    <select class="form-select" id="status" name="status">
-                                        <?php foreach ($orderController->getAvailableStatusOptions($order['status']) as $statusValue => $statusLabel): ?>
-                                            <option value="<?php echo $statusValue; ?>" <?php echo $order['status'] === $statusValue ? 'selected' : ''; ?>>
-                                                <?php echo $statusLabel; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                </div>
-                                <div class="col-auto">
-                                    <button type="submit" name="update_status" class="btn btn-primary">Update</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
 
                     <div class="col-md-6">

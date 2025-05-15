@@ -18,14 +18,7 @@
     <?php endif; ?>
 </head>
 <body>
-    <!-- Logout Confirmation Script -->
-    <script>
-    function confirmLogout(logoutUrl) {
-        if (confirm('Are you sure you want to log out?')) {
-            window.location.href = logoutUrl;
-        }
-    }
-    </script>
+    <!-- Logout confirmation script is loaded in footer.php -->
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
         <div class="container">

@@ -6,7 +6,7 @@ require_once './controllers/DeliveryController.php';
 
 // Check if user is logged in and is delivery personnel
 if (!isLoggedIn() || !isDelivery()) {
-    redirect('/delivery/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Set page title
@@ -71,6 +71,16 @@ include_once './includes/header.php';
                     </div>
                     <h3><?php echo isset($statusCounts['delivered']) ? $statusCounts['delivered'] : 0; ?></h3>
                     <p>Delivered</p>
+                </div>
+            </div>
+
+            <div class="status-card cancelled">
+                <div class="status-card-body">
+                    <div class="status-icon">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <h3><?php echo isset($statusCounts['cancelled']) ? $statusCounts['cancelled'] : 0; ?></h3>
+                    <p>Cancelled</p>
                 </div>
             </div>
 

@@ -41,21 +41,21 @@ if (!$order || $order['user_id'] != $_SESSION['user_id']) {
 // Get delivery details
 $delivery = $deliveryModel->getDeliveryByOrderId($orderId);
 
-// Check if order can be cancelled (only pending or assigned orders can be cancelled)
-if (!in_array(strtolower($delivery['delivery_status']), ['pending', 'assigned'])) {
+// Check if order can be returned (only delivered orders can be returned)
+if (strtolower($delivery['delivery_status']) !== 'delivered') {
     // Set error message
-    $_SESSION['order_error'] = 'Order cannot be cancelled at this stage';
+    $_SESSION['order_error'] = 'Only delivered orders can be returned';
     redirect('/views/user/account.php#orders');
 }
 
-// Update order status to cancelled
-$orderModel->updateOrderStatus($orderId, 'cancelled');
+// Update order status to returned
+$orderModel->updateOrderStatus($orderId, 'returned');
 
-// Update delivery status to cancelled
-$deliveryModel->updateDeliveryStatus($delivery['id'], 'cancelled');
+// Update delivery status to returned
+$deliveryModel->updateDeliveryStatus($delivery['id'], 'returned');
 
 // Set success message
-$_SESSION['order_success'] = 'Order has been cancelled successfully';
+$_SESSION['order_success'] = 'Return request has been submitted successfully';
 
 // Redirect back to orders page
 redirect('/views/user/account.php#orders');

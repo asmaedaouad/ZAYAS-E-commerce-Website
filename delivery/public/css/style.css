@@ -11,6 +11,7 @@
     --assigned-color: #FBBC05;
     --in-transit-color: #673AB7;
     --delivered-color: #34A853;
+    --cancelled-color: tomato;
     --returned-color: #EA4335;
 
     /* UI Colors */
@@ -131,6 +132,10 @@ body {
     background-color: var(--delivered-color);
 }
 
+.status-card.cancelled .status-icon {
+    background-color: var(--cancelled-color);
+}
+
 .status-card.returned .status-icon {
     background-color: var(--returned-color);
 }
@@ -233,6 +238,10 @@ body {
 
 .badge.bg-success {
     background-color: var(--delivered-color) !important;
+}
+
+.badge.bg-danger {
+    background-color: var(--cancelled-color) !important;
 }
 
 .badge.bg-warning {
@@ -377,6 +386,10 @@ footer p {
 
 .status-icon-delivered {
     color: var(--delivered-color);
+}
+
+.status-icon-cancelled {
+    color: var(--cancelled-color);
 }
 
 .status-icon-returned {

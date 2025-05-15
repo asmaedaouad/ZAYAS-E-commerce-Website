@@ -4,6 +4,12 @@ require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
 
+// Check if user is delivery personnel and redirect to logout
+if (isLoggedIn() && isDelivery()) {
+    // Logout delivery personnel who try to access the store
+    redirect('/views/auth/logout.php');
+}
+
 // Set page title
 $pageTitle = 'About Us';
 $customCss = 'about.css';
@@ -129,14 +135,11 @@ include_once '../../includes/header.php';
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="team-member animate-on-scroll">
-                    <div class="member-image">
-                        <img src="<?php echo url('/public/images/team-1.jpg'); ?>" alt="Sarah Zayas" class="img-fluid">
-                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Sarah Zayas</h3>
+                        <h3 class="member-name">Asmae Daouad</h3>
                         <p class="member-role">Founder & Creative Director</p>
                         <p class="member-bio">
-                            With over 10 years of experience in fashion design, Sarah brings her creative vision and passion for modest fashion to every aspect of ZAYAS.
+                            With extensive experience in fashion design, Asmae brings her creative vision and passion for modest fashion to every aspect of ZAYAS.
                         </p>
                     </div>
                 </div>
@@ -144,14 +147,11 @@ include_once '../../includes/header.php';
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="team-member animate-on-scroll">
-                    <div class="member-image">
-                        <img src="<?php echo url('/public/images/team-2.jpg'); ?>" alt="Aisha Rahman" class="img-fluid">
-                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Aisha Rahman</h3>
+                        <h3 class="member-name">Zaynab Ait Addi</h3>
                         <p class="member-role">Head of Design</p>
                         <p class="member-bio">
-                            Aisha's innovative designs and attention to detail have helped shape the distinctive ZAYAS aesthetic that our customers love.
+                            Zaynab's innovative designs and attention to detail have helped shape the distinctive ZAYAS aesthetic that our customers love.
                         </p>
                     </div>
                 </div>
@@ -159,14 +159,11 @@ include_once '../../includes/header.php';
 
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="team-member animate-on-scroll">
-                    <div class="member-image">
-                        <img src="<?php echo url('/public/images/team-3.jpg'); ?>" alt="Omar Khalid" class="img-fluid">
-                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Omar Khalid</h3>
+                        <h3 class="member-name">Pr Mohamed Cherradi</h3>
                         <p class="member-role">Operations Manager</p>
                         <p class="member-bio">
-                            Omar ensures that everything runs smoothly behind the scenes, from production to delivery, so that our customers receive the best possible experience.
+                            Pr Mohamed ensures that everything runs smoothly behind the scenes, from production to delivery, so that our customers receive the best possible experience.
                         </p>
                     </div>
                 </div>

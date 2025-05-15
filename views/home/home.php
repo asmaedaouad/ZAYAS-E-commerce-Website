@@ -5,6 +5,12 @@ if (!defined('BASE_DIR')) {
     require_once '../../config/config.php';
     require_once '../../config/Database.php';
     require_once '../../controllers/HomeController.php';
+
+    // Check if user is delivery personnel and redirect to logout
+    if (isLoggedIn() && isDelivery()) {
+        // Logout delivery personnel who try to access the store
+        redirect('/views/auth/logout.php');
+    }
 } else {
     // When included from index.php
     require_once BASE_DIR . '/config/Database.php';

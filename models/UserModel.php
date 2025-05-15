@@ -18,10 +18,10 @@ class UserModel {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Insert query
-        $query = "INSERT INTO " . $this->table . " 
-                  SET first_name = :first_name, 
-                      last_name = :last_name, 
-                      email = :email, 
+        $query = "INSERT INTO " . $this->table . "
+                  SET first_name = :first_name,
+                      last_name = :last_name,
+                      email = :email,
                       password = :password";
 
         // Prepare statement
@@ -100,8 +100,8 @@ class UserModel {
     // Get user by ID
     public function getUserById($id) {
         // Query to get user
-        $query = "SELECT id, first_name, last_name, email, address, city, postal_code, phone, is_admin, is_delivery 
-                  FROM " . $this->table . " 
+        $query = "SELECT id, first_name, last_name, email, address, city, postal_code, phone, is_admin, is_delivery
+                  FROM " . $this->table . "
                   WHERE id = :id";
 
         // Prepare statement
@@ -120,13 +120,13 @@ class UserModel {
     // Update user profile
     public function updateProfile($id, $firstName, $lastName, $address, $city, $postalCode, $phone) {
         // Update query
-        $query = "UPDATE " . $this->table . " 
-                  SET first_name = :first_name, 
-                      last_name = :last_name, 
-                      address = :address, 
-                      city = :city, 
-                      postal_code = :postal_code, 
-                      phone = :phone 
+        $query = "UPDATE " . $this->table . "
+                  SET first_name = :first_name,
+                      last_name = :last_name,
+                      address = :address,
+                      city = :city,
+                      postal_code = :postal_code,
+                      phone = :phone
                   WHERE id = :id";
 
         // Prepare statement
@@ -155,8 +155,8 @@ class UserModel {
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
         // Update query
-        $query = "UPDATE " . $this->table . " 
-                  SET password = :password 
+        $query = "UPDATE " . $this->table . "
+                  SET password = :password
                   WHERE id = :id";
 
         // Prepare statement
@@ -164,6 +164,32 @@ class UserModel {
 
         // Bind parameters
         $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':id', $id);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Update delivery personnel profile
+    public function updateDeliveryProfile($id, $firstName, $lastName, $phone) {
+        // Update query
+        $query = "UPDATE " . $this->table . "
+                  SET first_name = :first_name,
+                      last_name = :last_name,
+                      phone = :phone
+                  WHERE id = :id AND is_delivery = 1";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameters
+        $stmt->bindParam(':first_name', $firstName);
+        $stmt->bindParam(':last_name', $lastName);
+        $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':id', $id);
 
         // Execute query

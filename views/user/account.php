@@ -263,6 +263,13 @@ include_once '../../includes/header.php';
                                                             <i class="fas fa-times"></i>
                                                         </button>
                                                     </form>
+                                                    <?php elseif (strtolower($order['delivery']['delivery_status']) === 'delivered'): ?>
+                                                    <form action="<?php echo url('/controllers/order/return.php'); ?>" method="post" class="return-order-form" onsubmit="return confirm('Are you sure you want to return this order?');">
+                                                        <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                                        <button type="submit" class="btn-return" title="Return Order">
+                                                            <i class="fas fa-undo-alt"></i>
+                                                        </button>
+                                                    </form>
                                                     <?php endif; ?>
                                                 </div>
                                             </td>

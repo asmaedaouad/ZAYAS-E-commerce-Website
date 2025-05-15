@@ -1,7 +1,7 @@
 <?php
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/admin/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Get current date
@@ -34,14 +34,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <?php endif; ?>
 </head>
 <body>
-    <!-- Logout Confirmation Script -->
-    <script>
-    function confirmLogout(logoutUrl) {
-        if (confirm('Are you sure you want to log out?')) {
-            window.location.href = logoutUrl;
-        }
-    }
-    </script>
+    <!-- Logout confirmation script is loaded in footer.php -->
     <div class="admin-container">
         <!-- Sidebar -->
         <div class="sidebar">

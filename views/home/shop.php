@@ -4,6 +4,12 @@ require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
 
+// Check if user is delivery personnel and redirect to logout
+if (isLoggedIn() && isDelivery()) {
+    // Logout delivery personnel who try to access the store
+    redirect('/views/auth/logout.php');
+}
+
 // Set page title
 $pageTitle = 'Shop';
 $customCss = 'shop.css';

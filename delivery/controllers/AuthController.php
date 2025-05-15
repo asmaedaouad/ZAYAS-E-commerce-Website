@@ -1,51 +1,25 @@
 <?php
-require_once __DIR__ . '/../models/UserModel.php';
-require_once __DIR__ . '/../controllers/OrderController.php';
-require_once __DIR__ . '/../controllers/WishlistController.php';
-require_once __DIR__ . '/../controllers/CartController.php';
+require_once __DIR__ . '/../../models/UserModel.php';
 
-class UserController {
+class AuthController {
     private $userModel;
-    private $orderController;
-    private $wishlistController;
-    private $cartController;
 
     public function __construct($db) {
         $this->userModel = new UserModel($db);
-        $this->orderController = new OrderController($db);
-        $this->wishlistController = new WishlistController($db);
-        $this->cartController = new CartController($db);
     }
 
-    // Display user account
-    public function account() {
-        if (!isLoggedIn()) {
+    // Get user profile
+    public function getProfile() {
+        if (!isLoggedIn() || !isDelivery()) {
             redirect('/views/auth/unified_login.php');
         }
 
-        // Get user data
-        $user = $this->userModel->getUserById($_SESSION['user_id']);
-
-        // Get user orders
-        $orders = $this->orderController->getUserOrders();
-
-        // Get user wishlist
-        $wishlist = $this->wishlistController->viewWishlist();
-
-        // Get user cart
-        $cart = $this->cartController->viewCart();
-
-        return [
-            'user' => $user,
-            'orders' => $orders['orders'],
-            'wishlist' => $wishlist['wishlist'],
-            'cart' => $cart
-        ];
+        return $this->userModel->getUserById($_SESSION['user_id']);
     }
 
     // Update user profile
     public function updateProfile() {
-        if (!isLoggedIn()) {
+        if (!isLoggedIn() || !isDelivery()) {
             redirect('/views/auth/unified_login.php');
         }
 
@@ -53,9 +27,6 @@ class UserController {
             // Get form data
             $firstName = isset($_POST['first_name']) ? sanitize($_POST['first_name']) : '';
             $lastName = isset($_POST['last_name']) ? sanitize($_POST['last_name']) : '';
-            $address = isset($_POST['address']) ? sanitize($_POST['address']) : '';
-            $city = isset($_POST['city']) ? sanitize($_POST['city']) : '';
-            $postalCode = isset($_POST['postal_code']) ? sanitize($_POST['postal_code']) : '';
             $phone = isset($_POST['phone']) ? sanitize($_POST['phone']) : '';
 
             // Validate input
@@ -73,13 +44,14 @@ class UserController {
                 $errors[] = 'Last name must be 2-50 characters and contain only letters, spaces, apostrophes, and hyphens';
             }
 
-            if (!empty($city) && !preg_match('/^[A-Za-zÀ-ÖØ-öø-ÿ\s\'\-]{2,50}$/', $city)) {
-                $errors[] = 'City must contain only letters, spaces, apostrophes, and hyphens';
+            // Validate phone (if provided)
+            if (!empty($phone) && !preg_match('/^[0-9\+\-\(\)\s]{5,20}$/', $phone)) {
+                $errors[] = 'Phone number must be 5-20 characters and contain only numbers, +, -, (, ), and spaces';
             }
 
             // If no errors, update profile
             if (empty($errors)) {
-                if ($this->userModel->updateProfile($_SESSION['user_id'], $firstName, $lastName, $address, $city, $postalCode, $phone)) {
+                if ($this->userModel->updateDeliveryProfile($_SESSION['user_id'], $firstName, $lastName, $phone)) {
                     // Update session variables
                     $_SESSION['first_name'] = $firstName;
                     $_SESSION['last_name'] = $lastName;
@@ -99,9 +71,6 @@ class UserController {
                 'user' => [
                     'first_name' => $firstName,
                     'last_name' => $lastName,
-                    'address' => $address,
-                    'city' => $city,
-                    'postal_code' => $postalCode,
                     'phone' => $phone
                 ]
             ];
@@ -115,7 +84,7 @@ class UserController {
 
     // Update password
     public function updatePassword() {
-        if (!isLoggedIn()) {
+        if (!isLoggedIn() || !isDelivery()) {
             redirect('/views/auth/unified_login.php');
         }
 
@@ -171,11 +140,6 @@ class UserController {
         return [
             'errors' => []
         ];
-    }
-
-    // Get user by ID
-    public function getUserById($id) {
-        return $this->userModel->getUserById($id);
     }
 }
 ?>

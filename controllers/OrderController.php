@@ -20,7 +20,7 @@ class OrderController {
     // Create new order
     public function createOrder() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/login.php');
+            redirect('/views/auth/unified_login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -138,7 +138,7 @@ class OrderController {
     // Get user's orders
     public function getUserOrders() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/login.php');
+            redirect('/views/auth/unified_login.php');
         }
 
         $orders = $this->orderModel->getUserOrders($_SESSION['user_id']);
@@ -157,7 +157,7 @@ class OrderController {
     // Get order details
     public function getOrderDetails($orderId) {
         if (!isLoggedIn()) {
-            redirect('/views/auth/login.php');
+            redirect('/views/auth/unified_login.php');
         }
 
         $order = $this->orderModel->getOrderById($orderId);

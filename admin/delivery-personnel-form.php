@@ -6,7 +6,7 @@ require_once './controllers/AdminDeliveryController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/admin/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Set page title and CSS

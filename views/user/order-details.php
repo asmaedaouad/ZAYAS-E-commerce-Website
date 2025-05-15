@@ -137,6 +137,12 @@ include_once '../../includes/header.php';
                             <?php endif; ?>
                         </div>
                         <div class="order-actions">
+                            <?php if (strtolower($order['delivery']['delivery_status']) === 'delivered'): ?>
+                            <form action="<?php echo url('/controllers/order/return.php'); ?>" method="post" onsubmit="return confirm('Are you sure you want to return this order?');">
+                                <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                <button type="submit" class="btn-primary">Return Order</button>
+                            </form>
+                            <?php endif; ?>
                             <a href="<?php echo url('/views/user/account.php#orders'); ?>" class="btn-secondary">Back to Orders</a>
                         </div>
                     </div>

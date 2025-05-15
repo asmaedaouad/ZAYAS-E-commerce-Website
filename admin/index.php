@@ -4,7 +4,7 @@ require_once '../config/config.php';
 
 // Redirect to login if not logged in
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/admin/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Redirect to dashboard

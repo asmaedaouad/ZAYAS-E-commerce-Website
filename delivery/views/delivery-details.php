@@ -6,7 +6,7 @@ require_once '../controllers/DeliveryController.php';
 
 // Check if user is logged in and is delivery personnel
 if (!isLoggedIn() || !isDelivery()) {
-    redirect('/delivery/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Get delivery ID

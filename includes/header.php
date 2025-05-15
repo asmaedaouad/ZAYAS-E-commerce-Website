@@ -245,7 +245,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                                 <span class="icon-tooltip">Go to Admin Dashboard</span>
                             </a>
                             <?php else: ?>
-                            <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>"
+                            <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/unified_login.php'); ?>"
                                 id="account-icon-desktop" aria-label="Account" <?php echo $isLoggedIn ? 'data-bs-toggle="dropdown"' : ''; ?> class="icon-link">
                                 <i class="far fa-user"></i>
                                 <?php if ($isLoggedIn): ?>
@@ -284,11 +284,4 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
 </header>
 
 
-<!-- Logout Confirmation Script -->
-<script>
-function confirmLogout(logoutUrl) {
-    if (confirm('Are you sure you want to log out?')) {
-        window.location.href = logoutUrl;
-    }
-}
-</script>
+<!-- Logout confirmation script is loaded in footer.php -->

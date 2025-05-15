@@ -7,7 +7,7 @@
 // Return contact settings as an array
 return array (
   'address' => 'ENSAH (École Nationale des Sciences Appliquées), Al Hoceima, Morocco',
-  'phone' => '+1 (123) 456-7890',
+  'phone' => '+ 212 123 456-789',
   'email' => 'infos@zayas.com',
   'opening_hours' => 
   array (
@@ -20,7 +20,7 @@ return array (
   array (
     'facebook' => '#',
     'instagram' => '#',
-    'pinterest' => '#',
+    'pinterest' => 'https://www.pinterest.com/asmaedaouad/',
     'twitter' => '#',
   ),
 );

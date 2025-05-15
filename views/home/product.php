@@ -5,6 +5,12 @@ require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
 require_once '../../controllers/WishlistController.php';
 
+// Check if user is delivery personnel and redirect to logout
+if (isLoggedIn() && isDelivery()) {
+    // Logout delivery personnel who try to access the store
+    redirect('/views/auth/logout.php');
+}
+
 // Set page title
 $customCss = 'product.css';
 

@@ -382,6 +382,31 @@ h1, h2, h3, h4, h5, .section-title {
     left: 100%;
 }
 
+.btn-primary {
+    display: inline-block;
+    padding: 0.9rem 1.8rem;
+    border-radius: 6px;
+    font-weight: 500;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    background-color: #b39b4a;
+    color: #fff;
+    border: 1px solid #b39b4a;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    cursor: pointer;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #a38a39;
+    border-color: #a38a39;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(107, 92, 62, 0.15);
+}
+
 @media (max-width: 768px) {
     .order-details-section {
         padding: 4rem 0;

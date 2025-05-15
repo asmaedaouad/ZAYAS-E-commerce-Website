@@ -59,7 +59,7 @@ class DeliveryController {
 
             if (empty($status)) {
                 $errors[] = 'Status is required';
-            } elseif (!in_array($status, ['assigned', 'in_transit', 'delivered', 'returned'])) {
+            } elseif (!in_array($status, ['assigned', 'in_transit', 'delivered', 'cancelled', 'returned'])) {
                 $errors[] = 'Invalid status';
             }
 
@@ -116,6 +116,8 @@ class DeliveryController {
                 return 'bg-primary';
             case 'delivered':
                 return 'bg-success';
+            case 'cancelled':
+                return 'bg-danger';
             case 'returned':
                 return 'bg-warning';
             default:
@@ -134,6 +136,7 @@ class DeliveryController {
             'assigned' => 'Assigned',
             'in_transit' => 'In Transit',
             'delivered' => 'Delivered',
+            'cancelled' => 'Cancelled',
             'returned' => 'Returned'
         ];
 
@@ -142,6 +145,7 @@ class DeliveryController {
             'assigned' => ['assigned', 'in_transit'], // Delivery person can accept the order (in_transit)
             'in_transit' => ['in_transit', 'delivered'], // Delivery person can mark as delivered
             'delivered' => ['delivered', 'returned'], // Delivery person can mark as returned after delivery
+            'cancelled' => ['cancelled'], // Final state
             'returned' => ['returned'] // Final state
         ];
 
