@@ -230,6 +230,20 @@
     transform: translateY(-2px);
 }
 
+/* Admin icon styling */
+#admin-icon-desktop, #admin-icon {
+    color: #856b00d3;
+    font-weight: 500;
+}
+
+#admin-icon-desktop:hover, #admin-icon:hover {
+    color: #5d4037;
+}
+
+#admin-icon-desktop .username-display {
+    font-size: 0.95rem;
+}
+
 /* Cart and Wishlist Badges */
 .cart-badge, .wishlist-badge {
     position: absolute;

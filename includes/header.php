@@ -122,10 +122,18 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                         <span class="icon-tooltip">Wishlist</span>
                     </a>
                     <?php endif; ?>
+                    <?php if ($isAdmin): ?>
+                    <!-- Admin link for mobile that redirects to admin dashboard -->
+                    <a href="<?php echo url('/admin/dashboard.php'); ?>" id="admin-icon" aria-label="Admin Dashboard" class="icon-link">
+                        <i class="fas fa-user-shield"></i>
+                        <span class="icon-tooltip">Admin</span>
+                    </a>
+                    <?php else: ?>
                     <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>" id="account-icon" aria-label="Account" class="icon-link">
                         <i class="far fa-user"></i>
                         <span class="icon-tooltip">Account</span>
                     </a>
+                    <?php endif; ?>
                     <?php if (!$isAdmin && !$isDelivery): ?>
                     <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/login.php'); ?>" id="cart-icon" aria-label="Shopping cart" class="icon-link">
                         <i class="fas fa-shopping-bag"></i>
@@ -185,9 +193,17 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                     </li>
 
                     <?php if ($isLoggedIn): ?>
-                    <li class="nav-item d-lg-none">
-                        <a class="nav-link" href="<?php echo url('/views/user/account.php'); ?>">My Account</a>
-                    </li>
+                        <?php if ($isAdmin): ?>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="<?php echo url('/admin/dashboard.php'); ?>">
+                                <i class="fas fa-tachometer-alt me-2"></i>Admin Dashboard
+                            </a>
+                        </li>
+                        <?php else: ?>
+                        <li class="nav-item d-lg-none">
+                            <a class="nav-link" href="<?php echo url('/views/user/account.php'); ?>">My Account</a>
+                        </li>
+                        <?php endif; ?>
                     <li class="nav-item d-lg-none">
                         <a class="nav-link logout-link" href="javascript:void(0);" onclick="confirmLogout('<?php echo url('/views/auth/logout.php'); ?>')">Logout</a>
                     </li>
@@ -218,14 +234,17 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                             <?php endif; ?>
                             <span class="icon-tooltip">Wishlist</span>
                         </a>
-                        <?php elseif ($isAdmin): ?>
-                        <a href="<?php echo url('/index.php'); ?>" id="store-icon-desktop" aria-label="Go to Store" class="icon-link">
-                            <i class="fas fa-store"></i>
-                            <span class="icon-tooltip">Go to Store</span>
-                        </a>
                         <?php endif; ?>
 
                         <div class="dropdown">
+                            <?php if ($isAdmin): ?>
+                            <!-- Admin link that redirects to admin dashboard -->
+                            <a href="<?php echo url('/admin/dashboard.php'); ?>" id="admin-icon-desktop" aria-label="Admin Dashboard" class="icon-link">
+                                <i class="fas fa-user-shield"></i>
+                                <span class="ms-1 d-inline-block username-display">Admin</span>
+                                <span class="icon-tooltip">Go to Admin Dashboard</span>
+                            </a>
+                            <?php else: ?>
                             <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>"
                                 id="account-icon-desktop" aria-label="Account" <?php echo $isLoggedIn ? 'data-bs-toggle="dropdown"' : ''; ?> class="icon-link">
                                 <i class="far fa-user"></i>
@@ -246,6 +265,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item logout-link" href="javascript:void(0);" onclick="confirmLogout('<?php echo url('/views/auth/logout.php'); ?>')">Logout</a></li>
                             </ul>
+                            <?php endif; ?>
                             <?php endif; ?>
                         </div>
 

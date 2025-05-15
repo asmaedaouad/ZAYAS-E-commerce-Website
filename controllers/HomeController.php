@@ -76,8 +76,13 @@ class HomeController {
 
     // Display contact page
     public function contact() {
-        // No form handling needed anymore
-        return [];
+        // Load contact settings from configuration file
+        $contactSettingsFile = __DIR__ . '/../config/contact_settings.php';
+        $contactSettings = file_exists($contactSettingsFile) ? include $contactSettingsFile : [];
+
+        return [
+            'contact_settings' => $contactSettings
+        ];
     }
 }
 ?>
