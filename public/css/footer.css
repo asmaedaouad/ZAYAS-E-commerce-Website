@@ -35,38 +35,27 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
-    background-color: rgba(255,255,255,0.1);
+    background-color: #2b2b2b;
+    color: #fff;
     transition: all 0.3s ease;
+    margin: 0 5px;
 }
 
 .social-icons a:hover {
-    background-color: #6641003f;
+    background-color: #3a3a3a;
     transform: translateY(-3px);
 }
 
-.newsletter-form .input-group {
-    border-radius: 30px;
-    overflow: hidden;
+.social-icons {
+    margin-bottom: 10px;
 }
 
-.newsletter-form .form-control {
-    background-color: #343a40;
-    border: none;
-    color: white;
-    padding: 10px 15px;
-}
-
-.newsletter-form .btn {
-    padding: 0 20px;
-    background-color: #664000bc;
-    border: none;
-}
-
-.newsletter-form .btn:hover {
-    background-color: #664000bc;
+/* Footer bottom section */
+.footer .row.align-items-center {
+    margin-top: 20px;
 }
 
 .footer hr {

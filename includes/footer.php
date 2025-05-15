@@ -4,12 +4,6 @@
             <div class="col-lg-4 mb-4 mb-lg-0">
                 <h5 class="mb-4">ZAYAS</h5>
                 <p>Discover the perfect blend of tradition and contemporary style with our curated collection of Islamic fashion.</p>
-                <div class="social-icons mt-4">
-                    <a href="#" class="text-white me-3"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="text-white me-3"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="text-white"><i class="fab fa-pinterest"></i></a>
-                </div>
             </div>
 
             <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
@@ -28,21 +22,30 @@
                     <li class="mb-2"><a href="<?php echo url('/views/home/contact.php'); ?>" class="text-white-50">Contact Us</a></li>
                 </ul>
             </div>
-
-
         </div>
 
         <hr class="my-5 bg-secondary">
 
-        <div class="row">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="small mb-0">© 2025 ZAYAS. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-center text-md-end">
-                <ul class="list-inline small mb-0">
-                    <li class="list-inline-item"><a href="#" class="text-white-50">Privacy Policy</a></li>
-                    <li class="list-inline-item"><a href="#" class="text-white-50">Terms of Service</a></li>
-                </ul>
+        <div class="row align-items-center">
+            <div class="col-12 text-center">
+                <div class="social-icons d-flex justify-content-center">
+                    <?php
+                    // Load contact settings for social media links
+                    $contactSettingsFile = __DIR__ . '/../config/contact_settings.php';
+                    $contactSettings = file_exists($contactSettingsFile) ? include $contactSettingsFile : [];
+                    $socialMedia = isset($contactSettings['social_media']) ? $contactSettings['social_media'] : [
+                        'facebook' => '#',
+                        'twitter' => '#',
+                        'instagram' => '#',
+                        'pinterest' => '#'
+                    ];
+                    ?>
+                    <a href="<?php echo htmlspecialchars($socialMedia['facebook']); ?>" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="<?php echo htmlspecialchars($socialMedia['twitter']); ?>" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="<?php echo htmlspecialchars($socialMedia['instagram']); ?>" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="<?php echo htmlspecialchars($socialMedia['pinterest']); ?>" class="social-icon"><i class="fab fa-pinterest"></i></a>
+                </div>
+                <p class="small mt-3">© <?php echo date('Y'); ?> ZAYAS. All rights reserved.</p>
             </div>
         </div>
     </div>
