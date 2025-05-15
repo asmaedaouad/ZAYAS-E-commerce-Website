@@ -46,8 +46,8 @@ include_once '../../includes/header.php';
         <div class="bubbles-container d-flex justify-content-center flex-wrap">
             <!-- All Products Bubble -->
             <a href="<?php echo url('/views/home/shop.php'); ?>" class="category-bubble mx-3 <?php echo !$type ? 'active' : ''; ?>">
-                <div class="bubble-img all-products">
-                    <i class="fas fa-th"></i>
+                <div class="bubble-img">
+                    <img src="<?php echo url('/public/images/all-products.png'); ?>" alt="All Products">
                 </div>
                 <p>All Products</p>
             </a>
@@ -175,4 +175,7 @@ include_once '../../includes/footer.php';
 
 <!-- Shop Page JavaScript -->
 <script src="<?php echo url('/public/js/shop.js'); ?>"></script>
+
+
+
 

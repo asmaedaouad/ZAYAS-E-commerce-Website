@@ -51,7 +51,7 @@ class AuthController {
 
             // If no errors, update profile
             if (empty($errors)) {
-                if ($this->userModel->updateDeliveryProfile($_SESSION['user_id'], $firstName, $lastName, $phone)) {
+                if ($this->userModel->updateProfile($_SESSION['user_id'], $firstName, $lastName, $phone)) {
                     // Update session variables
                     $_SESSION['first_name'] = $firstName;
                     $_SESSION['last_name'] = $lastName;

@@ -100,7 +100,7 @@ class UserModel {
     // Get user by ID
     public function getUserById($id) {
         // Query to get user
-        $query = "SELECT id, first_name, last_name, email, address, city, postal_code, phone, is_admin, is_delivery
+        $query = "SELECT id, first_name, last_name, email, address, city, postal_code, phone, is_admin, is_delivery, password
                   FROM " . $this->table . "
                   WHERE id = :id";
 
