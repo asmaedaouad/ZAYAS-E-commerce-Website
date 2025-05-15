@@ -1,0 +1,379 @@
+/* Orders Page Specific Styles */
+
+/* Status Cards */
+.status-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.status-card {
+    flex: 1;
+    min-width: 120px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid rgba(93, 64, 55, 0.05);
+}
+
+.status-card a {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    padding: 18px;
+}
+
+.status-card-body {
+    text-align: center;
+}
+
+.status-card h3 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #5d4037;
+    margin-bottom: 5px;
+}
+
+.status-card p {
+    margin: 5px 0 0;
+    color: #8d6e63;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.status-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+}
+
+.status-card.active {
+    background-color: rgba(66, 133, 244, 0.1);
+    border-color: rgba(66, 133, 244, 0.3);
+}
+
+.status-card.active.pending {
+    background-color: rgba(66, 133, 244, 0.1);
+    border-color: rgba(66, 133, 244, 0.3);
+}
+
+.status-card.active.assigned {
+    background-color: rgba(251, 188, 5, 0.1);
+    border-color: rgba(251, 188, 5, 0.3);
+}
+
+.status-card.active.in-transit {
+    background-color: rgba(103, 58, 183, 0.1);
+    border-color: rgba(103, 58, 183, 0.3);
+}
+
+.status-card.active.delivered {
+    background-color: rgba(52, 168, 83, 0.1);
+    border-color: rgba(52, 168, 83, 0.3);
+}
+
+.status-card.active.cancelled {
+    background-color: rgba(255, 99, 71, 0.1);
+    border-color: rgba(255, 99, 71, 0.3);
+}
+
+.status-card.active.returned {
+    background-color: rgba(255, 0, 0, 0.1);
+    border-color: rgba(255, 0, 0, 0.3);
+}
+
+.status-card.active h3 {
+    color: #333333;
+}
+
+.status-card.active p {
+    color: #555555;
+}
+
+/* Table Styles */
+.table th {
+    font-weight: 600;
+    color: #5d4037;
+    padding: 16px 12px;
+    background-color: rgba(217, 199, 171, 0.1);
+    border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 16px 12px;
+    border-bottom: 1px solid rgba(93, 64, 55, 0.05);
+    font-size: 0.95rem;
+}
+
+.table tr:hover {
+    background-color: rgba(217, 199, 171, 0.05);
+}
+
+/* Customer Avatar */
+.customer-avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #e8d9c5;
+    color: #5d4037;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+/* Status Badge Styles */
+.badge {
+    padding: 8px 12px;
+    font-weight: 500;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.badge i {
+    margin-right: 5px;
+    font-size: 0.8rem;
+}
+
+.badge-pending {
+    background-color: rgba(66, 133, 244, 0.2);
+    color: #4285F4;
+    border: 1px solid rgba(66, 133, 244, 0.5);
+}
+
+.badge-processing {
+    background-color: rgba(251, 188, 5, 0.2);
+    color: #FBBC05;
+    border: 1px solid rgba(251, 188, 5, 0.5);
+}
+
+.badge-assigned {
+    background-color: rgba(251, 188, 5, 0.2);
+    color: #FBBC05;
+    border: 1px solid rgba(251, 188, 5, 0.5);
+}
+
+.badge-in-transit {
+    background-color: rgba(103, 58, 183, 0.2);
+    color: #673AB7;
+    border: 1px solid rgba(103, 58, 183, 0.5);
+}
+
+.badge-delivered {
+    background-color: rgba(52, 168, 83, 0.2);
+    color: #34A853;
+    border: 1px solid rgba(52, 168, 83, 0.5);
+}
+
+.badge-cancelled {
+    background-color: rgba(255, 99, 71, 0.2);
+    color: tomato;
+    border: 1px solid rgba(255, 99, 71, 0.5);
+}
+
+.badge-returned {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: red;
+    border: 1px solid rgba(255, 0, 0, 0.5);
+}
+
+/* Filter Card */
+.filter-card {
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    border: none;
+}
+
+.filter-card .card-header {
+    background-color: #fff;
+    border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+    padding: 18px 20px;
+    font-weight: 600;
+    color: #5d4037;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+.filter-card .card-header i {
+    margin-right: 10px;
+    color: #8d6e63;
+}
+
+.filter-card .card-body {
+    padding: 20px;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 1px solid #e8d9c5;
+    padding: 10px 15px;
+    color: #5d4037;
+    background-color: #f9f6f2;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #d9c7ab;
+    box-shadow: 0 0 0 0.25rem rgba(217, 199, 171, 0.25);
+}
+
+.form-label {
+    color: #8d6e63;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+/* Action Buttons */
+.btn-outline-primary {
+    color: #8d6e63;
+    border-color: #d7ccc8;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-outline-primary:hover {
+    background-color: #d7ccc8;
+    border-color: #d7ccc8;
+    color: #5d4037;
+}
+
+.btn-primary {
+    background-color: #8d6e63;
+    border-color: #8d6e63;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #6d4c41;
+    border-color: #6d4c41;
+}
+
+.action-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #8d6e63;
+    background-color: rgba(217, 199, 171, 0.2);
+    border: none;
+    margin-right: 5px;
+    transition: all 0.3s;
+}
+
+.action-btn:hover {
+    background-color: rgba(217, 199, 171, 0.4);
+    color: #5d4037;
+}
+
+/* Truck Icon Button */
+.btn-outline-secondary {
+    color: #6d4c41;
+    border-color: #d7ccc8;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #d7ccc8;
+    border-color: #d7ccc8;
+    color: #5d4037;
+}
+
+.btn-outline-secondary .fa-truck {
+    color: #6d4c41;
+}
+
+/* Dropdown Menu Styles */
+.dropdown-menu {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-width: 200px;
+}
+
+.dropdown-header {
+    color: #5d4037;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+}
+
+.dropdown-item {
+    padding: 8px 15px;
+    color: #5d4037;
+    border-radius: 6px;
+    margin-bottom: 2px;
+    transition: all 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(217, 199, 171, 0.2);
+    color: #3e2723;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .status-cards {
+        flex-wrap: wrap;
+    }
+
+    .status-card {
+        flex: 1 0 calc(33.333% - 15px);
+    }
+
+    .filter-card .row > div {
+        margin-bottom: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .status-card {
+        flex: 1 0 calc(50% - 15px);
+    }
+
+    .table-responsive {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+    }
+
+    .customer-avatar {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .status-card {
+        flex: 1 0 calc(100% - 15px);
+    }
+}

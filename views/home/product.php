@@ -67,7 +67,7 @@ include_once '../../includes/header.php';
                             </button>
                         </form>
                         <?php else: ?>
-                        <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
+                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
                             <i class="far fa-heart"></i>
                         </a>
                         <?php endif; ?>
@@ -141,7 +141,7 @@ include_once '../../includes/header.php';
                                 Out of Stock
                             </button>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">
+                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">
                                 Add to Cart
                             </a>
                             <?php endif; ?>
@@ -186,7 +186,7 @@ include_once '../../includes/header.php';
                                 </button>
                             </form>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
+                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
                                 <i class="far fa-heart"></i>
                             </a>
                             <?php endif; ?>
@@ -220,7 +220,7 @@ include_once '../../includes/header.php';
                                 <?php if ($relatedProduct['quantity'] <= 0): ?>
                                 <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                                 <?php else: ?>
-                                <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                                <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
                                 <?php endif; ?>
                             <?php endif; ?>
 
@@ -265,3 +265,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Include footer
 include_once '../../includes/footer.php';
 ?>
+

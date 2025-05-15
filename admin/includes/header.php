@@ -1,7 +1,7 @@
 <?php
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get current date
@@ -36,6 +36,9 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 <body>
     <!-- Logout confirmation script is loaded in footer.php -->
     <div class="admin-container">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay"></div>
+
         <!-- Sidebar -->
         <div class="sidebar">
             <div class="sidebar-header">
@@ -74,6 +77,11 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
         <div class="main-content">
             <!-- Top Header -->
             <div class="top-header">
+                <!-- Sidebar Toggle Button for Mobile -->
+                <button id="sidebarToggle" class="sidebar-toggle d-md-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+
                 <div class="date">
                     <i class="far fa-calendar-alt"></i> <?php echo $currentDate; ?>
                 </div>
@@ -100,3 +108,4 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 <div class="page-header">
                     <h1><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) : 'Dashboard'; ?></h1>
                 </div>
+

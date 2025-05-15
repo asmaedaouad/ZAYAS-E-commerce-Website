@@ -6,7 +6,7 @@ require_once './controllers/AdminProductController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Set page title
@@ -179,3 +179,4 @@ endif;
 // Include footer
 include_once './includes/footer.php';
 ?>
+

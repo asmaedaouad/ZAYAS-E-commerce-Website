@@ -120,7 +120,7 @@ include_once '../../includes/header.php';
                                         </button>
                                     </form>
                                     <?php else: ?>
-                                    <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
+                                    <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
                                         <i class="far fa-heart"></i>
                                     </a>
                                     <?php endif; ?>
@@ -154,7 +154,7 @@ include_once '../../includes/header.php';
                                         <?php if ($product['quantity'] <= 0): ?>
                                         <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                                         <?php else: ?>
-                                        <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
                                         <?php endif; ?>
                                     <?php endif; ?>
                                 </div>
@@ -175,3 +175,4 @@ include_once '../../includes/footer.php';
 
 <!-- Shop Page JavaScript -->
 <script src="<?php echo url('/public/js/shop.js'); ?>"></script>
+

@@ -7,7 +7,7 @@ require_once '../../models/DeliveryModel.php';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Check if order ID is provided
@@ -60,3 +60,4 @@ $_SESSION['order_success'] = 'Order has been cancelled successfully';
 // Redirect back to orders page
 redirect('/views/user/account.php#orders');
 ?>
+

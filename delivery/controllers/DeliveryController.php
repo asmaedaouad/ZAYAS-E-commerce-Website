@@ -11,7 +11,7 @@ class DeliveryController {
     // Get assigned deliveries
     public function getAssignedDeliveries() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         return $this->deliveryModel->getAssignedDeliveries($_SESSION['user_id']);
@@ -20,7 +20,7 @@ class DeliveryController {
     // Get delivery by ID
     public function getDeliveryById($id) {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         $delivery = $this->deliveryModel->getDeliveryById($id, $_SESSION['user_id']);
@@ -43,7 +43,7 @@ class DeliveryController {
     // Update delivery status
     public function updateDeliveryStatus() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -89,7 +89,7 @@ class DeliveryController {
     // Get delivery status counts
     public function getDeliveryStatusCounts() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         return $this->deliveryModel->getDeliveryStatusCounts($_SESSION['user_id']);
@@ -162,3 +162,4 @@ class DeliveryController {
     }
 }
 ?>
+

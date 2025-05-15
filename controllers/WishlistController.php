@@ -13,7 +13,7 @@ class WishlistController {
     // Add product to wishlist
     public function addToWishlist() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -36,7 +36,7 @@ class WishlistController {
     // Remove product from wishlist
     public function removeFromWishlist() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -84,7 +84,7 @@ class WishlistController {
     // Display wishlist page
     public function viewWishlist() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         return [
@@ -93,3 +93,4 @@ class WishlistController {
     }
 }
 ?>
+

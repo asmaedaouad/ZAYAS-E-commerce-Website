@@ -6,7 +6,7 @@ require_once '../../controllers/UserController.php';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get database connection
@@ -29,3 +29,4 @@ if (isset($result['success'])) {
 // Redirect back to account page
 redirect('/views/user/account.php');
 ?>
+

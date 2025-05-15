@@ -20,7 +20,7 @@ class UserController {
     // Display user account
     public function account() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         // Get user data
@@ -46,7 +46,7 @@ class UserController {
     // Update user profile
     public function updateProfile() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -116,7 +116,7 @@ class UserController {
     // Update password
     public function updatePassword() {
         if (!isLoggedIn()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -179,3 +179,4 @@ class UserController {
     }
 }
 ?>
+

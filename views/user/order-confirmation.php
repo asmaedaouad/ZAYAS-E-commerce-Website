@@ -10,7 +10,7 @@ $customCss = 'order-confirmation.css';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get order ID
@@ -124,3 +124,4 @@ include_once '../../includes/header.php';
 // Include footer
 include_once '../../includes/footer.php';
 ?>
+

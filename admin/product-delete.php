@@ -6,7 +6,7 @@ require_once './controllers/AdminProductController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Check if product ID is provided
@@ -56,3 +56,4 @@ if ($productController->deleteProduct($productId)) {
 // Redirect back to products page
 redirect('/admin/products.php');
 ?>
+

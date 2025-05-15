@@ -6,7 +6,7 @@ require_once '../../controllers/UserController.php';
 
 // Redirect if not logged in or not admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get database connection
@@ -68,3 +68,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Redirect back to profile page
 redirect('/admin/profile.php');
 ?>
+

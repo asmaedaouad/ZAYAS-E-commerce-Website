@@ -6,7 +6,7 @@ require_once '../controllers/UserController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Set page title
@@ -166,3 +166,4 @@ include_once './includes/header.php';
 // Include footer
 include_once './includes/footer.php';
 ?>
+

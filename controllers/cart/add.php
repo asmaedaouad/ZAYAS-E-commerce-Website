@@ -6,7 +6,7 @@ require_once '../../controllers/CartController.php';
 
 // Check if user is logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Check if user is admin or delivery personnel
@@ -39,3 +39,4 @@ $referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url('/in
 header('Location: ' . $referer);
 exit;
 ?>
+

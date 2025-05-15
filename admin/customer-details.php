@@ -6,7 +6,7 @@ require_once './controllers/AdminCustomerController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Check if ID is provided
@@ -167,3 +167,4 @@ include_once './includes/header.php';
 // Include footer
 include_once './includes/footer.php';
 ?>
+

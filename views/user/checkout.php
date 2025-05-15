@@ -10,7 +10,7 @@ $customCss = 'checkout.css';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get database connection
@@ -222,3 +222,4 @@ document.addEventListener('DOMContentLoaded', function() {
 // Include footer
 include_once '../../includes/footer.php';
 ?>
+

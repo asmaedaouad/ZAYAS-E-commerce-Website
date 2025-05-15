@@ -6,7 +6,7 @@ require_once '../../controllers/WishlistController.php';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Get database connection
@@ -22,3 +22,4 @@ $wishlistController->removeFromWishlist();
 // Redirect back to account page wishlist tab (this should not be reached as removeFromWishlist redirects)
 redirect('/views/user/account.php#wishlist');
 ?>
+

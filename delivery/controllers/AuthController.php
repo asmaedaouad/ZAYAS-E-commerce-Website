@@ -11,7 +11,7 @@ class AuthController {
     // Get user profile
     public function getProfile() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         return $this->userModel->getUserById($_SESSION['user_id']);
@@ -20,7 +20,7 @@ class AuthController {
     // Update user profile
     public function updateProfile() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -85,7 +85,7 @@ class AuthController {
     // Update password
     public function updatePassword() {
         if (!isLoggedIn() || !isDelivery()) {
-            redirect('/views/auth/unified_login.php');
+            redirect('/views/auth/login.php');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -143,3 +143,4 @@ class AuthController {
     }
 }
 ?>
+

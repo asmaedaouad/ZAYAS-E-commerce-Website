@@ -7,7 +7,7 @@ require_once './AdminOrderController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
-    redirect('/views/auth/unified_login.php');
+    redirect('/views/auth/login.php');
 }
 
 // Check if form was submitted
@@ -55,3 +55,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     redirect('/admin/orders.php');
 }
 ?>
+

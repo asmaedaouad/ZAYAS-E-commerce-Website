@@ -245,7 +245,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                                 <span class="icon-tooltip">Go to Admin Dashboard</span>
                             </a>
                             <?php else: ?>
-                            <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/unified_login.php'); ?>"
+                            <a href="<?php echo $isLoggedIn ? url('/views/user/account.php') : url('/views/auth/login.php'); ?>"
                                 id="account-icon-desktop" aria-label="Account" <?php echo $isLoggedIn ? 'data-bs-toggle="dropdown"' : ''; ?> class="icon-link">
                                 <i class="far fa-user"></i>
                                 <?php if ($isLoggedIn): ?>
@@ -270,7 +270,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                         </div>
 
                         <?php if (!$isAdmin && !$isDelivery): ?>
-                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/unified_login.php'); ?>" id="cart-icon-desktop" aria-label="Shopping cart" class="icon-link">
+                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/login.php'); ?>" id="cart-icon-desktop" aria-label="Shopping cart" class="icon-link">
                             <i class="fas fa-shopping-bag"></i>
                             <span class="cart-badge"><?php echo $cartCount; ?></span>
                             <span class="icon-tooltip">Cart</span>
