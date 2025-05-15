@@ -1,0 +1,407 @@
+/* Main Styles for Delivery Interface */
+
+:root {
+    --primary-color: #333333;
+    --secondary-color: #f8f9fa;
+    --light-color: #ffffff;
+    --dark-color: #212529;
+
+    /* Status Colors */
+    --pending-color: #4285F4;
+    --assigned-color: #FBBC05;
+    --in-transit-color: #673AB7;
+    --delivered-color: #34A853;
+    --returned-color: #EA4335;
+
+    /* UI Colors */
+    --success-color: #34A853;
+    --info-color: #4285F4;
+    --warning-color: #FBBC05;
+    --danger-color: #EA4335;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar */
+.bg-brown {
+    background-color: var(--primary-color);
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
+}
+
+/* Page Title */
+.page-title {
+    color: var(--primary-color);
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
+    background-color: #fff;
+}
+
+.card-header {
+    background-color: #fff;
+    color: var(--dark-color);
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+    padding: 15px 20px;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+/* Status Cards */
+.status-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.status-card {
+    flex: 1;
+    min-width: 150px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+}
+
+.status-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.status-card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.status-card-body {
+    padding: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.status-card .status-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.status-card.pending .status-icon {
+    background-color: var(--pending-color);
+}
+
+.status-card.assigned .status-icon {
+    background-color: var(--assigned-color);
+}
+
+.status-card.in-transit .status-icon {
+    background-color: var(--in-transit-color);
+}
+
+.status-card.delivered .status-icon {
+    background-color: var(--delivered-color);
+}
+
+.status-card.returned .status-icon {
+    background-color: var(--returned-color);
+}
+
+.status-card h3 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 10px 0;
+    color: var(--dark-color);
+}
+
+.status-card p {
+    margin-bottom: 0;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Buttons */
+.btn-brown {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-brown:hover {
+    background-color: #444;
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-brown {
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-outline-brown:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tables */
+.table {
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    color: var(--dark-color);
+    font-weight: 600;
+    border-bottom: 1px solid #e9ecef;
+    padding: 12px 16px;
+}
+
+.table td {
+    vertical-align: middle;
+    padding: 12px 16px;
+    border-top: 1px solid #e9ecef;
+}
+
+.table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Status Badges */
+.badge {
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.badge.bg-secondary {
+    background-color: var(--pending-color) !important;
+}
+
+.badge.bg-info {
+    background-color: var(--assigned-color) !important;
+    color: #212529;
+}
+
+.badge.bg-primary {
+    background-color: var(--in-transit-color) !important;
+}
+
+.badge.bg-success {
+    background-color: var(--delivered-color) !important;
+}
+
+.badge.bg-warning {
+    background-color: var(--returned-color) !important;
+    color: #fff;
+}
+
+/* Forms */
+.form-control, .form-select {
+    border: 1px solid #e9ecef;
+    border-radius: 4px;
+    padding: 10px 12px;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.25rem rgba(51, 51, 51, 0.15);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: var(--dark-color);
+}
+
+.form-text {
+    margin-top: 8px;
+    font-size: 0.875rem;
+}
+
+/* Login Page */
+.login-container {
+    max-width: 400px;
+    margin: 80px auto;
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-logo i {
+    font-size: 48px;
+    color: var(--primary-color);
+}
+
+.login-logo h2 {
+    margin-top: 15px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.login-card {
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.login-card .card-header {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.login-card .card-body {
+    padding: 30px;
+}
+
+.login-card .card-footer {
+    background-color: #fff;
+    border-top: 1px solid #e9ecef;
+    padding: 15px;
+}
+
+/* Delivery Details */
+.delivery-details-card {
+    margin-bottom: 30px;
+}
+
+.delivery-info {
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.delivery-info:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.delivery-info h5 {
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.delivery-info p {
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.delivery-info p strong {
+    font-weight: 600;
+    color: #333;
+}
+
+.order-items-table img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+footer p {
+    margin-bottom: 0;
+}
+
+/* Status Icons */
+.status-icon-pending {
+    color: var(--pending-color);
+}
+
+.status-icon-assigned {
+    color: var(--assigned-color);
+}
+
+.status-icon-in-transit {
+    color: var(--in-transit-color);
+}
+
+.status-icon-delivered {
+    color: var(--delivered-color);
+}
+
+.status-icon-returned {
+    color: var(--returned-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .status-cards {
+        gap: 10px;
+    }
+
+    .status-card {
+        min-width: calc(50% - 10px);
+    }
+
+    .status-card-body {
+        padding: 15px;
+    }
+
+    .status-card h3 {
+        font-size: 22px;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+    }
+}

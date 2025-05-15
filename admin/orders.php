@@ -3,6 +3,7 @@
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminOrderController.php';
+require_once './controllers/AdminDeliveryController.php';
 
 // Check if user is logged in and is admin
 if (!isLoggedIn() || !isAdmin()) {
@@ -17,84 +18,40 @@ $customCss = 'orders.css';
 $database = new Database();
 $db = $database->getConnection();
 
-// Create order controller
+// Create controllers
 $orderController = new AdminOrderController($db);
+$deliveryController = new AdminDeliveryController($db);
 
-// Process filters
-$filters = [];
-
-if (isset($_GET['status']) && !empty($_GET['status'])) {
-    $filters['status'] = $_GET['status'];
-}
-
-if (isset($_GET['date_from']) && !empty($_GET['date_from'])) {
-    $filters['date_from'] = $_GET['date_from'];
-}
-
-if (isset($_GET['date_to']) && !empty($_GET['date_to'])) {
-    $filters['date_to'] = $_GET['date_to'];
-}
-
-if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $filters['search'] = $_GET['search'];
-}
-
-// Get orders with filters
-$orders = $orderController->getOrders($filters);
+// Get all orders without filters
+$orders = $orderController->getOrders();
 
 // Get order status counts
 $statusCounts = $orderController->getOrderStatusCounts();
+
+// Get delivery personnel for dropdown
+$deliveryPersonnel = $deliveryController->getDeliveryPersonnel();
 
 // Include header
 include_once './includes/header.php';
 ?>
 
 <!-- Orders Content -->
-<div class="row mb-4">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <i class="fas fa-filter me-2"></i> Filter Orders
-            </div>
-            <div class="card-body">
-                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET" class="row g-3">
-                    <div class="col-md-3">
-                        <label for="status" class="form-label">Order Status</label>
-                        <select class="form-select" id="status" name="status">
-                            <option value="">All Statuses</option>
-                            <option value="pending" <?php echo (isset($filters['status']) && $filters['status'] === 'pending') ? 'selected' : ''; ?>>Pending</option>
-                            <option value="assigned" <?php echo (isset($filters['status']) && $filters['status'] === 'assigned') ? 'selected' : ''; ?>>Assigned</option>
-                            <option value="in_transit" <?php echo (isset($filters['status']) && $filters['status'] === 'in_transit') ? 'selected' : ''; ?>>In Transit</option>
-                            <option value="delivered" <?php echo (isset($filters['status']) && $filters['status'] === 'delivered') ? 'selected' : ''; ?>>Delivered</option>
-                            <option value="cancelled" <?php echo (isset($filters['status']) && $filters['status'] === 'cancelled') ? 'selected' : ''; ?>>Cancelled</option>
-                            <option value="returned" <?php echo (isset($filters['status']) && $filters['status'] === 'returned') ? 'selected' : ''; ?>>Returned</option>
-                        </select>
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <label for="date_from" class="form-label">Date From</label>
-                        <input type="date" class="form-control" id="date_from" name="date_from" value="<?php echo isset($filters['date_from']) ? htmlspecialchars($filters['date_from']) : ''; ?>">
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <label for="date_to" class="form-label">Date To</label>
-                        <input type="date" class="form-control" id="date_to" name="date_to" value="<?php echo isset($filters['date_to']) ? htmlspecialchars($filters['date_to']) : ''; ?>">
-                    </div>
-                    
-                    <div class="col-md-3">
-                        <label for="search" class="form-label">Search Customer</label>
-                        <input type="text" class="form-control" id="search" name="search" placeholder="Name or email..." value="<?php echo isset($filters['search']) ? htmlspecialchars($filters['search']) : ''; ?>">
-                    </div>
-                    
-                    <div class="col-12 text-end">
-                        <button type="submit" class="btn btn-primary">Apply Filters</button>
-                        <a href="<?php echo url('/admin/orders.php'); ?>" class="btn btn-secondary">Reset</a>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+<?php if (isset($_SESSION['success_message'])): ?>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['success_message']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-</div>
+    <?php unset($_SESSION['success_message']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error_message'])): ?>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <?php echo $_SESSION['error_message']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <?php unset($_SESSION['error_message']); ?>
+<?php endif; ?>
 
 <div class="row mb-4">
     <div class="col-md-12">
@@ -107,7 +64,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'pending') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=pending'); ?>">
                     <div class="status-card-body">
@@ -116,7 +73,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'assigned') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=assigned'); ?>">
                     <div class="status-card-body">
@@ -125,7 +82,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'in_transit') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=in_transit'); ?>">
                     <div class="status-card-body">
@@ -134,7 +91,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'delivered') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=delivered'); ?>">
                     <div class="status-card-body">
@@ -143,7 +100,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'cancelled') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=cancelled'); ?>">
                     <div class="status-card-body">
@@ -152,7 +109,7 @@ include_once './includes/header.php';
                     </div>
                 </a>
             </div>
-            
+
             <div class="status-card <?php echo (isset($filters['status']) && $filters['status'] === 'returned') ? 'active' : ''; ?>">
                 <a href="<?php echo url('/admin/orders.php?status=returned'); ?>">
                     <div class="status-card-body">
@@ -202,9 +159,37 @@ include_once './includes/header.php';
                                         </td>
                                         <td><?php echo $orderController->formatDate($order['created_at']); ?></td>
                                         <td>
-                                            <a href="<?php echo url('/admin/order-details.php?id=' . $order['id']); ?>" class="btn btn-sm btn-outline-primary">
-                                                <i class="fas fa-eye"></i> View
-                                            </a>
+                                            <div class="d-flex">
+                                                <a href="<?php echo url('/admin/order-details.php?id=' . $order['id']); ?>" class="btn btn-sm btn-outline-primary me-2">
+                                                    <i class="fas fa-eye"></i> View
+                                                </a>
+
+                                                <?php if ($order['status'] === 'pending'): ?>
+                                                <div class="dropdown">
+                                                    <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="assignDropdown<?php echo $order['id']; ?>" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fas fa-truck"></i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="assignDropdown<?php echo $order['id']; ?>">
+                                                        <li><h6 class="dropdown-header">Assign to Delivery Personnel</h6></li>
+                                                        <?php if (empty($deliveryPersonnel)): ?>
+                                                            <li><span class="dropdown-item text-muted">No delivery personnel available</span></li>
+                                                        <?php else: ?>
+                                                            <?php foreach ($deliveryPersonnel as $personnel): ?>
+                                                                <li>
+                                                                    <form action="<?php echo url('/admin/controllers/assign-delivery.php'); ?>" method="post">
+                                                                        <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                                                        <input type="hidden" name="personnel_id" value="<?php echo $personnel['id']; ?>">
+                                                                        <button type="submit" class="dropdown-item">
+                                                                            <?php echo htmlspecialchars($personnel['first_name'] . ' ' . $personnel['last_name']); ?>
+                                                                        </button>
+                                                                    </form>
+                                                                </li>
+                                                            <?php endforeach; ?>
+                                                        <?php endif; ?>
+                                                    </ul>
+                                                </div>
+                                                <?php endif; ?>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

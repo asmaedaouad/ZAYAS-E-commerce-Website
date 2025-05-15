@@ -45,7 +45,7 @@ $deliveryInfo = $orderController->getDeliveryInfo($orderId);
 $statusUpdateMessage = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
     $newStatus = $_POST['status'];
-    
+
     if ($orderController->updateOrderStatus($orderId, $newStatus)) {
         $statusUpdateMessage = 'Order status updated successfully.';
         // Refresh order details
@@ -75,7 +75,7 @@ include_once './includes/header.php';
                         <?php echo $statusUpdateMessage; ?>
                     </div>
                 <?php endif; ?>
-                
+
                 <div class="row">
                     <div class="col-md-6">
                         <h5>Order Information</h5>
@@ -101,7 +101,7 @@ include_once './includes/header.php';
                                 <td><?php echo $orderController->formatCurrency($order['total_amount']); ?></td>
                             </tr>
                         </table>
-                        
+
                         <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $orderId; ?>" class="mt-3">
                             <div class="row g-3 align-items-center">
                                 <div class="col-auto">
@@ -122,7 +122,7 @@ include_once './includes/header.php';
                             </div>
                         </form>
                     </div>
-                    
+
                     <div class="col-md-6">
                         <h5>Customer Information</h5>
                         <table class="table table-bordered">
@@ -153,7 +153,7 @@ include_once './includes/header.php';
                         </table>
                     </div>
                 </div>
-                
+
                 <?php if ($deliveryInfo): ?>
                 <div class="row mt-4">
                     <div class="col-md-12">
@@ -195,7 +195,7 @@ include_once './includes/header.php';
                     </div>
                 </div>
                 <?php endif; ?>
-                
+
                 <div class="row mt-4">
                     <div class="col-md-12">
                         <h5>Order Items</h5>
@@ -215,7 +215,7 @@ include_once './includes/header.php';
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="<?php echo url('/public/images/products/' . $item['image_path']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="product-thumbnail me-2">
+                                                    <img src="<?php echo url('/public/images/' . $item['image_path']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>" class="product-thumbnail me-2">
                                                     <span><?php echo htmlspecialchars($item['name']); ?></span>
                                                 </div>
                                             </td>

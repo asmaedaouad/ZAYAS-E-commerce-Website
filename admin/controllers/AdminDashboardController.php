@@ -20,10 +20,32 @@ class AdminDashboardController {
         $recentOrders = $this->dashboardModel->getRecentOrders(3);
 
         // Get chart data
-        $monthlySales = $this->dashboardModel->getMonthlySales();
-        $monthlyOrders = $this->dashboardModel->getMonthlyOrders();
         $productTypeDistribution = $this->dashboardModel->getProductTypeDistribution();
         $orderStatusDistribution = $this->dashboardModel->getOrderStatusDistribution();
+
+        // Get monthly data
+        $monthlySales = $this->dashboardModel->getMonthlySales();
+        $monthlyOrders = $this->dashboardModel->getMonthlyOrders();
+        $monthlyCustomers = $this->dashboardModel->getMonthlyCustomers();
+        $monthlyProducts = $this->dashboardModel->getMonthlyProducts();
+
+        // Get daily data
+        $dailySales = $this->dashboardModel->getDailySales();
+        $dailyOrders = $this->dashboardModel->getDailyOrders();
+        $dailyCustomers = $this->dashboardModel->getDailyCustomers();
+        $dailyProducts = $this->dashboardModel->getDailyProducts();
+
+        // Get weekly data
+        $weeklySales = $this->dashboardModel->getWeeklySales();
+        $weeklyOrders = $this->dashboardModel->getWeeklyOrders();
+        $weeklyCustomers = $this->dashboardModel->getWeeklyCustomers();
+        $weeklyProducts = $this->dashboardModel->getWeeklyProducts();
+
+        // Get yearly data
+        $yearlySales = $this->dashboardModel->getYearlySales();
+        $yearlyOrders = $this->dashboardModel->getYearlyOrders();
+        $yearlyCustomers = $this->dashboardModel->getYearlyCustomers();
+        $yearlyProducts = $this->dashboardModel->getYearlyProducts();
 
         // Return all data
         return [
@@ -32,10 +54,32 @@ class AdminDashboardController {
             'total_customers' => $totalCustomers,
             'total_products' => $totalProducts,
             'recent_orders' => $recentOrders,
+            'product_type_distribution' => $productTypeDistribution,
+            'order_status_distribution' => $orderStatusDistribution,
+
+            // Monthly data
             'monthly_sales' => $monthlySales,
             'monthly_orders' => $monthlyOrders,
-            'product_type_distribution' => $productTypeDistribution,
-            'order_status_distribution' => $orderStatusDistribution
+            'monthly_customers' => $monthlyCustomers,
+            'monthly_products' => $monthlyProducts,
+
+            // Daily data
+            'daily_sales' => $dailySales,
+            'daily_orders' => $dailyOrders,
+            'daily_customers' => $dailyCustomers,
+            'daily_products' => $dailyProducts,
+
+            // Weekly data
+            'weekly_sales' => $weeklySales,
+            'weekly_orders' => $weeklyOrders,
+            'weekly_customers' => $weeklyCustomers,
+            'weekly_products' => $weeklyProducts,
+
+            // Yearly data
+            'yearly_sales' => $yearlySales,
+            'yearly_orders' => $yearlyOrders,
+            'yearly_customers' => $yearlyCustomers,
+            'yearly_products' => $yearlyProducts
         ];
     }
 

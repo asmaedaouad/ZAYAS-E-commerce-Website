@@ -16,19 +16,19 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - ' : ''; ?>ZAYAS Admin</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo url('/admin/assets/css/admin.css'); ?>">
-    
+
     <?php if (isset($customCss)): ?>
     <link rel="stylesheet" href="<?php echo url('/admin/assets/css/' . $customCss); ?>">
     <?php endif; ?>
@@ -61,14 +61,14 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                         <i class="fas fa-users"></i> Customers
                     </a>
                 </li>
-                <li class="<?php echo $currentPage === 'delivery' ? 'active' : ''; ?>">
-                    <a href="<?php echo url('/admin/delivery.php'); ?>">
-                        <i class="fas fa-truck"></i> Delivery
+                <li class="<?php echo $currentPage === 'delivery-personnel' ? 'active' : ''; ?>">
+                    <a href="<?php echo url('/admin/delivery-personnel.php'); ?>">
+                        <i class="fas fa-truck"></i> Delivery Personnel
                     </a>
                 </li>
             </ul>
         </div>
-        
+
         <!-- Main Content -->
         <div class="main-content">
             <!-- Top Header -->
@@ -88,7 +88,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                     </ul>
                 </div>
             </div>
-            
+
             <!-- Page Content -->
             <div class="page-content">
                 <div class="page-header">

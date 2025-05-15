@@ -3,51 +3,51 @@ require_once __DIR__ . '/../models/AdminOrderModel.php';
 
 class AdminOrderController {
     private $orderModel;
-    
+
     public function __construct($db) {
         $this->orderModel = new AdminOrderModel($db);
     }
-    
-    // Get orders with optional filtering
-    public function getOrders($filters = []) {
-        return $this->orderModel->getOrders($filters);
+
+    // Get all orders
+    public function getOrders() {
+        return $this->orderModel->getOrders();
     }
-    
+
     // Get order by ID
     public function getOrderById($id) {
         return $this->orderModel->getOrderById($id);
     }
-    
+
     // Get order items
     public function getOrderItems($orderId) {
         return $this->orderModel->getOrderItems($orderId);
     }
-    
+
     // Update order status
     public function updateOrderStatus($id, $status) {
         return $this->orderModel->updateOrderStatus($id, $status);
     }
-    
+
     // Get order status counts
     public function getOrderStatusCounts() {
         return $this->orderModel->getOrderStatusCounts();
     }
-    
+
     // Get delivery information for an order
     public function getDeliveryInfo($orderId) {
         return $this->orderModel->getDeliveryInfo($orderId);
     }
-    
+
     // Format currency
     public function formatCurrency($amount) {
         return '$' . number_format($amount, 2);
     }
-    
+
     // Format date
     public function formatDate($date) {
         return date('M d, Y', strtotime($date));
     }
-    
+
     // Get status badge class
     public function getStatusBadgeClass($status) {
         switch ($status) {
@@ -67,12 +67,12 @@ class AdminOrderController {
                 return 'badge-secondary';
         }
     }
-    
+
     // Format status for display
     public function formatStatus($status) {
         return ucfirst(str_replace('_', ' ', $status));
     }
-    
+
     // Get available status options for current status
     public function getAvailableStatusOptions($currentStatus) {
         $allStatuses = [
@@ -83,7 +83,7 @@ class AdminOrderController {
             'cancelled' => 'Cancelled',
             'returned' => 'Returned'
         ];
-        
+
         // Define valid status transitions
         $validTransitions = [
             'pending' => ['pending', 'assigned', 'cancelled'],
@@ -93,9 +93,9 @@ class AdminOrderController {
             'cancelled' => ['cancelled'],
             'returned' => ['returned']
         ];
-        
+
         $availableOptions = [];
-        
+
         if (isset($validTransitions[$currentStatus])) {
             foreach ($validTransitions[$currentStatus] as $status) {
                 $availableOptions[$status] = $allStatuses[$status];
@@ -104,7 +104,7 @@ class AdminOrderController {
             // Fallback to all statuses if current status is unknown
             $availableOptions = $allStatuses;
         }
-        
+
         return $availableOptions;
     }
 }

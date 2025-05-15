@@ -77,14 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
     function initCustomStatisticsChart() {
         const customChartCtx = document.getElementById('customStatisticsChart').getContext('2d');
 
-        // Default to monthly orders bar chart
+        // Default to daily orders bar chart
         customStatisticsChart = new Chart(customChartCtx, {
             type: 'bar',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                labels: dailyOrdersDates,
                 datasets: [{
                     label: 'Orders',
-                    data: monthlyOrdersData,
+                    data: dailyOrdersData,
                     backgroundColor: colorPalette.backgrounds[0],
                     borderColor: colorPalette.borders[0],
                     borderWidth: 1,
@@ -163,55 +163,129 @@ document.addEventListener('DOMContentLoaded', function() {
 
         switch(dataType) {
             case 'Orders':
-                chartData = monthlyOrdersData;
+                if (timePeriod === 'Daily') {
+                    chartData = dailyOrdersData;
+                } else if (timePeriod === 'Weekly') {
+                    chartData = weeklyOrdersData;
+                } else if (timePeriod === 'Yearly') {
+                    chartData = yearlyOrdersData;
+                } else {
+                    // Default to monthly
+                    chartData = monthlyOrdersData;
+                }
                 break;
             case 'Sales':
-                chartData = monthlySalesData;
+                if (timePeriod === 'Daily') {
+                    chartData = dailySalesData;
+                } else if (timePeriod === 'Weekly') {
+                    chartData = weeklySalesData;
+                } else if (timePeriod === 'Yearly') {
+                    chartData = yearlySalesData;
+                } else {
+                    // Default to monthly
+                    chartData = monthlySalesData;
+                }
                 yAxisFormat = value => '$' + value;
                 break;
             case 'Customers':
-                // This would be actual customer data in a real implementation
-                chartData = [15, 20, 25, 18, 30, 35, 28, 22, 40, 45, 38, 50];
+                if (timePeriod === 'Daily') {
+                    chartData = dailyCustomersData;
+                } else if (timePeriod === 'Weekly') {
+                    chartData = weeklyCustomersData;
+                } else if (timePeriod === 'Yearly') {
+                    chartData = yearlyCustomersData;
+                } else {
+                    // Default to monthly
+                    chartData = monthlyCustomersData;
+                }
                 break;
             case 'Products':
-                // This would be actual product data in a real implementation
-                chartData = [5, 8, 12, 15, 10, 7, 9, 14, 18, 20, 16, 22];
+                if (timePeriod === 'Daily') {
+                    chartData = dailyProductsData;
+                } else if (timePeriod === 'Weekly') {
+                    chartData = weeklyProductsData;
+                } else if (timePeriod === 'Yearly') {
+                    chartData = yearlyProductsData;
+                } else {
+                    // Default to monthly
+                    chartData = monthlyProductsData;
+                }
                 break;
             default:
-                chartData = monthlyOrdersData;
+                if (timePeriod === 'Daily') {
+                    chartData = dailyOrdersData;
+                } else if (timePeriod === 'Weekly') {
+                    chartData = weeklyOrdersData;
+                } else if (timePeriod === 'Yearly') {
+                    chartData = yearlyOrdersData;
+                } else {
+                    // Default to monthly
+                    chartData = monthlyOrdersData;
+                }
         }
 
         // Get labels based on time period
         let labels;
         switch(timePeriod) {
+            case 'Daily':
+                // Use the appropriate dates based on data type
+                switch(dataType) {
+                    case 'Orders':
+                        labels = dailyOrdersDates;
+                        break;
+                    case 'Sales':
+                        labels = dailySalesDates;
+                        break;
+                    case 'Customers':
+                        labels = dailyCustomersDates;
+                        break;
+                    case 'Products':
+                        labels = dailyProductsDates;
+                        break;
+                    default:
+                        labels = dailyOrdersDates;
+                }
+                break;
             case 'Weekly':
-                labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-                // Simulate weekly data by taking a subset
-                chartData = chartData.slice(0, 4);
+                // Use the appropriate week labels based on data type
+                switch(dataType) {
+                    case 'Orders':
+                        labels = weeklyOrdersLabels;
+                        break;
+                    case 'Sales':
+                        labels = weeklySalesLabels;
+                        break;
+                    case 'Customers':
+                        labels = weeklyCustomersLabels;
+                        break;
+                    case 'Products':
+                        labels = weeklyProductsLabels;
+                        break;
+                    default:
+                        labels = weeklyOrdersLabels;
+                }
                 break;
             case 'Monthly':
                 labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
                 break;
-            case 'Quarterly':
-                labels = ['Q1', 'Q2', 'Q3', 'Q4'];
-                // Simulate quarterly data
-                chartData = [
-                    chartData.slice(0, 3).reduce((a, b) => a + b, 0),
-                    chartData.slice(3, 6).reduce((a, b) => a + b, 0),
-                    chartData.slice(6, 9).reduce((a, b) => a + b, 0),
-                    chartData.slice(9, 12).reduce((a, b) => a + b, 0)
-                ];
-                break;
             case 'Yearly':
-                // Simulate yearly data for last 5 years
-                labels = ['2021', '2022', '2023', '2024', '2025'];
-                chartData = [
-                    chartData.reduce((a, b) => a + b, 0) * 0.6,
-                    chartData.reduce((a, b) => a + b, 0) * 0.7,
-                    chartData.reduce((a, b) => a + b, 0) * 0.8,
-                    chartData.reduce((a, b) => a + b, 0) * 0.9,
-                    chartData.reduce((a, b) => a + b, 0)
-                ];
+                // Use the appropriate year labels based on data type
+                switch(dataType) {
+                    case 'Orders':
+                        labels = yearlyOrdersLabels;
+                        break;
+                    case 'Sales':
+                        labels = yearlySalesLabels;
+                        break;
+                    case 'Customers':
+                        labels = yearlyCustomersLabels;
+                        break;
+                    case 'Products':
+                        labels = yearlyProductsLabels;
+                        break;
+                    default:
+                        labels = yearlyOrdersLabels;
+                }
                 break;
             default:
                 labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

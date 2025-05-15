@@ -74,8 +74,10 @@ CREATE TABLE IF NOT EXISTS delivery (
     phone VARCHAR(20) NOT NULL,
     delivery_notes TEXT,
     delivery_date DATE,
+    personnel_id INT,
     delivery_status ENUM('pending', 'assigned', 'in_transit', 'delivered', 'cancelled', 'returned') DEFAULT 'pending',
-    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (personnel_id) REFERENCES users(id) ON DELETE SET NULL
 );
 
 -- 8. Create cart table (depends on users and products)

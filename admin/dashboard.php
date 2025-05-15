@@ -114,9 +114,9 @@ include_once './includes/header.php';
                         <label for="timePeriod">Time Period</label>
                         <div class="custom-select-container">
                             <select id="timePeriod" class="form-select">
-                                <option value="Monthly">Monthly</option>
+                                <option value="Daily">Daily</option>
                                 <option value="Weekly">Weekly</option>
-                                <option value="Quarterly">Quarterly</option>
+                                <option value="Monthly">Monthly</option>
                                 <option value="Yearly">Yearly</option>
                             </select>
                         </div>
@@ -124,7 +124,7 @@ include_once './includes/header.php';
                 </div>
 
                 <div class="statistics-chart-container">
-                    <h5 id="customChartTitle" class="statistics-chart-title">Orders by Monthly Period</h5>
+                    <h5 id="customChartTitle" class="statistics-chart-title">Orders by Daily Period</h5>
                     <div class="chart-container">
                         <canvas id="customStatisticsChart"></canvas>
                     </div>
@@ -222,12 +222,46 @@ include_once './includes/header.php';
 <!-- Chart Data -->
 <script>
     // Chart data
-    const monthlySalesData = <?php echo json_encode(array_values($data['monthly_sales'])); ?>;
-    const monthlyOrdersData = <?php echo json_encode(array_values($data['monthly_orders'])); ?>;
     const productTypes = <?php echo json_encode($data['product_type_distribution']['types']); ?>;
     const productCounts = <?php echo json_encode($data['product_type_distribution']['counts']); ?>;
     const orderStatuses = <?php echo json_encode($data['order_status_distribution']['statuses']); ?>;
     const orderStatusCounts = <?php echo json_encode($data['order_status_distribution']['counts']); ?>;
+
+    // Monthly data
+    const monthlySalesData = <?php echo json_encode(array_values($data['monthly_sales'])); ?>;
+    const monthlyOrdersData = <?php echo json_encode(array_values($data['monthly_orders'])); ?>;
+    const monthlyCustomersData = <?php echo json_encode(array_values($data['monthly_customers'])); ?>;
+    const monthlyProductsData = <?php echo json_encode(array_values($data['monthly_products'])); ?>;
+
+    // Daily data
+    const dailySalesDates = <?php echo json_encode($data['daily_sales']['dates']); ?>;
+    const dailySalesData = <?php echo json_encode($data['daily_sales']['sales']); ?>;
+    const dailyOrdersDates = <?php echo json_encode($data['daily_orders']['dates']); ?>;
+    const dailyOrdersData = <?php echo json_encode($data['daily_orders']['orders']); ?>;
+    const dailyCustomersDates = <?php echo json_encode($data['daily_customers']['dates']); ?>;
+    const dailyCustomersData = <?php echo json_encode($data['daily_customers']['customers']); ?>;
+    const dailyProductsDates = <?php echo json_encode($data['daily_products']['dates']); ?>;
+    const dailyProductsData = <?php echo json_encode($data['daily_products']['products']); ?>;
+
+    // Weekly data
+    const weeklySalesLabels = <?php echo json_encode($data['weekly_sales']['labels']); ?>;
+    const weeklySalesData = <?php echo json_encode($data['weekly_sales']['data']); ?>;
+    const weeklyOrdersLabels = <?php echo json_encode($data['weekly_orders']['labels']); ?>;
+    const weeklyOrdersData = <?php echo json_encode($data['weekly_orders']['data']); ?>;
+    const weeklyCustomersLabels = <?php echo json_encode($data['weekly_customers']['labels']); ?>;
+    const weeklyCustomersData = <?php echo json_encode($data['weekly_customers']['data']); ?>;
+    const weeklyProductsLabels = <?php echo json_encode($data['weekly_products']['labels']); ?>;
+    const weeklyProductsData = <?php echo json_encode($data['weekly_products']['data']); ?>;
+
+    // Yearly data
+    const yearlySalesLabels = <?php echo json_encode($data['yearly_sales']['labels']); ?>;
+    const yearlySalesData = <?php echo json_encode($data['yearly_sales']['data']); ?>;
+    const yearlyOrdersLabels = <?php echo json_encode($data['yearly_orders']['labels']); ?>;
+    const yearlyOrdersData = <?php echo json_encode($data['yearly_orders']['data']); ?>;
+    const yearlyCustomersLabels = <?php echo json_encode($data['yearly_customers']['labels']); ?>;
+    const yearlyCustomersData = <?php echo json_encode($data['yearly_customers']['data']); ?>;
+    const yearlyProductsLabels = <?php echo json_encode($data['yearly_products']['labels']); ?>;
+    const yearlyProductsData = <?php echo json_encode($data['yearly_products']['data']); ?>;
 </script>
 
 <?php

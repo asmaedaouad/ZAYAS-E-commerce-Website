@@ -1,0 +1,135 @@
+/* Product Form Specific Styles */
+
+/* Form Container */
+.product-form {
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+/* Form Elements */
+.form-label {
+    font-weight: 600;
+    color: #5d4037;
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    border-color: #e9e2d0;
+    padding: 0.75rem;
+    border-radius: 6px;
+    transition: all 0.3s;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #b39b4a;
+    box-shadow: 0 0 0 0.25rem rgba(179, 155, 74, 0.25);
+}
+
+.input-group-text {
+    background-color: #f8f5ee;
+    border-color: #e9e2d0;
+    color: #5d4037;
+}
+
+/* Current Image Preview */
+.current-image {
+    border: 1px solid #e9e2d0;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #f8f5ee;
+}
+
+.current-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Check */
+.form-check-input {
+    border-color: #e9e2d0;
+}
+
+.form-check-input:checked {
+    background-color: #b39b4a;
+    border-color: #b39b4a;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #b39b4a;
+    border-color: #b39b4a;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+    background-color: #a38a39;
+    border-color: #a38a39;
+}
+
+.btn-outline-secondary {
+    color: #5d4037;
+    border-color: #e9e2d0;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
+.btn-outline-secondary:hover, .btn-outline-secondary:focus {
+    background-color: #f8f5ee;
+    color: #5d4037;
+    border-color: #d9c7ab;
+}
+
+/* Validation */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 0.25rem;
+}
+
+/* Card */
+.card {
+    border-color: #e9e2d0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #f8f5ee;
+    border-bottom: 1px solid #e9e2d0;
+    padding: 1rem 1.5rem;
+    font-weight: 600;
+    color: #5d4037;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Alerts */
+.alert {
+    border-radius: 6px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.alert-success {
+    background-color: #e8f5e9;
+    border-color: #c8e6c9;
+    color: #2e7d32;
+}
+
+.alert-danger {
+    background-color: #ffebee;
+    border-color: #ffcdd2;
+    color: #c62828;
+}

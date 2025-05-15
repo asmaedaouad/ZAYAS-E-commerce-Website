@@ -31,6 +31,11 @@ function isAdmin() {
     return isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
 }
 
+// Check if user is delivery personnel
+function isDelivery() {
+    return isset($_SESSION['is_delivery']) && $_SESSION['is_delivery'] == 1;
+}
+
 // Sanitize input - enhanced to prevent HTML/code injection
 function sanitize($input) {
     // First trim the input to remove leading/trailing whitespace
