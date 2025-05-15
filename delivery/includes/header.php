@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? $pageTitle . ' - ' : ''; ?>ZAYAS Delivery</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?php echo url('/delivery/public/css/style.css'); ?>">
     <?php if (isset($customCss)): ?>
@@ -18,6 +18,14 @@
     <?php endif; ?>
 </head>
 <body>
+    <!-- Logout Confirmation Script -->
+    <script>
+    function confirmLogout(logoutUrl) {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = logoutUrl;
+        }
+    }
+    </script>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
         <div class="container">
@@ -46,10 +54,7 @@
                             <li><a class="dropdown-item" href="<?php echo url('/delivery/views/profile.php'); ?>">Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
-                                <a class="dropdown-item" href="#" id="logout-link">Logout</a>
-                                <form id="logout-form" action="<?php echo url('/delivery/logout.php'); ?>" method="POST" style="display: none;">
-                                    <!-- No CSRF token needed for this simple implementation -->
-                                </form>
+                                <a class="dropdown-item logout-link" href="javascript:void(0);" onclick="confirmLogout('<?php echo url('/views/auth/logout.php'); ?>')">Logout</a>
                             </li>
                         </ul>
                     </li>

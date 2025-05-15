@@ -53,7 +53,7 @@ include_once '../../includes/header.php';
                     <img src="<?php echo url('/public/images/' . $product['image_path']); ?>" alt="<?php echo htmlspecialchars($product['name']); ?>" class="img-fluid">
                     <!-- Wishlist heart icon at the top -->
                     <div class="wishlist-icon">
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                         <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                             <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
@@ -61,7 +61,7 @@ include_once '../../includes/header.php';
                             </button>
                         </form>
                         <?php else: ?>
-                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                        <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
                             <i class="far fa-heart"></i>
                         </a>
                         <?php endif; ?>
@@ -103,7 +103,7 @@ include_once '../../includes/header.php';
                     </div>
 
                     <div class="product-actions">
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                         <form action="<?php echo url('/controllers/cart/add.php'); ?>" method="post" class="add-to-cart-form">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
 
@@ -135,7 +135,7 @@ include_once '../../includes/header.php';
                                 Out of Stock
                             </button>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">
+                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">
                                 Add to Cart
                             </a>
                             <?php endif; ?>
@@ -172,7 +172,7 @@ include_once '../../includes/header.php';
 
                         <!-- Wishlist heart icon at the top -->
                         <div class="wishlist-icon">
-                            <?php if (isLoggedIn()): ?>
+                            <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                             <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
                                 <input type="hidden" name="product_id" value="<?php echo $relatedProduct['id']; ?>">
                                 <button type="submit" class="btn-wishlist">
@@ -180,7 +180,7 @@ include_once '../../includes/header.php';
                                 </button>
                             </form>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
                                 <i class="far fa-heart"></i>
                             </a>
                             <?php endif; ?>
@@ -201,7 +201,7 @@ include_once '../../includes/header.php';
                         </div>
 
                         <div class="product-actions">
-                            <?php if (isLoggedIn()): ?>
+                            <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                                 <?php if ($relatedProduct['quantity'] <= 0): ?>
                                 <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                                 <?php else: ?>
@@ -214,7 +214,7 @@ include_once '../../includes/header.php';
                                 <?php if ($relatedProduct['quantity'] <= 0): ?>
                                 <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                                 <?php else: ?>
-                                <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                                <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
                                 <?php endif; ?>
                             <?php endif; ?>
 

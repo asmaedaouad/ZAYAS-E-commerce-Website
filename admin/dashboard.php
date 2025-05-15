@@ -106,7 +106,6 @@ include_once './includes/header.php';
                             <select id="chartType" class="form-select">
                                 <option value="Bar Chart">Bar Chart</option>
                                 <option value="Line Chart">Line Chart</option>
-                                <option value="Pie Chart">Pie Chart</option>
                             </select>
                         </div>
                     </div>
@@ -155,9 +154,11 @@ include_once './includes/header.php';
 <div class="row">
     <div class="col-12">
         <div class="card recent-orders-card">
-            <div class="card-header">
-                <i class="fas fa-shopping-cart me-2"></i> Recent Orders
-                <a href="<?php echo url('/admin/orders.php'); ?>" class="view-all-link float-end">
+            <div class="card-header d-flex align-items-center justify-content-between">
+                <div>
+                    <i class="fas fa-shopping-cart me-2"></i> Recent Orders
+                </div>
+                <a href="<?php echo url('/admin/orders.php'); ?>" class="view-all-link">
                     View all <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
@@ -262,6 +263,43 @@ include_once './includes/header.php';
     const yearlyCustomersData = <?php echo json_encode($data['yearly_customers']['data']); ?>;
     const yearlyProductsLabels = <?php echo json_encode($data['yearly_products']['labels']); ?>;
     const yearlyProductsData = <?php echo json_encode($data['yearly_products']['data']); ?>;
+
+    // Orders by status data
+    // Daily
+    const dailyOrdersByStatusDates = <?php echo json_encode($data['daily_orders_by_status']['dates']); ?>;
+    const dailyOrdersPending = <?php echo json_encode($data['daily_orders_by_status']['pending']); ?>;
+    const dailyOrdersAssigned = <?php echo json_encode($data['daily_orders_by_status']['assigned']); ?>;
+    const dailyOrdersInTransit = <?php echo json_encode($data['daily_orders_by_status']['in_transit']); ?>;
+    const dailyOrdersDelivered = <?php echo json_encode($data['daily_orders_by_status']['delivered']); ?>;
+    const dailyOrdersCancelled = <?php echo json_encode($data['daily_orders_by_status']['cancelled']); ?>;
+    const dailyOrdersReturned = <?php echo json_encode($data['daily_orders_by_status']['returned']); ?>;
+
+    // Weekly
+    const weeklyOrdersByStatusLabels = <?php echo json_encode($data['weekly_orders_by_status']['labels']); ?>;
+    const weeklyOrdersPending = <?php echo json_encode($data['weekly_orders_by_status']['pending']); ?>;
+    const weeklyOrdersAssigned = <?php echo json_encode($data['weekly_orders_by_status']['assigned']); ?>;
+    const weeklyOrdersInTransit = <?php echo json_encode($data['weekly_orders_by_status']['in_transit']); ?>;
+    const weeklyOrdersDelivered = <?php echo json_encode($data['weekly_orders_by_status']['delivered']); ?>;
+    const weeklyOrdersCancelled = <?php echo json_encode($data['weekly_orders_by_status']['cancelled']); ?>;
+    const weeklyOrdersReturned = <?php echo json_encode($data['weekly_orders_by_status']['returned']); ?>;
+
+    // Monthly
+    const monthlyOrdersByStatusMonths = <?php echo json_encode($data['monthly_orders_by_status']['months']); ?>;
+    const monthlyOrdersPending = <?php echo json_encode($data['monthly_orders_by_status']['pending']); ?>;
+    const monthlyOrdersAssigned = <?php echo json_encode($data['monthly_orders_by_status']['assigned']); ?>;
+    const monthlyOrdersInTransit = <?php echo json_encode($data['monthly_orders_by_status']['in_transit']); ?>;
+    const monthlyOrdersDelivered = <?php echo json_encode($data['monthly_orders_by_status']['delivered']); ?>;
+    const monthlyOrdersCancelled = <?php echo json_encode($data['monthly_orders_by_status']['cancelled']); ?>;
+    const monthlyOrdersReturned = <?php echo json_encode($data['monthly_orders_by_status']['returned']); ?>;
+
+    // Yearly
+    const yearlyOrdersByStatusLabels = <?php echo json_encode($data['yearly_orders_by_status']['labels']); ?>;
+    const yearlyOrdersPending = <?php echo json_encode($data['yearly_orders_by_status']['pending']); ?>;
+    const yearlyOrdersAssigned = <?php echo json_encode($data['yearly_orders_by_status']['assigned']); ?>;
+    const yearlyOrdersInTransit = <?php echo json_encode($data['yearly_orders_by_status']['in_transit']); ?>;
+    const yearlyOrdersDelivered = <?php echo json_encode($data['yearly_orders_by_status']['delivered']); ?>;
+    const yearlyOrdersCancelled = <?php echo json_encode($data['yearly_orders_by_status']['cancelled']); ?>;
+    const yearlyOrdersReturned = <?php echo json_encode($data['yearly_orders_by_status']['returned']); ?>;
 </script>
 
 <?php

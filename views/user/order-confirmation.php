@@ -10,7 +10,7 @@ $customCss = 'order-confirmation.css';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Get order ID
@@ -44,48 +44,48 @@ include_once '../../includes/header.php';
                 <h1 class="confirmation-title">Thank You for Your Order!</h1>
                 <p class="confirmation-message">Your order has been placed successfully.</p>
             </div>
-            
+
             <div class="order-details">
                 <h2 class="details-title">Order Details</h2>
-                
+
                 <div class="details-info">
                     <div class="info-item">
                         <span class="info-label">Order Number:</span>
                         <span class="info-value">#<?php echo $order['id']; ?></span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Date:</span>
                         <span class="info-value"><?php echo date('M d, Y', strtotime($order['created_at'])); ?></span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Total:</span>
                         <span class="info-value">$<?php echo number_format($order['total_amount'], 2); ?></span>
                     </div>
-                    
+
                     <div class="info-item">
                         <span class="info-label">Payment Method:</span>
                         <span class="info-value">Cash on Delivery</span>
                     </div>
                 </div>
             </div>
-            
+
             <div class="order-items">
                 <h2 class="items-title">Order Items</h2>
-                
+
                 <div class="items-list">
                     <?php foreach ($order['items'] as $item): ?>
                     <div class="item">
                         <div class="item-image">
                             <img src="<?php echo url('/public/images/' . $item['image_path']); ?>" alt="<?php echo htmlspecialchars($item['name']); ?>">
                         </div>
-                        
+
                         <div class="item-details">
                             <h3 class="item-name"><?php echo htmlspecialchars($item['name']); ?></h3>
                             <p class="item-price">$<?php echo number_format($item['price'], 2); ?> x <?php echo $item['quantity']; ?></p>
                         </div>
-                        
+
                         <div class="item-total">
                             $<?php echo number_format($item['price'] * $item['quantity'], 2); ?>
                         </div>
@@ -93,17 +93,17 @@ include_once '../../includes/header.php';
                     <?php endforeach; ?>
                 </div>
             </div>
-            
+
             <div class="shipping-info">
                 <h2 class="shipping-title">Shipping Information</h2>
-                
+
                 <div class="shipping-details">
                     <p class="shipping-address">
                         <?php echo htmlspecialchars($order['delivery']['address']); ?><br>
                         <?php echo htmlspecialchars($order['delivery']['city']); ?>, <?php echo htmlspecialchars($order['delivery']['postal_code']); ?><br>
                         Phone: <?php echo htmlspecialchars($order['delivery']['phone']); ?>
                     </p>
-                    
+
                     <?php if (!empty($order['delivery']['delivery_notes'])): ?>
                     <p class="shipping-notes">
                         <strong>Notes:</strong> <?php echo htmlspecialchars($order['delivery']['delivery_notes']); ?>
@@ -111,7 +111,7 @@ include_once '../../includes/header.php';
                     <?php endif; ?>
                 </div>
             </div>
-            
+
             <div class="confirmation-actions">
                 <a href="<?php echo url('/views/user/account.php#orders'); ?>" class="btn-secondary">View Orders</a>
                 <a href="<?php echo url('/views/home/shop.php'); ?>" class="btn-primary">Continue Shopping</a>

@@ -218,6 +218,11 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                             <?php endif; ?>
                             <span class="icon-tooltip">Wishlist</span>
                         </a>
+                        <?php elseif ($isAdmin): ?>
+                        <a href="<?php echo url('/index.php'); ?>" id="store-icon-desktop" aria-label="Go to Store" class="icon-link">
+                            <i class="fas fa-store"></i>
+                            <span class="icon-tooltip">Go to Store</span>
+                        </a>
                         <?php endif; ?>
 
                         <div class="dropdown">
@@ -245,7 +250,7 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
                         </div>
 
                         <?php if (!$isAdmin && !$isDelivery): ?>
-                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/login.php'); ?>" id="cart-icon-desktop" aria-label="Shopping cart" class="icon-link">
+                        <a href="<?php echo $canAccessUserFeatures ? url('/views/user/account.php#cart') : url('/views/auth/unified_login.php'); ?>" id="cart-icon-desktop" aria-label="Shopping cart" class="icon-link">
                             <i class="fas fa-shopping-bag"></i>
                             <span class="cart-badge"><?php echo $cartCount; ?></span>
                             <span class="icon-tooltip">Cart</span>
@@ -258,3 +263,12 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
     </nav>
 </header>
 
+
+<!-- Logout Confirmation Script -->
+<script>
+function confirmLogout(logoutUrl) {
+    if (confirm('Are you sure you want to log out?')) {
+        window.location.href = logoutUrl;
+    }
+}
+</script>

@@ -10,7 +10,7 @@ $customCss = 'order-details.css';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/login.php');
+    redirect('/views/auth/unified_login.php');
 }
 
 // Get order ID

@@ -6,7 +6,17 @@ require_once '../../controllers/WishlistController.php';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
-    redirect('/views/auth/login.php');
+    redirect('/views/auth/unified_login.php');
+}
+
+// Check if user is admin or delivery personnel
+if (isAdmin() || isDelivery()) {
+    // Redirect to appropriate dashboard
+    if (isAdmin()) {
+        redirect('/admin/dashboard.php');
+    } else {
+        redirect('/delivery/dashboard.php');
+    }
 }
 
 // Get database connection

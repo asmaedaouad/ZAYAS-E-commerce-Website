@@ -47,6 +47,12 @@ class AdminDashboardController {
         $yearlyCustomers = $this->dashboardModel->getYearlyCustomers();
         $yearlyProducts = $this->dashboardModel->getYearlyProducts();
 
+        // Get orders by status data
+        $dailyOrdersByStatus = $this->dashboardModel->getDailyOrdersByStatus();
+        $weeklyOrdersByStatus = $this->dashboardModel->getWeeklyOrdersByStatus();
+        $monthlyOrdersByStatus = $this->dashboardModel->getMonthlyOrdersByStatus();
+        $yearlyOrdersByStatus = $this->dashboardModel->getYearlyOrdersByStatus();
+
         // Return all data
         return [
             'total_sales' => $totalSales,
@@ -79,7 +85,13 @@ class AdminDashboardController {
             'yearly_sales' => $yearlySales,
             'yearly_orders' => $yearlyOrders,
             'yearly_customers' => $yearlyCustomers,
-            'yearly_products' => $yearlyProducts
+            'yearly_products' => $yearlyProducts,
+
+            // Orders by status data
+            'daily_orders_by_status' => $dailyOrdersByStatus,
+            'weekly_orders_by_status' => $weeklyOrdersByStatus,
+            'monthly_orders_by_status' => $monthlyOrdersByStatus,
+            'yearly_orders_by_status' => $yearlyOrdersByStatus
         ];
     }
 

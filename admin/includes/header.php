@@ -34,6 +34,14 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <?php endif; ?>
 </head>
 <body>
+    <!-- Logout Confirmation Script -->
+    <script>
+    function confirmLogout(logoutUrl) {
+        if (confirm('Are you sure you want to log out?')) {
+            window.location.href = logoutUrl;
+        }
+    }
+    </script>
     <div class="admin-container">
         <!-- Sidebar -->
         <div class="sidebar">
@@ -75,6 +83,11 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             <div class="top-header">
                 <div class="date">
                     <i class="far fa-calendar-alt"></i> <?php echo $currentDate; ?>
+                </div>
+                <div class="store-link">
+                    <a href="<?php echo url('/index.php'); ?>" class="btn btn-sm btn-outline-secondary">
+                        <i class="fas fa-store"></i> Go to Store
+                    </a>
                 </div>
                 <div class="admin-profile dropdown">
                     <a class="dropdown-toggle" href="#" role="button" id="adminDropdown" data-bs-toggle="dropdown" aria-expanded="false">

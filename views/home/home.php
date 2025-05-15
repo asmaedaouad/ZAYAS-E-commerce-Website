@@ -174,7 +174,7 @@ if (!defined('BASE_DIR')) {
                         <span class="badge bg-success product-badge">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                         <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                             <button type="submit" class="btn-wishlist">
@@ -182,7 +182,7 @@ if (!defined('BASE_DIR')) {
                             </button>
                         </form>
                         <?php else: ?>
-                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                        <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
                             <i class="far fa-heart"></i>
                         </a>
                         <?php endif; ?>
@@ -196,7 +196,7 @@ if (!defined('BASE_DIR')) {
                             <?php endif; ?>
                             <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
                         </div>
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                             <?php if ($product['quantity'] <= 0): ?>
                             <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                             <?php else: ?>
@@ -209,7 +209,7 @@ if (!defined('BASE_DIR')) {
                             <?php if ($product['quantity'] <= 0): ?>
                             <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>
@@ -238,7 +238,7 @@ if (!defined('BASE_DIR')) {
                         <span class="badge bg-success product-badge">New</span>
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                         <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
                             <button type="submit" class="btn-wishlist">
@@ -246,7 +246,7 @@ if (!defined('BASE_DIR')) {
                             </button>
                         </form>
                         <?php else: ?>
-                        <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-wishlist">
+                        <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-wishlist">
                             <i class="far fa-heart"></i>
                         </a>
                         <?php endif; ?>
@@ -260,7 +260,7 @@ if (!defined('BASE_DIR')) {
                             <?php endif; ?>
                             <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
                         </div>
-                        <?php if (isLoggedIn()): ?>
+                        <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                             <?php if ($product['quantity'] <= 0): ?>
                             <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                             <?php else: ?>
@@ -273,7 +273,7 @@ if (!defined('BASE_DIR')) {
                             <?php if ($product['quantity'] <= 0): ?>
                             <button type="button" class="btn-add-to-cart disabled" disabled>Out of Stock</button>
                             <?php else: ?>
-                            <a href="<?php echo url('/views/auth/login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
+                            <a href="<?php echo url('/views/auth/unified_login.php'); ?>" class="btn-add-to-cart">Add to Cart</a>
                             <?php endif; ?>
                         <?php endif; ?>
                     </div>

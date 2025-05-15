@@ -125,8 +125,8 @@ class AuthController {
             // If no errors, register user
             if (empty($errors)) {
                 if ($this->userModel->register($firstName, $lastName, $email, $password)) {
-                    // Redirect to login page
-                    redirect('/views/auth/login.php?registered=1');
+                    // Redirect to unified login page
+                    redirect('/views/auth/unified_login.php?registered=1');
                 } else {
                     $errors[] = 'Registration failed';
                 }

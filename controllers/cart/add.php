@@ -4,8 +4,20 @@ require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/CartController.php';
 
-// Allow non-logged in users to add to cart (will be stored in session)
-// No redirect needed here
+// Check if user is logged in
+if (!isLoggedIn()) {
+    redirect('/views/auth/unified_login.php');
+}
+
+// Check if user is admin or delivery personnel
+if (isAdmin() || isDelivery()) {
+    // Redirect to appropriate dashboard
+    if (isAdmin()) {
+        redirect('/admin/dashboard.php');
+    } else {
+        redirect('/delivery/dashboard.php');
+    }
+}
 
 // Get database connection
 $database = new Database();
