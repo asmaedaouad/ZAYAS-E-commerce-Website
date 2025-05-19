@@ -5,6 +5,7 @@ if (!defined('BASE_DIR')) {
     require_once '../../config/config.php';
     require_once '../../config/Database.php';
     require_once '../../controllers/HomeController.php';
+    require_once '../../controllers/WishlistController.php';
 
     // Check if user is delivery personnel and redirect to logout
     if (isLoggedIn() && isDelivery()) {
@@ -15,6 +16,7 @@ if (!defined('BASE_DIR')) {
     // When included from index.php
     require_once BASE_DIR . '/config/Database.php';
     require_once BASE_DIR . '/controllers/HomeController.php';
+    require_once BASE_DIR . '/controllers/WishlistController.php';
 }
 
 // Set page title
@@ -27,6 +29,7 @@ $db = $database->getConnection();
 
 // Create home controller
 $homeController = new HomeController($db);
+$wishlistController = new WishlistController($db);
 
 // Get home page data
 $data = $homeController->index();
@@ -181,10 +184,11 @@ if (!defined('BASE_DIR')) {
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
                         <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
-                        <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
+                        <?php $isInWishlist = $wishlistController->isInWishlist($product['id']); ?>
+                        <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                            <button type="submit" class="btn-wishlist">
-                                <i class="far fa-heart"></i>
+                            <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
+                                <i class="<?php echo $isInWishlist ? 'fas' : 'far'; ?> fa-heart"></i>
                             </button>
                         </form>
                         <?php else: ?>
@@ -245,10 +249,11 @@ if (!defined('BASE_DIR')) {
                         <?php endif; ?>
                         <!-- Wishlist heart icon at the top -->
                         <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
-                        <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
+                        <?php $isInWishlist = $wishlistController->isInWishlist($product['id']); ?>
+                        <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post">
                             <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                            <button type="submit" class="btn-wishlist">
-                                <i class="far fa-heart"></i>
+                            <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
+                                <i class="<?php echo $isInWishlist ? 'fas' : 'far'; ?> fa-heart"></i>
                             </button>
                         </form>
                         <?php else: ?>

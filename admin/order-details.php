@@ -142,6 +142,19 @@ include_once './includes/header.php';
                                     </span>
                                 </td>
                             </tr>
+                            <tr>
+                                <th>Delivery Personnel</th>
+                                <td>
+                                    <?php if (!empty($deliveryInfo['personnel_id'])): ?>
+                                        <?php echo htmlspecialchars($deliveryInfo['personnel_first_name'] . ' ' . $deliveryInfo['personnel_last_name']); ?>
+                                        <?php if (!empty($deliveryInfo['personnel_phone'])): ?>
+                                            <br><small class="text-muted">Phone: <?php echo htmlspecialchars($deliveryInfo['personnel_phone']); ?></small>
+                                        <?php endif; ?>
+                                    <?php else: ?>
+                                        <span class="text-muted">Not assigned yet</span>
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
                             <?php if (!empty($deliveryInfo['delivery_notes'])): ?>
                             <tr>
                                 <th>Notes</th>

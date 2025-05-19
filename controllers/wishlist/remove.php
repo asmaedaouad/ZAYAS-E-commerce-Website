@@ -16,10 +16,17 @@ $db = $database->getConnection();
 // Create wishlist controller
 $wishlistController = new WishlistController($db);
 
+// Save scroll position to session if provided
+if (isset($_POST['scroll_position'])) {
+    $_SESSION['scroll_position'] = (int)$_POST['scroll_position'];
+}
+
 // Handle remove from wishlist
 $wishlistController->removeFromWishlist();
 
-// Redirect back to account page wishlist tab (this should not be reached as removeFromWishlist redirects)
-redirect('/views/user/account.php#wishlist');
+// Redirect back to previous page (this should not be reached as removeFromWishlist redirects)
+$referer = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : url('/index.php');
+header('Location: ' . $referer);
+exit;
 ?>
 

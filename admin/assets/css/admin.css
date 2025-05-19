@@ -376,6 +376,28 @@ body.sidebar-open {
     padding: 10px;
 }
 
+/* Password toggle icon */
+.password-toggle-icon {
+    position: absolute;
+    right: 15px;
+    top: 58%; /* Lower for admin */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #8d6e63;
+    z-index: 10;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle-icon:hover {
+    color: #5d4037;
+}
+
+.mb-3 {
+    position: relative;
+}
+
 /* Button Styles */
 .btn {
     border-radius: 8px;

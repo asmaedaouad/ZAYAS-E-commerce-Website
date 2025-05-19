@@ -107,6 +107,7 @@
 /* Form Styles */
 .form-group {
     margin-bottom: 1.8rem;
+    position: relative;
 }
 
 .form-group label {
@@ -115,6 +116,24 @@
     font-weight: 500;
     color: #6b5c3e;
     font-size: 0.95rem;
+}
+
+/* Password toggle icon */
+.password-toggle-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #b39b4a;
+    z-index: 10;
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle-icon:hover {
+    color: #a38c3d;
 }
 
 .form-group input {
@@ -126,6 +145,7 @@
     transition: all 0.3s ease;
     background-color: #fdfbf6;
     color: #5c4d2e;
+    padding-right: 40px; /* Add padding for the eye icon */
 }
 
 .form-group input:focus {

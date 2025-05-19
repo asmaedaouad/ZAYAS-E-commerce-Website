@@ -9,8 +9,8 @@ class AdminOrderController {
     }
 
     // Get all orders
-    public function getOrders() {
-        return $this->orderModel->getOrders();
+    public function getOrders($filters = []) {
+        return $this->orderModel->getFilteredOrders($filters);
     }
 
     // Get order by ID

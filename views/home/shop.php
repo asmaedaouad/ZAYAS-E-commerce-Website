@@ -3,6 +3,7 @@
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
+require_once '../../controllers/WishlistController.php';
 
 // Check if user is delivery personnel and redirect to logout
 if (isLoggedIn() && isDelivery()) {
@@ -20,6 +21,7 @@ $db = $database->getConnection();
 
 // Create home controller
 $homeController = new HomeController($db);
+$wishlistController = new WishlistController($db);
 
 // Get shop page data
 $data = $homeController->shop();
@@ -113,10 +115,11 @@ include_once '../../includes/header.php';
                                 <!-- Wishlist heart icon at the top -->
                                 <div class="wishlist-icon">
                                     <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
-                                    <form action="<?php echo url('/controllers/wishlist/add.php'); ?>" method="post">
+                                    <?php $isInWishlist = $wishlistController->isInWishlist($product['id']); ?>
+                                    <form action="<?php echo url('/controllers/wishlist/' . ($isInWishlist ? 'remove' : 'add') . '.php'); ?>" method="post">
                                         <input type="hidden" name="product_id" value="<?php echo $product['id']; ?>">
-                                        <button type="submit" class="btn-wishlist">
-                                            <i class="far fa-heart"></i>
+                                        <button type="submit" class="btn-wishlist <?php echo $isInWishlist ? 'active' : ''; ?>">
+                                            <i class="<?php echo $isInWishlist ? 'fas' : 'far'; ?> fa-heart"></i>
                                         </button>
                                     </form>
                                     <?php else: ?>

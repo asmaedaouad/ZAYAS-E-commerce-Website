@@ -33,6 +33,13 @@
     padding: 10px 15px;
     background-color: #fff;
     transition: border-color 0.3s, box-shadow 0.3s;
+    padding-right: 40px; /* Add padding for the eye icon */
+    position: relative; /* Ensure position context for the eye icon */
+}
+
+/* Additional positioning for password fields */
+input[type="password"] {
+    position: relative;
 }
 
 .form-control:focus {
@@ -92,7 +99,7 @@
     .row {
         flex-direction: column;
     }
-    
+
     .col-md-6 {
         width: 100%;
     }

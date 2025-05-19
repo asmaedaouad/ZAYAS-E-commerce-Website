@@ -22,8 +22,16 @@ $db = $database->getConnection();
 $orderController = new AdminOrderController($db);
 $deliveryController = new AdminDeliveryController($db);
 
-// Get all orders without filters
-$orders = $orderController->getOrders();
+// Initialize filters array
+$filters = [];
+
+// Check if status filter is set
+if (isset($_GET['status']) && !empty($_GET['status'])) {
+    $filters['status'] = $_GET['status'];
+}
+
+// Get filtered orders
+$orders = $orderController->getOrders($filters);
 
 // Get order status counts
 $statusCounts = $orderController->getOrderStatusCounts();

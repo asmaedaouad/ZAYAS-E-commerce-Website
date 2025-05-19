@@ -174,6 +174,132 @@ class UserModel {
         return false;
     }
 
+    // Get user by email
+    public function getUserByEmail($email) {
+        // Query to get user
+        $query = "SELECT id, first_name, last_name, email, is_admin, is_delivery
+                  FROM " . $this->table . "
+                  WHERE email = :email";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
+        $stmt->bindParam(':email', $email);
+
+        // Execute query
+        $stmt->execute();
+
+        // Return user data
+        return $stmt->fetch();
+    }
+
+    // Create password reset token
+    public function createPasswordResetToken($userId, $token) {
+        // Delete any existing tokens for this user
+        $this->deleteExistingTokens($userId);
+
+        // Set expiration time (15 minutes from now)
+        $expiresAt = date('Y-m-d H:i:s', strtotime('+15 minutes'));
+
+        // Insert query
+        $query = "INSERT INTO password_reset_tokens
+                  SET user_id = :user_id,
+                      token = :token,
+                      expires_at = :expires_at";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameters
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->bindParam(':token', $token);
+        $stmt->bindParam(':expires_at', $expiresAt);
+
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Delete existing tokens for a user
+    private function deleteExistingTokens($userId) {
+        // Delete query
+        $query = "DELETE FROM password_reset_tokens
+                  WHERE user_id = :user_id";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
+        $stmt->bindParam(':user_id', $userId);
+
+        // Execute query
+        $stmt->execute();
+    }
+
+    // Verify password reset token
+    public function verifyPasswordResetToken($token) {
+        // Query to check if token exists and is valid
+        $query = "SELECT user_id FROM password_reset_tokens
+                  WHERE token = :token
+                  AND expires_at > NOW()
+                  AND used = 0";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
+        $stmt->bindParam(':token', $token);
+
+        // Execute query
+        $stmt->execute();
+
+        // Get result
+        $result = $stmt->fetch();
+
+        // Return user ID if token is valid
+        return $result ? $result['user_id'] : false;
+    }
+
+    // Mark token as used
+    public function markTokenAsUsed($token) {
+        // Update query
+        $query = "UPDATE password_reset_tokens
+                  SET used = 1
+                  WHERE token = :token";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
+        $stmt->bindParam(':token', $token);
+
+        // Execute query
+        return $stmt->execute();
+    }
+
+    // Reset password with token
+    public function resetPasswordWithToken($token, $password) {
+        // Verify token and get user ID
+        $userId = $this->verifyPasswordResetToken($token);
+
+        if (!$userId) {
+            return false;
+        }
+
+        // Update password
+        if ($this->updatePassword($userId, $password)) {
+            // Mark token as used
+            $this->markTokenAsUsed($token);
+            return true;
+        }
+
+        return false;
+    }
+
     // Update delivery personnel profile
     public function updateDeliveryProfile($id, $firstName, $lastName, $phone) {
         // Update query

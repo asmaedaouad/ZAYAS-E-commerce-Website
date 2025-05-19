@@ -95,6 +95,15 @@ class DeliveryController {
         return $this->deliveryModel->getDeliveryStatusCounts($_SESSION['user_id']);
     }
 
+    // Get total count of pending orders in the database
+    public function getTotalPendingOrdersCount() {
+        if (!isLoggedIn() || !isDelivery()) {
+            redirect('/views/auth/login.php');
+        }
+
+        return $this->deliveryModel->getTotalPendingOrdersCount();
+    }
+
     // Format currency
     public function formatCurrency($amount) {
         return '$' . number_format($amount, 2);

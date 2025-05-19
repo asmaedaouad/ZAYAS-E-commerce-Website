@@ -37,32 +37,11 @@ if (isset($data['error'])) {
 $delivery = $data['delivery'];
 $orderItems = $data['order_items'];
 
-// Process status update
-$updateResult = [];
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $updateResult = $deliveryController->updateDeliveryStatus();
-}
+// No status update processing needed
 
 // Include header
 include_once '../includes/header.php';
 ?>
-
-<!-- Status Update Messages -->
-<?php if (isset($updateResult['success'])): ?>
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <?php echo $updateResult['success']; ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php elseif (isset($updateResult['errors'])): ?>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <ul class="mb-0">
-            <?php foreach ($updateResult['errors'] as $error): ?>
-                <li><?php echo $error; ?></li>
-            <?php endforeach; ?>
-        </ul>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-<?php endif; ?>
 
 <!-- Back Button -->
 <div class="row mb-4">
@@ -76,7 +55,7 @@ include_once '../includes/header.php';
 <!-- Delivery Details -->
 <div class="row">
     <div class="col-md-6">
-        <div class="card delivery-details-card">
+        <div class="card delivery-details-card h-100">
             <div class="card-header d-flex align-items-center">
                 <div class="status-icon me-3" style="background-color: var(--<?php echo $delivery['delivery_status']; ?>-color); width: 36px; height: 36px;">
                     <?php if ($delivery['delivery_status'] === 'pending'): ?>
@@ -149,88 +128,14 @@ include_once '../includes/header.php';
     </div>
 
     <div class="col-md-6">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header d-flex align-items-center">
-                <?php if ($delivery['delivery_status'] === 'assigned'): ?>
-                    <div class="status-icon me-3" style="background-color: var(--in-transit-color); width: 36px; height: 36px;">
-                        <i class="fas fa-truck"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-0">Accept Delivery</h5>
-                        <small class="text-muted">Change status to start delivery</small>
-                    </div>
-                <?php else: ?>
-                    <div class="status-icon me-3" style="background-color: var(--primary-color); width: 36px; height: 36px;">
-                        <i class="fas fa-exchange-alt"></i>
-                    </div>
-                    <div>
-                        <h5 class="mb-0">Update Status</h5>
-                        <small class="text-muted">Change delivery status</small>
-                    </div>
-                <?php endif; ?>
-            </div>
-            <div class="card-body">
-                <form action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $deliveryId; ?>" method="POST">
-                    <input type="hidden" name="delivery_id" value="<?php echo $deliveryId; ?>">
-
-                    <div class="mb-4">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select form-select-lg" id="status" name="status" required>
-                            <?php
-                            $availableOptions = $deliveryController->getAvailableStatusOptions($delivery['delivery_status']);
-                            foreach ($availableOptions as $value => $label):
-                            ?>
-                                <option value="<?php echo $value; ?>" <?php echo $delivery['delivery_status'] === $value ? 'selected' : ''; ?>>
-                                    <?php echo $label; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-
-                        <?php if ($delivery['delivery_status'] === 'assigned'): ?>
-                            <div class="alert alert-info mt-3">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Changing status to "In Transit" means you are accepting this delivery and will start the delivery process.
-                            </div>
-                        <?php elseif ($delivery['delivery_status'] === 'in_transit'): ?>
-                            <div class="alert alert-info mt-3">
-                                <i class="fas fa-info-circle me-2"></i>
-                                Change to "Delivered" once you have successfully delivered the order to the customer.
-                            </div>
-                        <?php elseif ($delivery['delivery_status'] === 'delivered'): ?>
-                            <div class="alert alert-warning mt-3">
-                                <i class="fas fa-exclamation-triangle me-2"></i>
-                                Change to "Returned" only if the customer returns the order after delivery.
-                            </div>
-                        <?php endif; ?>
-                    </div>
-
-                    <div class="d-grid">
-                        <?php if ($delivery['delivery_status'] === 'assigned'): ?>
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fas fa-check-circle me-2"></i> Accept & Start Delivery
-                            </button>
-                        <?php elseif ($delivery['delivery_status'] === 'in_transit'): ?>
-                            <button type="submit" class="btn btn-success btn-lg">
-                                <i class="fas fa-check-circle me-2"></i> Mark as Delivered
-                            </button>
-                        <?php else: ?>
-                            <button type="submit" class="btn btn-brown btn-lg">
-                                <i class="fas fa-sync-alt me-2"></i> Update Status
-                            </button>
-                        <?php endif; ?>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-        <div class="card mt-4">
-            <div class="card-header d-flex align-items-center">
-                <div class="status-icon me-3" style="background-color: var(--primary-color); width: 36px; height: 36px;">
+                <div class="status-icon me-3" style="background-color: var(--<?php echo $delivery['delivery_status']; ?>-color); width: 36px; height: 36px;">
                     <i class="fas fa-shopping-bag"></i>
                 </div>
                 <div>
                     <h5 class="mb-0">Order Summary</h5>
-                    <span class="badge bg-success"><?php echo $deliveryController->formatCurrency($delivery['total_amount']); ?></span>
+                    <span class="badge <?php echo $deliveryController->getStatusBadgeClass($delivery['delivery_status']); ?>"><?php echo $deliveryController->formatCurrency($delivery['total_amount']); ?></span>
                 </div>
             </div>
             <div class="card-body">
@@ -256,12 +161,14 @@ include_once '../includes/header.php';
                                     <td class="text-end"><?php echo $deliveryController->formatCurrency($item['price']); ?></td>
                                 </tr>
                             <?php endforeach; ?>
-                            <tr class="table-light">
-                                <td colspan="2" class="text-end"><strong>Total:</strong></td>
-                                <td class="text-end"><strong><?php echo $deliveryController->formatCurrency($delivery['total_amount']); ?></strong></td>
-                            </tr>
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div class="card-footer total-summary">
+                <div class="d-flex justify-content-between">
+                    <h5 class="mb-0">Total:</h5>
+                    <h5 class="mb-0"><?php echo $deliveryController->formatCurrency($delivery['total_amount']); ?></h5>
                 </div>
             </div>
         </div>

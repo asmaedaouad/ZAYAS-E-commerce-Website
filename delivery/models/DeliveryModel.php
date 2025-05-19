@@ -10,7 +10,7 @@ class DeliveryModel {
     // Get deliveries assigned to a specific delivery person
     public function getAssignedDeliveries($personnelId) {
         // Query
-        $query = "SELECT d.*, o.id as order_id, o.total_amount, o.created_at as order_date, 
+        $query = "SELECT d.*, o.id as order_id, o.total_amount, o.created_at as order_date,
                          u.first_name, u.last_name, u.email, u.phone as user_phone,
                          u.address as user_address, u.city as user_city, u.postal_code as user_postal_code
                   FROM " . $this->table . " d
@@ -34,7 +34,7 @@ class DeliveryModel {
     // Get delivery by ID
     public function getDeliveryById($id, $personnelId) {
         // Query
-        $query = "SELECT d.*, o.id as order_id, o.total_amount, o.status as order_status, o.created_at as order_date, 
+        $query = "SELECT d.*, o.id as order_id, o.total_amount, o.status as order_status, o.created_at as order_date,
                          u.first_name, u.last_name, u.email, u.phone as user_phone,
                          u.address as user_address, u.city as user_city, u.postal_code as user_postal_code
                   FROM " . $this->table . " d
@@ -78,7 +78,7 @@ class DeliveryModel {
     // Update delivery status
     public function updateDeliveryStatus($id, $personnelId, $status) {
         // First check if this delivery belongs to this personnel
-        $query = "SELECT id FROM " . $this->table . " 
+        $query = "SELECT id FROM " . $this->table . "
                   WHERE id = :id AND personnel_id = :personnel_id";
 
         $stmt = $this->conn->prepare($query);
@@ -91,8 +91,8 @@ class DeliveryModel {
         }
 
         // Update query
-        $query = "UPDATE " . $this->table . " 
-                  SET delivery_status = :status 
+        $query = "UPDATE " . $this->table . "
+                  SET delivery_status = :status
                   WHERE id = :id";
 
         // Prepare statement
@@ -133,21 +133,21 @@ class DeliveryModel {
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':status', $orderStatus);
         $stmt->bindParam(':id', $orderId);
-        
+
         return $stmt->execute();
     }
 
     // Get delivery status counts for a delivery person
     public function getDeliveryStatusCounts($personnelId) {
         // Query
-        $query = "SELECT delivery_status, COUNT(*) as count 
-                  FROM " . $this->table . " 
+        $query = "SELECT delivery_status, COUNT(*) as count
+                  FROM " . $this->table . "
                   WHERE personnel_id = :personnel_id
                   GROUP BY delivery_status";
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
-        
+
         // Bind parameter
         $stmt->bindParam(':personnel_id', $personnelId);
 
@@ -160,6 +160,23 @@ class DeliveryModel {
         }
 
         return $counts;
+    }
+
+    // Get total count of pending orders in the database
+    public function getTotalPendingOrdersCount() {
+        // Query to get all pending orders
+        $query = "SELECT COUNT(*) as count
+                  FROM " . $this->table . "
+                  WHERE delivery_status = 'pending'";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Execute query
+        $stmt->execute();
+
+        $result = $stmt->fetch();
+        return $result ? (int)$result['count'] : 0;
     }
 }
 ?>

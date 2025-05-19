@@ -43,6 +43,7 @@
   border-radius: 4px;
   box-sizing: border-box;
   font-size: 1rem;
+  padding-right: 40px; /* Add padding for the eye icon */
 }
 
 .form-group input:focus {
@@ -108,4 +109,26 @@
   font-size: 0.875rem;
   margin-top: 0.5rem;
   display: none;
+}
+
+/* Password toggle icon */
+.password-toggle-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #856b00d3;
+  z-index: 10;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.password-toggle-icon:hover {
+  color: #6a5600b8;
+}
+
+.form-group {
+  position: relative;
 }

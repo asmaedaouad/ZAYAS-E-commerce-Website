@@ -65,14 +65,14 @@ include_once './includes/header.php';
     </div>
 </div>
 
-<div class="row">
+<div class="row equal-height-row">
     <!-- Personnel Information -->
     <div class="col-md-4 mb-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header">
                 <i class="fas fa-info-circle me-2"></i> Personnel Information
             </div>
-            <div class="card-body">
+            <div class="card-body d-flex flex-column">
                 <div class="mb-3">
                     <h5 class="mb-0"><?php echo htmlspecialchars($personnel['first_name'] . ' ' . $personnel['last_name']); ?></h5>
                     <p class="text-muted mb-0">ID: <?php echo $personnel['id']; ?></p>
@@ -110,12 +110,12 @@ include_once './includes/header.php';
 
     <!-- Delivery Statistics -->
     <div class="col-md-8 mb-4">
-        <div class="card">
+        <div class="card h-100">
             <div class="card-header">
                 <i class="fas fa-chart-bar me-2"></i> Delivery Statistics
             </div>
-            <div class="card-body">
-                <div class="row">
+            <div class="card-body d-flex flex-column">
+                <div class="row stats-container">
                     <div class="col-md-3 mb-3">
                         <div class="stat-card p-3 text-center">
                             <h3 class="mb-1"><?php echo $deliveryStats['total'] ?? 0; ?></h3>
@@ -123,30 +123,36 @@ include_once './includes/header.php';
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <div class="stat-card p-3 text-center">
-                            <h3 class="mb-1"><?php echo $deliveryStats['in_transit'] ?? 0; ?></h3>
+                        <div class="stat-card p-3 text-center" style="border-left: 4px solid #4285F4;">
+                            <h3 class="mb-1" style="color: #4285F4;"><?php echo $deliveryStats['in_transit'] ?? 0; ?></h3>
                             <p class="mb-0">In Transit</p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <div class="stat-card p-3 text-center">
-                            <h3 class="mb-1"><?php echo $deliveryStats['delivered'] ?? 0; ?></h3>
+                        <div class="stat-card p-3 text-center" style="border-left: 4px solid #34A853;">
+                            <h3 class="mb-1" style="color: #34A853;"><?php echo $deliveryStats['delivered'] ?? 0; ?></h3>
                             <p class="mb-0">Delivered</p>
                         </div>
                     </div>
                     <div class="col-md-3 mb-3">
-                        <div class="stat-card p-3 text-center">
-                            <h3 class="mb-1"><?php echo $deliveryStats['returned'] ?? 0; ?></h3>
+                        <div class="stat-card p-3 text-center" style="border-left: 4px solid #EA4335;">
+                            <h3 class="mb-1" style="color: #EA4335;"><?php echo $deliveryStats['returned'] ?? 0; ?></h3>
                             <p class="mb-0">Returned</p>
                         </div>
                     </div>
                 </div>
 
                 <?php if (isset($deliveryStats['completion_rate'])): ?>
-                <div class="mt-3">
-                    <h6>Delivery Completion Rate</h6>
-                    <div class="progress">
-                        <div class="progress-bar bg-success" role="progressbar" style="width: <?php echo $deliveryStats['completion_rate']; ?>%;" aria-valuenow="<?php echo $deliveryStats['completion_rate']; ?>" aria-valuemin="0" aria-valuemax="100"><?php echo $deliveryStats['completion_rate']; ?>%</div>
+                <div class="mt-auto pt-4">
+                    <h6 class="mb-2">Delivery Completion Rate</h6>
+                    <div class="progress" style="height: 20px; border-radius: 10px; background-color: #f0e6d9;">
+                        <div class="progress-bar bg-success" role="progressbar"
+                             style="width: <?php echo $deliveryStats['completion_rate']; ?>%; border-radius: 10px; font-weight: 600;"
+                             aria-valuenow="<?php echo $deliveryStats['completion_rate']; ?>"
+                             aria-valuemin="0"
+                             aria-valuemax="100">
+                            <?php echo $deliveryStats['completion_rate']; ?>%
+                        </div>
                     </div>
                 </div>
                 <?php endif; ?>

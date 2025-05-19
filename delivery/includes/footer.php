@@ -6,6 +6,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
+                    <div class="mb-2">
+                        <i class="fas fa-truck me-2"></i>
+                        <span class="fw-bold">ZAYAS</span> Delivery
+                    </div>
                     <p>&copy; <?php echo date('Y'); ?> ZAYAS Delivery. All rights reserved.</p>
                 </div>
             </div>
@@ -22,5 +26,8 @@
 
     <!-- Logout confirmation script -->
     <script src="<?php echo url('/public/js/logout-confirmation.js'); ?>"></script>
+
+    <!-- Password toggle script -->
+    <script src="<?php echo url('/public/js/password-toggle.js'); ?>"></script>
 </body>
 </html>

@@ -202,7 +202,7 @@ include_once './includes/header.php';
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="<?php echo url('/admin/orders.php?id=' . $order['id']); ?>" class="action-btn" title="View Order">
+                                            <a href="<?php echo url('/admin/order-details.php?id=' . $order['id']); ?>" class="action-btn" title="View Order">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                             <a href="<?php echo url('/admin/orders.php?id=' . $order['id'] . '&edit=1'); ?>" class="action-btn" title="Edit Order">

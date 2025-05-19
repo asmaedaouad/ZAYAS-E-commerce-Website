@@ -108,3 +108,17 @@ INSERT INTO products (name, type, description, price, old_price, image_path, is_
 ('Premium Silk Hijab', 'hijab', 'Luxurious silk hijab with premium finish', 49.99, 59.99, '8.png', 0, 25),
 ('Breathable Cotton Hijab', 'hijab', 'Comfortable cotton hijab for everyday wear', 29.99, NULL, '9.png', 1, 30),
 ('Elegant Chiffon Hijab', 'hijab', 'Lightweight chiffon hijab with elegant drape', 39.99, NULL, '10.png', 0, 15);
+
+-- Create password_reset_tokens table
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    token VARCHAR(10) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at DATETIME NOT NULL,
+    used BOOLEAN DEFAULT 0,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Add index for faster token lookups
+CREATE INDEX idx_password_reset_token ON password_reset_tokens(token);

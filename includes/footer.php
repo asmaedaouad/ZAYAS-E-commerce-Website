@@ -58,6 +58,7 @@
 <!-- Custom JS -->
 <script src="<?php echo url('/public/js/header.js'); ?>"></script>
 <script src="<?php echo url('/public/js/logout-confirmation.js'); ?>"></script>
+<script src="<?php echo url('/public/js/password-toggle.js'); ?>"></script>
 <?php if (isset($pageTitle) && $pageTitle === 'Home'): ?>
 <!-- Home page specific JS -->
 <script src="<?php echo url('/public/js/home.js'); ?>"></script>
@@ -77,7 +78,8 @@ document.addEventListener('DOMContentLoaded', function() {
     <?php endif; ?>
 
     // Add event listeners to all wishlist and cart forms
-    const wishlistForms = document.querySelectorAll('form[action*="wishlist/add.php"]');
+    const wishlistAddForms = document.querySelectorAll('form[action*="wishlist/add.php"]');
+    const wishlistRemoveForms = document.querySelectorAll('form[action*="wishlist/remove.php"]');
     const cartForms = document.querySelectorAll('form[action*="cart/add.php"]');
 
     // Function to save scroll position
@@ -90,8 +92,13 @@ document.addEventListener('DOMContentLoaded', function() {
         this.appendChild(input);
     }
 
-    // Add event listener to wishlist forms
-    wishlistForms.forEach(form => {
+    // Add event listener to wishlist add forms
+    wishlistAddForms.forEach(form => {
+        form.addEventListener('submit', saveScrollPosition);
+    });
+
+    // Add event listener to wishlist remove forms
+    wishlistRemoveForms.forEach(form => {
         form.addEventListener('submit', saveScrollPosition);
     });
 

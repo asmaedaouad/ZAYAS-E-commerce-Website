@@ -74,7 +74,7 @@ include_once '../../includes/header.php';
             <button type="submit" class="btn-primary">Login</button>
 
             <div class="form-links">
-                <a href="#">Forgot Password?</a>
+                <a href="<?php echo url('/views/auth/forgot_password.php'); ?>">Forgot Password?</a>
             </div>
 
             <div class="form-links">

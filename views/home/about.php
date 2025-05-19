@@ -133,7 +133,7 @@ include_once '../../includes/header.php';
         <p class="section-subtitle">The people behind ZAYAS</p>
 
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-6 col-md-6 mb-4">
                 <div class="team-member animate-on-scroll">
                     <div class="member-info">
                         <h3 class="member-name">Asmae Daouad</h3>
@@ -145,25 +145,13 @@ include_once '../../includes/header.php';
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-6 col-md-6 mb-4">
                 <div class="team-member animate-on-scroll">
                     <div class="member-info">
                         <h3 class="member-name">Zaynab Ait Addi</h3>
                         <p class="member-role">Head of Design</p>
                         <p class="member-bio">
                             Zaynab's innovative designs and attention to detail have helped shape the distinctive ZAYAS aesthetic that our customers love.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-                <div class="team-member animate-on-scroll">
-                    <div class="member-info">
-                        <h3 class="member-name">Pr Mohamed Cherradi</h3>
-                        <p class="member-role">Operations Manager</p>
-                        <p class="member-bio">
-                            Pr Mohamed ensures that everything runs smoothly behind the scenes, from production to delivery, so that our customers receive the best possible experience.
                         </p>
                     </div>
                 </div>

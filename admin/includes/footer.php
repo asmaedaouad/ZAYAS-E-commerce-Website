@@ -8,6 +8,7 @@
     <!-- Custom JS -->
     <script src="<?php echo url('/public/js/logout-confirmation.js'); ?>"></script>
     <script src="<?php echo url('/admin/assets/js/admin.js'); ?>"></script>
+    <script src="<?php echo url('/public/js/password-toggle.js'); ?>"></script>
 
     <?php if (isset($customJs)): ?>
     <script src="<?php echo url('/admin/assets/js/' . $customJs); ?>"></script>
