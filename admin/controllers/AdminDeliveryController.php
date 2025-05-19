@@ -50,7 +50,7 @@ class AdminDeliveryController {
 
     // Format currency
     public function formatCurrency($amount) {
-        return '$' . number_format($amount, 2);
+        return number_format($amount, 2) . 'DH';
     }
 
     // Format date

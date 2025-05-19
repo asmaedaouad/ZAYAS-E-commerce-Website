@@ -245,7 +245,7 @@ include_once '../../includes/header.php';
                                         <tr>
                                             <td>#<?php echo $order['id']; ?></td>
                                             <td><?php echo date('M d, Y', strtotime($order['created_at'])); ?></td>
-                                            <td>$<?php echo number_format($order['total_amount'], 2); ?></td>
+                                            <td><?php echo number_format($order['total_amount'], 2); ?>DH</td>
                                             <td>
                                                 <span class="order-status <?php echo strtolower($order['delivery']['delivery_status']); ?>">
                                                     <?php echo ucfirst(str_replace('_', ' ', $order['delivery']['delivery_status'])); ?>
@@ -338,7 +338,7 @@ include_once '../../includes/header.php';
                                                         </div>
                                                     </td>
                                                     <td class="product-price">
-                                                        $<?php echo number_format($item['product']['price'], 2); ?>
+                                                        <?php echo number_format($item['product']['price'], 2); ?>DH
                                                     </td>
                                                     <td class="product-quantity">
                                                         <input type="hidden" name="product_ids[]" value="<?php echo $item['product']['id']; ?>">
@@ -349,7 +349,7 @@ include_once '../../includes/header.php';
                                                         </div>
                                                     </td>
                                                     <td class="product-total">
-                                                        $<?php echo number_format($item['total'], 2); ?>
+                                                        <?php echo number_format($item['total'], 2); ?>DH
                                                     </td>
                                                     <td class="product-remove">
                                                         <?php
@@ -373,7 +373,7 @@ include_once '../../includes/header.php';
 
                                     <div class="summary-item">
                                         <span class="summary-label">Subtotal</span>
-                                        <span class="summary-value">$<?php echo number_format($cart['total_price'], 2); ?></span>
+                                        <span class="summary-value"><?php echo number_format($cart['total_price'], 2); ?>DH</span>
                                     </div>
 
                                     <div class="summary-item">
@@ -383,7 +383,7 @@ include_once '../../includes/header.php';
 
                                     <div class="summary-total">
                                         <span class="summary-label">Total</span>
-                                        <span class="summary-value">$<?php echo number_format($cart['total_price'], 2); ?></span>
+                                        <span class="summary-value"><?php echo number_format($cart['total_price'], 2); ?>DH</span>
                                     </div>
 
                                     <div class="summary-actions">
@@ -422,7 +422,7 @@ include_once '../../includes/header.php';
                                                 <?php echo htmlspecialchars($item['name']); ?>
                                             </a>
                                         </h3>
-                                        <p class="product-price">$<?php echo number_format($item['price'], 2); ?></p>
+                                        <p class="product-price"><?php echo number_format($item['price'], 2); ?>DH</p>
                                     </div>
 
                                     <div class="product-actions">

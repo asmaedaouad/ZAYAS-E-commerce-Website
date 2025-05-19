@@ -202,9 +202,9 @@ if (!defined('BASE_DIR')) {
                         <p class="product-type"><?php echo ucfirst(htmlspecialchars($product['type'])); ?></p>
                         <div class="product-price">
                             <?php if (isset($product['old_price']) && $product['old_price'] > 0): ?>
-                            <span class="old-price">$<?php echo number_format($product['old_price'], 2); ?></span>
+                            <span class="old-price"><?php echo number_format($product['old_price'], 2); ?>DH</span>
                             <?php endif; ?>
-                            <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
+                            <span class="price"><?php echo number_format($product['price'], 2); ?>DH</span>
                         </div>
                         <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                             <?php if ($product['quantity'] <= 0): ?>
@@ -267,9 +267,9 @@ if (!defined('BASE_DIR')) {
                         <p class="product-type"><?php echo ucfirst(htmlspecialchars($product['type'])); ?></p>
                         <div class="product-price">
                             <?php if (isset($product['old_price']) && $product['old_price'] > 0): ?>
-                            <span class="old-price">$<?php echo number_format($product['old_price'], 2); ?></span>
+                            <span class="old-price"><?php echo number_format($product['old_price'], 2); ?>DH</span>
                             <?php endif; ?>
-                            <span class="price">$<?php echo number_format($product['price'], 2); ?></span>
+                            <span class="price"><?php echo number_format($product['price'], 2); ?>DH</span>
                         </div>
                         <?php if (isLoggedIn() && !isAdmin() && !isDelivery()): ?>
                             <?php if ($product['quantity'] <= 0): ?>

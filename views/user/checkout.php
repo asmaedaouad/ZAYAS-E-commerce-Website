@@ -135,14 +135,14 @@ include_once '../../includes/header.php';
                                     <span class="item-name"><?php echo htmlspecialchars($item['product']['name']); ?></span>
                                     <span class="item-quantity">x<?php echo $item['quantity']; ?></span>
                                 </div>
-                                <span class="item-price">$<?php echo number_format($item['total'], 2); ?></span>
+                                <span class="item-price"><?php echo number_format($item['total'], 2); ?>DH</span>
                             </div>
                             <?php endforeach; ?>
                         </div>
 
                         <div class="summary-subtotal">
                             <span class="subtotal-label">Subtotal</span>
-                            <span class="subtotal-value">$<?php echo number_format($cart['total_price'], 2); ?></span>
+                            <span class="subtotal-value"><?php echo number_format($cart['total_price'], 2); ?>DH</span>
                         </div>
 
                         <div class="summary-shipping">
@@ -152,7 +152,7 @@ include_once '../../includes/header.php';
 
                         <div class="summary-total">
                             <span class="total-label">Total</span>
-                            <span class="total-value">$<?php echo number_format($cart['total_price'], 2); ?></span>
+                            <span class="total-value"><?php echo number_format($cart['total_price'], 2); ?>DH</span>
                         </div>
                     </div>
                 </div>

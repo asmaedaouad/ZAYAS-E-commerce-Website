@@ -138,9 +138,9 @@ include_once '../../includes/header.php';
 
                                 <div class="product-price">
                                     <?php if (isset($product['old_price']) && $product['old_price'] > 0): ?>
-                                    <span class="old-price">$<?php echo number_format($product['old_price'], 2); ?></span>
+                                    <span class="old-price"><?php echo number_format($product['old_price'], 2); ?>DH</span>
                                     <?php endif; ?>
-                                    <span class="current-price">$<?php echo number_format($product['price'], 2); ?></span>
+                                    <span class="current-price"><?php echo number_format($product['price'], 2); ?>DH</span>
                                 </div>
 
                                 <div class="product-actions">

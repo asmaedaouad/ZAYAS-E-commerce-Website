@@ -4,6 +4,7 @@ require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../models/OrderModel.php';
 require_once '../../models/DeliveryModel.php';
+require_once '../../models/ProductModel.php';
 
 // Redirect if not logged in
 if (!isLoggedIn()) {
@@ -46,6 +47,21 @@ if (strtolower($delivery['delivery_status']) !== 'delivered') {
     // Set error message
     $_SESSION['order_error'] = 'Only delivered orders can be returned';
     redirect('/views/user/account.php#orders');
+}
+
+// Create product model
+$productModel = new ProductModel($db);
+
+// Get order items
+$orderItems = $orderModel->getOrderItems($orderId);
+
+// Update product quantities (increase them back)
+foreach ($orderItems as $item) {
+    $productId = $item['product_id'];
+    $quantity = $item['quantity'];
+
+    // Increase product quantity (add back the returned items)
+    $productModel->updateProductQuantity($productId, $quantity);
 }
 
 // Update order status to returned

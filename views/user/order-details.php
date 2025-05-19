@@ -58,11 +58,11 @@ include_once '../../includes/header.php';
 
                                 <div class="item-details">
                                     <h3 class="item-name"><?php echo htmlspecialchars($item['name']); ?></h3>
-                                    <p class="item-price">$<?php echo number_format($item['price'], 2); ?> x <?php echo $item['quantity']; ?></p>
+                                    <p class="item-price"><?php echo number_format($item['price'], 2); ?>DH x <?php echo $item['quantity']; ?></p>
                                 </div>
 
                                 <div class="item-total">
-                                    $<?php echo number_format($item['price'] * $item['quantity'], 2); ?>
+                                    <?php echo number_format($item['price'] * $item['quantity'], 2); ?>DH
                                 </div>
                             </div>
                             <?php endforeach; ?>
@@ -94,7 +94,7 @@ include_once '../../includes/header.php';
 
                         <div class="summary-item">
                             <span class="summary-label">Subtotal</span>
-                            <span class="summary-value">$<?php echo number_format($order['total_amount'], 2); ?></span>
+                            <span class="summary-value"><?php echo number_format($order['total_amount'], 2); ?>DH</span>
                         </div>
 
                         <div class="summary-item">
@@ -104,7 +104,7 @@ include_once '../../includes/header.php';
 
                         <div class="summary-total">
                             <span class="summary-label">Total</span>
-                            <span class="summary-value">$<?php echo number_format($order['total_amount'], 2); ?></span>
+                            <span class="summary-value"><?php echo number_format($order['total_amount'], 2); ?>DH</span>
                         </div>
 
                         <div class="delivery-status">

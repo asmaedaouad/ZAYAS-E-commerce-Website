@@ -107,6 +107,25 @@ class AdminDeliveryModel {
 
     // Update delivery status
     public function updateDeliveryStatus($id, $status) {
+        // Get current delivery status
+        $query = "SELECT d.*, o.status as order_status
+                  FROM " . $this->table . " d
+                  JOIN orders o ON d.order_id = o.id
+                  WHERE d.id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        $delivery = $stmt->fetch();
+        if (!$delivery) {
+            return false;
+        }
+
+        // Get the current status before updating
+        $currentStatus = $delivery['delivery_status'];
+        $orderId = $delivery['order_id'];
+
         // Update query
         $query = "UPDATE " . $this->table . "
                   SET delivery_status = :status
@@ -121,6 +140,15 @@ class AdminDeliveryModel {
 
         // Execute query
         if ($stmt->execute()) {
+            // Update product quantities based on status change
+            if ($status === 'delivered' && $currentStatus !== 'delivered') {
+                // When order is delivered, decrease product quantities
+                $this->updateProductQuantities($orderId, -1); // Negative multiplier to decrease
+            } else if ($status === 'returned' && $currentStatus === 'delivered') {
+                // When order is returned after being delivered, increase product quantities
+                $this->updateProductQuantities($orderId, 1); // Positive multiplier to increase
+            }
+
             return true;
         }
 
@@ -478,6 +506,52 @@ class AdminDeliveryModel {
         }
 
         return $stats;
+    }
+
+    // Get order items
+    public function getOrderItems($orderId) {
+        // Query
+        $query = "SELECT oi.*, p.name, p.image_path
+                  FROM order_items oi
+                  JOIN products p ON oi.product_id = p.id
+                  WHERE oi.order_id = :order_id";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
+        $stmt->bindParam(':order_id', $orderId);
+
+        // Execute query
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
+    // Update product quantities for an order
+    private function updateProductQuantities($orderId, $multiplier) {
+        // Include ProductModel
+        require_once __DIR__ . '/../../models/ProductModel.php';
+
+        // Create ProductModel instance
+        $productModel = new ProductModel($this->conn);
+
+        // Get order items
+        $orderItems = $this->getOrderItems($orderId);
+
+        // Update quantity for each product
+        foreach ($orderItems as $item) {
+            $productId = $item['product_id'];
+            $quantity = $item['quantity'];
+
+            // Calculate quantity change (positive for increase, negative for decrease)
+            $quantityChange = $quantity * $multiplier;
+
+            // Update product quantity
+            $productModel->updateProductQuantity($productId, $quantityChange);
+        }
+
+        return true;
     }
 }
 ?>
