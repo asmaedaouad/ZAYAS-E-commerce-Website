@@ -135,14 +135,6 @@ include_once './includes/header.php';
                                 <td><?php echo htmlspecialchars($deliveryInfo['phone']); ?></td>
                             </tr>
                             <tr>
-                                <th>Status</th>
-                                <td>
-                                    <span class="badge <?php echo $orderController->getStatusBadgeClass($deliveryInfo['delivery_status']); ?>">
-                                        <?php echo $orderController->formatStatus($deliveryInfo['delivery_status']); ?>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
                                 <th>Delivery Personnel</th>
                                 <td>
                                     <?php if (!empty($deliveryInfo['personnel_id'])): ?>

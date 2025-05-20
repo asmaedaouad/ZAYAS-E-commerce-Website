@@ -135,7 +135,7 @@ if (!defined('BASE_DIR')) {
                 <div class="category-card">
                     <a href="<?php echo url('/views/home/shop.php?type=dress'); ?>">
                         <div class="category-img">
-                            <img src="<?php echo url('/public/images/bluedress.png'); ?>" alt="Dresses" class="img-fluid">
+                            <img src="<?php echo url('/public/images/bluedress1.png'); ?>" alt="Dresses" class="img-fluid">
                         </div>
                         <div class="category-info">
                             <h3>Dresses</h3>

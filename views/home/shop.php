@@ -65,7 +65,7 @@ include_once '../../includes/header.php';
             <!-- Dresses Bubble -->
             <a href="<?php echo url('/views/home/shop.php?type=dress'); ?>" class="category-bubble mx-3 <?php echo $type == 'dress' ? 'active' : ''; ?>">
                 <div class="bubble-img">
-                    <img src="<?php echo url('/public/images/bluedress.png'); ?>" alt="Dresses">
+                    <img src="<?php echo url('/public/images/bluedress1.png'); ?>" alt="Dresses">
                 </div>
                 <p>Dresses</p>
             </a>

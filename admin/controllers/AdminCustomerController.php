@@ -82,5 +82,10 @@ class AdminCustomerController {
     public function formatStatus($status) {
         return ucfirst(str_replace('_', ' ', $status));
     }
+
+    // Delete customer
+    public function deleteCustomer($id) {
+        return $this->customerModel->deleteCustomer($id);
+    }
 }
 ?>

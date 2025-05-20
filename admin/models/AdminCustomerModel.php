@@ -60,11 +60,10 @@ class AdminCustomerModel {
     // Get customer wishlist
     public function getCustomerWishlist($userId) {
         // Query
-        $query = "SELECT w.*, p.name, p.price, p.image_path, p.type
+        $query = "SELECT w.*, p.name, p.price, p.image_path
                   FROM wishlist w
                   JOIN products p ON w.product_id = p.id
-                  WHERE w.user_id = :user_id
-                  ORDER BY w.created_at DESC";
+                  WHERE w.user_id = :user_id";
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
@@ -81,11 +80,10 @@ class AdminCustomerModel {
     // Get customer cart
     public function getCustomerCart($userId) {
         // Query
-        $query = "SELECT c.*, p.name, p.price, p.image_path, p.type
+        $query = "SELECT c.*, p.name, p.price, p.image_path
                   FROM cart c
                   JOIN products p ON c.product_id = p.id
-                  WHERE c.user_id = :user_id
-                  ORDER BY c.updated_at DESC";
+                  WHERE c.user_id = :user_id";
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
@@ -101,39 +99,86 @@ class AdminCustomerModel {
 
     // Update customer
     public function updateCustomer($id, $data) {
-        // Update query
-        $query = "UPDATE " . $this->table . "
-                  SET first_name = :first_name,
-                      last_name = :last_name,
-                      email = :email,
-                      address = :address,
-                      city = :city,
-                      postal_code = :postal_code,
-                      phone = :phone,
-                      is_delivery = :is_delivery
-                  WHERE id = :id";
+        // Build update query based on provided data
+        $updateFields = [];
+        $params = [];
+
+        // Only update fields that are provided
+        if (isset($data['first_name'])) {
+            $updateFields[] = "first_name = :first_name";
+            $params[':first_name'] = $data['first_name'];
+        }
+
+        if (isset($data['last_name'])) {
+            $updateFields[] = "last_name = :last_name";
+            $params[':last_name'] = $data['last_name'];
+        }
+
+        if (isset($data['email'])) {
+            $updateFields[] = "email = :email";
+            $params[':email'] = $data['email'];
+        }
+
+        if (isset($data['phone'])) {
+            $updateFields[] = "phone = :phone";
+            $params[':phone'] = $data['phone'];
+        }
+
+        if (isset($data['address'])) {
+            $updateFields[] = "address = :address";
+            $params[':address'] = $data['address'];
+        }
+
+        if (isset($data['city'])) {
+            $updateFields[] = "city = :city";
+            $params[':city'] = $data['city'];
+        }
+
+        if (isset($data['password']) && !empty($data['password'])) {
+            $updateFields[] = "password = :password";
+            $params[':password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+
+        // If no fields to update, return false
+        if (empty($updateFields)) {
+            return false;
+        }
+
+        // Build the query
+        $query = "UPDATE " . $this->table . " SET " . implode(", ", $updateFields) . " WHERE id = :id";
+        $params[':id'] = $id;
 
         // Prepare statement
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize and bind parameters
-        $firstName = htmlspecialchars(strip_tags($data['first_name']));
-        $lastName = htmlspecialchars(strip_tags($data['last_name']));
-        $email = htmlspecialchars(strip_tags($data['email']));
-        $address = htmlspecialchars(strip_tags($data['address'] ?? ''));
-        $city = htmlspecialchars(strip_tags($data['city'] ?? ''));
-        $postalCode = htmlspecialchars(strip_tags($data['postal_code'] ?? ''));
-        $phone = htmlspecialchars(strip_tags($data['phone'] ?? ''));
-        $isDelivery = isset($data['is_delivery']) ? (int)$data['is_delivery'] : 0;
+        // Bind parameters
+        foreach ($params as $param => $value) {
+            $stmt->bindValue($param, $value);
+        }
 
-        $stmt->bindParam(':first_name', $firstName);
-        $stmt->bindParam(':last_name', $lastName);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':address', $address);
-        $stmt->bindParam(':city', $city);
-        $stmt->bindParam(':postal_code', $postalCode);
-        $stmt->bindParam(':phone', $phone);
-        $stmt->bindParam(':is_delivery', $isDelivery);
+        // Execute query
+        if ($stmt->execute()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    // Delete customer
+    public function deleteCustomer($id) {
+        // First check if customer exists and is a regular customer (not admin, not delivery)
+        $customer = $this->getCustomerById($id);
+        if (!$customer || $customer['is_admin'] == 1 || $customer['is_delivery'] == 1) {
+            return false;
+        }
+
+        // Delete query
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id AND is_admin = 0 AND is_delivery = 0";
+
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind parameter
         $stmt->bindParam(':id', $id);
 
         // Execute query

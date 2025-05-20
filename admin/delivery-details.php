@@ -36,27 +36,7 @@ if (!$delivery) {
     redirect('/admin/delivery-personnel.php');
 }
 
-// Handle status update
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_status'])) {
-    $newStatus = isset($_POST['status']) ? sanitize($_POST['status']) : '';
-
-    if (!empty($newStatus)) {
-        if ($deliveryController->updateDeliveryStatus($deliveryId, $newStatus)) {
-            // Update order status
-            $deliveryController->updateOrderStatus($delivery['order_id'], $newStatus);
-
-            // Refresh delivery data
-            $delivery = $deliveryController->getDeliveryById($deliveryId);
-
-            $_SESSION['success_message'] = 'Delivery status updated successfully';
-        } else {
-            $_SESSION['error_message'] = 'Failed to update delivery status';
-        }
-    }
-}
-
-// Get available status options
-$statusOptions = $deliveryController->getAvailableStatusOptions($delivery['delivery_status']);
+// No status update handling needed
 
 // Get delivery personnel
 $deliveryPersonnel = $deliveryController->getDeliveryPersonnel();
@@ -202,30 +182,6 @@ include_once './includes/header.php';
                         <p class="mb-0"><?php echo !empty($delivery['user_phone']) ? htmlspecialchars($delivery['user_phone']) : 'N/A'; ?></p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Update Status -->
-        <div class="card mt-4">
-            <div class="card-header">
-                <i class="fas fa-edit me-2"></i> Update Status
-            </div>
-            <div class="card-body">
-                <form method="POST" action="<?php echo $_SERVER['PHP_SELF'] . '?id=' . $deliveryId; ?>">
-                    <div class="mb-3">
-                        <label for="status" class="form-label">Status</label>
-                        <select class="form-select" id="status" name="status">
-                            <?php foreach ($statusOptions as $value => $label): ?>
-                                <option value="<?php echo $value; ?>" <?php echo $delivery['delivery_status'] === $value ? 'selected' : ''; ?>>
-                                    <?php echo $label; ?>
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                    </div>
-                    <button type="submit" name="update_status" class="btn btn-primary">
-                        <i class="fas fa-save me-1"></i> Update Status
-                    </button>
-                </form>
             </div>
         </div>
     </div>
