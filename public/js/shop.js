@@ -1,6 +1,4 @@
-/**
- * Shop page JavaScript
- */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Category bubbles animation
     const categoryBubbles = document.querySelectorAll('.category-bubble');

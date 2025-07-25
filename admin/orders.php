@@ -1,45 +1,45 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminOrderController.php';
 require_once './controllers/AdminDeliveryController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Orders';
 $customCss = 'orders.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create controllers
+
 $orderController = new AdminOrderController($db);
 $deliveryController = new AdminDeliveryController($db);
 
-// Initialize filters array
+
 $filters = [];
 
-// Check if status filter is set
+
 if (isset($_GET['status']) && !empty($_GET['status'])) {
     $filters['status'] = $_GET['status'];
 }
 
-// Get filtered orders
+
 $orders = $orderController->getOrders($filters);
 
-// Get order status counts
+
 $statusCounts = $orderController->getOrderStatusCounts();
 
-// Get delivery personnel for dropdown
+
 $deliveryPersonnel = $deliveryController->getDeliveryPersonnel();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -211,7 +211,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

@@ -1,8 +1,3 @@
-/**
- * Delivery Personnel JavaScript
- * Handles modal functionality and other interactive features
- */
-
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize the delete confirmation modal
     var deleteModal = document.getElementById('deleteConfirmModal');

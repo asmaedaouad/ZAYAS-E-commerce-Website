@@ -1,42 +1,42 @@
 <?php
-// Check if BASE_DIR is defined (when included from index.php)
+
 if (!defined('BASE_DIR')) {
-    // When accessed directly
+   
     require_once '../../config/config.php';
     require_once '../../config/Database.php';
     require_once '../../controllers/HomeController.php';
     require_once '../../controllers/WishlistController.php';
 
-    // Check if user is delivery personnel and redirect to logout
+    
     if (isLoggedIn() && isDelivery()) {
-        // Logout delivery personnel who try to access the store
+       
         redirect('/views/auth/logout.php');
     }
 } else {
-    // When included from index.php
+    
     require_once BASE_DIR . '/config/Database.php';
     require_once BASE_DIR . '/controllers/HomeController.php';
     require_once BASE_DIR . '/controllers/WishlistController.php';
 }
 
-// Set page title
+
 $pageTitle = 'Home';
 $customCss = 'home.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create home controller
+
 $homeController = new HomeController($db);
 $wishlistController = new WishlistController($db);
 
-// Get home page data
+
 $data = $homeController->index();
 $newArrivals = $data['new_arrivals'];
 $featuredProducts = $data['featured_products'];
 
-// Include header
+
 if (!defined('BASE_DIR')) {
     include_once '../../includes/header.php';
 } else {

@@ -1,14 +1,14 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/AuthController.php';
 
-// Set page title
+
 $pageTitle = 'Login';
 $customCss = 'login_register.css';
 
-// Redirect if already logged in
+
 if (isLoggedIn()) {
     // Redirect based on user type
     if (isAdmin()) {
@@ -20,19 +20,19 @@ if (isLoggedIn()) {
     }
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create auth controller
+
 $authController = new AuthController($db);
 
-// Handle login
+
 $data = $authController->login();
 $errors = $data['errors'];
 $email = $data['email'];
 
-// Check if user just registered
+
 $registered = isset($_GET['registered']) && $_GET['registered'] == 1;
 
 // Include header

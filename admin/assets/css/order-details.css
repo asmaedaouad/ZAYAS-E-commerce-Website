@@ -1,6 +1,6 @@
-/* Order Details Page Specific Styles */
 
-/* Table Styles */
+
+
 .table th {
     font-weight: 600;
     color: #5d4037;
@@ -47,7 +47,7 @@
     padding: 20px;
 }
 
-/* Product Thumbnail */
+
 .product-thumbnail {
     width: 60px;
     height: 60px;
@@ -61,7 +61,7 @@
     transform: scale(1.1);
 }
 
-/* Customer Avatar */
+
 .customer-avatar {
     width: 40px;
     height: 40px;
@@ -76,7 +76,7 @@
     margin-right: 10px;
 }
 
-/* Status Badge Styles */
+
 .badge {
     padding: 8px 12px;
     font-weight: 500;
@@ -134,7 +134,7 @@
     border: 1px solid rgba(255, 0, 0, 0.5);
 }
 
-/* Action Buttons */
+
 .btn-outline-primary {
     color: #8d6e63;
     border-color: #d7ccc8;
@@ -206,7 +206,7 @@
     }
 }
 
-/* Section Headings */
+
 h5 {
     color: #6c5648;
     font-weight: 600;

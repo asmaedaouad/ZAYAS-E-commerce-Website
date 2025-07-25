@@ -1,50 +1,49 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminOrderController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Check if order ID is provided
+
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     redirect('/admin/orders.php');
 }
 
 $orderId = $_GET['id'];
 
-// Set page title
+
 $pageTitle = 'Order Details';
 $customCss = 'order-details.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create order controller
+
 $orderController = new AdminOrderController($db);
 
-// Get order details
+
 $order = $orderController->getOrderById($orderId);
 
-// If order not found, redirect to orders page
+
 if (!$order) {
     redirect('/admin/orders.php');
 }
 
-// Get order items
+
 $orderItems = $orderController->getOrderItems($orderId);
 
-// Get delivery information
+
 $deliveryInfo = $orderController->getDeliveryInfo($orderId);
 
-// Status updates are now handled by delivery personnel only
-// No status update message variable needed
 
-// Include header
+
+
 include_once './includes/header.php';
 ?>
 
@@ -210,7 +209,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

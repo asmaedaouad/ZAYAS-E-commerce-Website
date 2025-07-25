@@ -1,29 +1,29 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminProductController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title and custom CSS
+
 $pageTitle = 'Product Form';
 $customCss = 'product-form.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create product controller
+
 $productController = new AdminProductController($db);
 
-// Get product types for dropdown
+
 $productTypes = $productController->getProductTypes();
 
-// Initialize variables
+
 $product = [
     'id' => '',
     'name' => '',
@@ -39,7 +39,7 @@ $isEdit = false;
 $formErrors = [];
 $successMessage = '';
 
-// Check if it's an edit operation
+
 if (isset($_GET['id']) && !empty($_GET['id'])) {
     $productId = (int)$_GET['id'];
     $product = $productController->getProductById($productId);
@@ -51,7 +51,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $isEdit = true;
 }
 
-// Process form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate form data
     $name = trim($_POST['name']);
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $isNew = isset($_POST['is_new']) ? 1 : 0;
     $quantity = (int)$_POST['quantity'];
     
-    // Validate required fields
+    
     if (empty($name)) {
         $formErrors['name'] = 'Product name is required';
     }
@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formErrors['quantity'] = 'Quantity cannot be negative';
     }
     
-    // Handle image upload
+    
     $imagePath = $isEdit ? $product['image_path'] : '';
     
     if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!in_array($fileType, $allowedTypes)) {
             $formErrors['image'] = 'Only JPG, PNG, and GIF images are allowed';
         } else {
-            // Generate unique filename based on product ID or timestamp
+            
             $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
             $filename = $isEdit ? $product['id'] : time();
             $filename .= '.' . $extension;
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $formErrors['image'] = 'Product image is required';
     }
     
-    // If no errors, save the product
+    
     if (empty($formErrors)) {
         $productData = [
             'name' => $name,
@@ -158,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -303,7 +303,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

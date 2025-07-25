@@ -1,33 +1,33 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/UserController.php';
 
-// Set page title
+
 $pageTitle = 'My Account';
 $customCss = 'account.css';
 
-// Redirect if not logged in
+
 if (!isLoggedIn()) {
     redirect('/views/auth/login.php');
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create user controller
+
 $userController = new UserController($db);
 
-// Get account data
+
 $data = $userController->account();
 $user = $data['user'];
 $orders = $data['orders'];
 $wishlist = $data['wishlist'];
-$cart = $data['cart']; // Make sure cart data is assigned to a variable
+$cart = $data['cart']; 
 
-// Check if cart table exists and create it if it doesn't
+
 $checkTableQuery = "SHOW TABLES LIKE 'cart'";
 $stmt = $db->prepare($checkTableQuery);
 $stmt->execute();

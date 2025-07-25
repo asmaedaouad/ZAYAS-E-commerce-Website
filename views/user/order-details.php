@@ -1,37 +1,37 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/OrderController.php';
 
-// Set page title
+
 $pageTitle = 'Order Details';
 $customCss = 'order-details.css';
 
-// Redirect if not logged in
+
 if (!isLoggedIn()) {
     redirect('/views/auth/login.php');
 }
 
-// Get order ID
+
 $orderId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($orderId <= 0) {
     redirect('/views/user/account.php');
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create order controller
+
 $orderController = new OrderController($db);
 
-// Get order details
+
 $data = $orderController->getOrderDetails($orderId);
 $order = $data['order'];
 
-// Include header
+
 include_once '../../includes/header.php';
 ?>
 

@@ -1,6 +1,4 @@
-/* Admin Panel Styles */
 
-/* General Styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f9f6f2;
@@ -10,7 +8,7 @@ body {
     overflow-x: hidden;
 }
 
-/* When sidebar is open on mobile */
+
 body.sidebar-open {
     overflow: hidden;
 }
@@ -20,7 +18,7 @@ body.sidebar-open {
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
+
 .sidebar {
     width: 260px;
     background-color: #e8d9c5;
@@ -98,7 +96,7 @@ body.sidebar-open {
     background-color: #f9f6f2;
 }
 
-/* Top Header Styles */
+
 .top-header {
     background-color: #f9f6f2;
     padding: 18px 30px;
@@ -109,7 +107,7 @@ body.sidebar-open {
     border-bottom: 1px solid rgba(93, 64, 55, 0.08);
 }
 
-/* Sidebar Toggle Button */
+
 .sidebar-toggle {
     background-color: transparent;
     border: none;
@@ -175,7 +173,7 @@ body.sidebar-open {
     font-size: 1.8rem;
 }
 
-/* Card Styles */
+
 .card {
     border: none;
     border-radius: 12px;
@@ -212,7 +210,7 @@ body.sidebar-open {
     background-color: #fff;
 }
 
-/* Stat Card Styles */
+
 .stat-card {
     background-color: #fff;
     border-radius: 12px;
@@ -281,7 +279,7 @@ body.sidebar-open {
     font-size: 0.95rem;
 }
 
-/* Table Styles */
+
 .table {
     margin-bottom: 0;
     color: #5d4037;
@@ -310,7 +308,7 @@ body.sidebar-open {
     background-color: rgba(217, 199, 171, 0.05);
 }
 
-/* Status Badge Styles */
+
 .badge {
     padding: 8px 12px;
     font-weight: 500;
@@ -368,7 +366,7 @@ body.sidebar-open {
     border: 1px solid rgba(255, 0, 0, 0.5);
 }
 
-/* Chart Styles */
+
 .chart-container {
     position: relative;
     height: 300px;
@@ -376,7 +374,7 @@ body.sidebar-open {
     padding: 10px;
 }
 
-/* Password toggle icon */
+
 .password-toggle-icon {
     position: absolute;
     right: 15px;
@@ -398,7 +396,7 @@ body.sidebar-open {
     position: relative;
 }
 
-/* Button Styles */
+
 .btn {
     border-radius: 8px;
     padding: 8px 16px;
@@ -453,7 +451,7 @@ body.sidebar-open {
     text-align: center;
 }
 
-/* Custom Select Styles */
+
 .custom-select-container {
     background-color: #f9f6f2;
     border: 1px solid #e8d9c5;
@@ -491,7 +489,7 @@ body.sidebar-open {
     color: #8d6e63;
 }
 
-/* Action Buttons */
+
 .action-btn {
     width: 36px;
     height: 36px;

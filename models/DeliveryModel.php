@@ -7,9 +7,9 @@ class DeliveryModel {
         $this->conn = $db;
     }
 
-    // Create delivery record
+    
     public function createDelivery($orderId, $address, $city, $postalCode, $phone, $notes = null) {
-        // Insert query
+        
         $query = "INSERT INTO " . $this->table . " 
                   SET order_id = :order_id, 
                       address = :address, 
@@ -29,7 +29,7 @@ class DeliveryModel {
         $stmt->bindParam(':phone', $phone);
         $stmt->bindParam(':notes', $notes);
 
-        // Execute query
+        
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();
         }
@@ -43,33 +43,33 @@ class DeliveryModel {
         $query = "SELECT * FROM " . $this->table . " 
                   WHERE order_id = :order_id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
         // Bind parameter
         $stmt->bindParam(':order_id', $orderId);
 
-        // Execute query
+        
         $stmt->execute();
 
         return $stmt->fetch();
     }
 
-    // Update delivery status
+    
     public function updateDeliveryStatus($deliveryId, $status) {
-        // Update query
+        
         $query = "UPDATE " . $this->table . " 
                   SET delivery_status = :status 
                   WHERE id = :id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Bind parameters
+        
         $stmt->bindParam(':status', $status);
         $stmt->bindParam(':id', $deliveryId);
 
-        // Execute query
+        
         if ($stmt->execute()) {
             return true;
         }
@@ -77,21 +77,21 @@ class DeliveryModel {
         return false;
     }
 
-    // Update delivery date
+    
     public function updateDeliveryDate($deliveryId, $date) {
-        // Update query
+        
         $query = "UPDATE " . $this->table . " 
                   SET delivery_date = :date 
                   WHERE id = :id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Bind parameters
+        
         $stmt->bindParam(':date', $date);
         $stmt->bindParam(':id', $deliveryId);
 
-        // Execute query
+        
         if ($stmt->execute()) {
             return true;
         }
@@ -99,9 +99,9 @@ class DeliveryModel {
         return false;
     }
 
-    // Get all pending deliveries
+    
     public function getPendingDeliveries() {
-        // Query
+        
         $query = "SELECT d.*, o.id as order_id, o.total_amount, o.created_at as order_date, 
                          u.first_name, u.last_name, u.email 
                   FROM " . $this->table . " d
@@ -110,10 +110,10 @@ class DeliveryModel {
                   WHERE d.delivery_status = 'pending'
                   ORDER BY o.created_at ASC";
 
-        // Prepare statement
+       
         $stmt = $this->conn->prepare($query);
 
-        // Execute query
+        
         $stmt->execute();
 
         return $stmt->fetchAll();

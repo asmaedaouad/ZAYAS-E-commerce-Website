@@ -1,4 +1,4 @@
-/* Admin Profile Styles */
+
 
 .card {
     border: none;
@@ -37,7 +37,7 @@
     position: relative; /* Ensure position context for the eye icon */
 }
 
-/* Additional positioning for password fields */
+
 input[type="password"] {
     position: relative;
 }

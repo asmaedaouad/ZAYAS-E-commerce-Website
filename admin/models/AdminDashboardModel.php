@@ -6,7 +6,7 @@ class AdminDashboardModel {
         $this->conn = $db;
     }
 
-    // Get total sales (only count delivered orders)
+    
     public function getTotalSales() {
         $query = "SELECT SUM(total_amount) as total_sales
                   FROM orders

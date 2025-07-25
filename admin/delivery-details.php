@@ -1,47 +1,47 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminDeliveryController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Check if ID is provided
+
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     redirect('/admin/delivery-personnel.php');
 }
 
-// Set page title
+
 $pageTitle = 'Delivery Details';
 $customCss = 'delivery.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new AdminDeliveryController($db);
 
-// Get delivery ID
+
 $deliveryId = (int)$_GET['id'];
 
-// Get delivery details
+
 $delivery = $deliveryController->getDeliveryById($deliveryId);
 
-// If delivery not found, redirect
+
 if (!$delivery) {
     redirect('/admin/delivery-personnel.php');
 }
 
-// No status update handling needed
 
-// Get delivery personnel
+
+
 $deliveryPersonnel = $deliveryController->getDeliveryPersonnel();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -188,7 +188,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

@@ -1,26 +1,26 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/PasswordResetController.php';
 
-// Set page title
+
 $pageTitle = 'Forgot Password';
 $customCss = 'login_register.css';
 
-// Redirect if already logged in
+
 if (isLoggedIn()) {
     redirect('/index.php');
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create password reset controller
+
 $passwordResetController = new PasswordResetController($db);
 
-// Handle password reset request
+
 $data = $passwordResetController->requestReset();
 $errors = $data['errors'];
 $email = $data['email'];

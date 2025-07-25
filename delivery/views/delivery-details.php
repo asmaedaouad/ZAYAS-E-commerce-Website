@@ -1,33 +1,33 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../controllers/DeliveryController.php';
 
-// Check if user is logged in and is delivery personnel
+
 if (!isLoggedIn() || !isDelivery()) {
     redirect('/views/auth/login.php');
 }
 
-// Get delivery ID
+
 $deliveryId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($deliveryId <= 0) {
     redirect('/delivery/dashboard.php');
 }
 
-// Set page title
+
 $pageTitle = 'Delivery Details';
 $customCss = 'style.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new DeliveryController($db);
 
-// Get delivery details
+
 $data = $deliveryController->getDeliveryById($deliveryId);
 
 if (isset($data['error'])) {
@@ -37,9 +37,9 @@ if (isset($data['error'])) {
 $delivery = $data['delivery'];
 $orderItems = $data['order_items'];
 
-// No status update processing needed
 
-// Include header
+
+
 include_once '../includes/header.php';
 ?>
 
@@ -176,7 +176,7 @@ include_once '../includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once '../includes/footer.php';
 ?>
 

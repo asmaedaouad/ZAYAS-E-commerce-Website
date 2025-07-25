@@ -1,26 +1,26 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once '../controllers/UserController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'My Profile';
 $customCss = 'profile.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create user controller
+
 $userController = new UserController($db);
 
-// Process profile update
+
 $profileData = [];
 if (isset($_SESSION['profile_success'])) {
     $profileData['success'] = $_SESSION['profile_success'];
@@ -30,7 +30,7 @@ if (isset($_SESSION['profile_success'])) {
     unset($_SESSION['profile_errors']);
 }
 
-// Process password update
+
 $passwordData = [];
 if (isset($_SESSION['password_success'])) {
     $passwordData['success'] = $_SESSION['password_success'];
@@ -40,10 +40,10 @@ if (isset($_SESSION['password_success'])) {
     unset($_SESSION['password_errors']);
 }
 
-// Get user data
+
 $user = $userController->getUserById($_SESSION['user_id']);
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -163,7 +163,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

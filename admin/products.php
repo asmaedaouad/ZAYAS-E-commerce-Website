@@ -1,29 +1,29 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminProductController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Products';
 $customCss = 'products.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create product controller
+
 $productController = new AdminProductController($db);
 
-// Get all products
+
 $products = $productController->getProducts();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -176,7 +176,7 @@ endif;
 </script>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

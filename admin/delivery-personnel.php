@@ -1,27 +1,27 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminDeliveryController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Delivery Personnel';
 $customCss = 'delivery.css';
 $customJs = 'delivery-personnel.js';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new AdminDeliveryController($db);
 
-// Handle delete request
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_personnel'])) {
     $personnelId = isset($_POST['personnel_id']) ? (int)$_POST['personnel_id'] : 0;
 
@@ -33,14 +33,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_personnel'])) 
         }
     }
 
-    // Redirect to avoid form resubmission
+    
     redirect('/admin/delivery-personnel.php');
 }
 
-// Get all delivery personnel
+
 $deliveryPersonnel = $deliveryController->getDeliveryPersonnel();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -172,7 +172,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

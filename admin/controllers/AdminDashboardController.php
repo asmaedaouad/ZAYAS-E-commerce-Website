@@ -8,7 +8,6 @@ class AdminDashboardController {
         $this->dashboardModel = new AdminDashboardModel($db);
     }
 
-    // Get dashboard data
     public function getDashboardData() {
         // Get statistics
         $totalSales = $this->dashboardModel->getTotalSales();
@@ -16,7 +15,7 @@ class AdminDashboardController {
         $totalCustomers = $this->dashboardModel->getTotalCustomers();
         $totalProducts = $this->dashboardModel->getTotalProducts();
 
-        // Get recent orders
+     
         $recentOrders = $this->dashboardModel->getRecentOrders(3);
 
         // Get chart data
@@ -53,7 +52,7 @@ class AdminDashboardController {
         $monthlyOrdersByStatus = $this->dashboardModel->getMonthlyOrdersByStatus();
         $yearlyOrdersByStatus = $this->dashboardModel->getYearlyOrdersByStatus();
 
-        // Return all data
+        
         return [
             'total_sales' => $totalSales,
             'total_orders' => $totalOrders,
@@ -95,17 +94,17 @@ class AdminDashboardController {
         ];
     }
 
-    // Format currency
+    
     public function formatCurrency($amount) {
         return number_format($amount, 2) . 'DH';
     }
 
-    // Format date
+    
     public function formatDate($date) {
         return date('M d, Y', strtotime($date));
     }
 
-    // Get status badge class
+    // Get status badge class (da mataf adisadha colors gi bettons 3la hsav status)
     public function getStatusBadgeClass($status) {
         switch ($status) {
             case 'pending':
@@ -127,7 +126,7 @@ class AdminDashboardController {
         }
     }
 
-    // Format status for display
+    
     public function formatStatus($status) {
         return ucfirst(str_replace('_', ' ', $status));
     }

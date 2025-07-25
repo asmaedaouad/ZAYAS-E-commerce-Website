@@ -1,30 +1,30 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminCustomerController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Customers';
 $customCss = 'customers.css';
 $customJs = 'customers.js';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create customer controller
+
 $customerController = new AdminCustomerController($db);
 
-// Get all customers without filters
+
 $customers = $customerController->getCustomers();
 
-// Include header
+
 include_once './includes/header.php';
 
 // Display messages if any
@@ -37,7 +37,7 @@ if (isset($_SESSION['admin_message'])):
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 <?php
-    // Clear the message after displaying
+   
     unset($_SESSION['admin_message']);
 endif;
 ?>
@@ -100,7 +100,7 @@ endif;
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

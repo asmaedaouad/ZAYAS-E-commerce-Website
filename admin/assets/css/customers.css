@@ -1,6 +1,6 @@
-/* Customers Page Specific Styles */
 
-/* Table Styles */
+
+
 .table th {
     font-weight: 600;
     color: #5d4037;
@@ -23,7 +23,7 @@
     background-color: rgba(217, 199, 171, 0.05);
 }
 
-/* Customer Avatar */
+
 .customer-avatar {
     width: 40px;
     height: 40px;
@@ -38,7 +38,7 @@
     margin-right: 10px;
 }
 
-/* Badge Styles */
+
 .badge {
     padding: 8px 12px;
     font-weight: 500;
@@ -79,7 +79,7 @@
     color: #0d47a1;
 }
 
-/* Action Buttons */
+
 .btn-outline-primary {
     color: #8d6e63;
     border-color: #d7ccc8;
@@ -128,7 +128,7 @@
     color: #5d4037;
 }
 
-/* Filter Card */
+
 .filter-card {
     margin-bottom: 25px;
     border-radius: 12px;
@@ -156,7 +156,7 @@
     padding: 20px;
 }
 
-/* Form Controls */
+
 .form-control, .form-select {
     border-radius: 8px;
     border: 1px solid #e8d9c5;
@@ -201,7 +201,7 @@
     }
 }
 
-/* Customer Details Page */
+
 .customer-info-card {
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);

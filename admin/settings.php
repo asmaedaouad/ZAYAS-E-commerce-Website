@@ -1,26 +1,26 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Contact Settings';
 $customCss = 'settings.css';
 
-// Path to contact settings file
+
 $contactSettingsFile = __DIR__ . '/../config/contact_settings.php';
 
-// Initialize variables
+
 $successMessage = '';
 $errorMessage = '';
 $contactSettings = include $contactSettingsFile;
 
-// Process form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_contact_settings'])) {
     // Validate and sanitize inputs
     $address = isset($_POST['address']) ? trim($_POST['address']) : '';
@@ -28,14 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_contact_settin
     $email = isset($_POST['email']) ? trim($_POST['email']) : '';
     $mapEmbedUrl = isset($_POST['map_embed_url']) ? trim($_POST['map_embed_url']) : '';
     
-    // Opening hours
+
     $openingHours = [
         'Monday - Friday' => isset($_POST['weekday_hours']) ? trim($_POST['weekday_hours']) : '',
         'Saturday' => isset($_POST['saturday_hours']) ? trim($_POST['saturday_hours']) : '',
         'Sunday' => isset($_POST['sunday_hours']) ? trim($_POST['sunday_hours']) : ''
     ];
     
-    // Social media
+    
     $socialMedia = [
         'facebook' => isset($_POST['facebook']) ? trim($_POST['facebook']) : '#',
         'instagram' => isset($_POST['instagram']) ? trim($_POST['instagram']) : '#',
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_contact_settin
         'twitter' => isset($_POST['twitter']) ? trim($_POST['twitter']) : '#'
     ];
     
-    // Basic validation
+    
     $isValid = true;
     
     if (empty($address)) {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_contact_settin
         $isValid = false;
     }
     
-    // If valid, update settings
+    
     if ($isValid) {
         // Create new settings array
         $newSettings = [
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_contact_settin
     }
 }
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -239,7 +239,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

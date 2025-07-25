@@ -1,35 +1,35 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/DeliveryController.php';
 
-// Check if user is logged in and is delivery personnel
+
 if (!isLoggedIn() || !isDelivery()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Delivery Dashboard';
 $customCss = 'style.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new DeliveryController($db);
 
-// Get assigned deliveries
+
 $deliveries = $deliveryController->getAssignedDeliveries();
 
-// Get delivery status counts
+
 $statusCounts = $deliveryController->getDeliveryStatusCounts();
 
-// Get total pending orders count
+
 $totalPendingCount = $deliveryController->getTotalPendingOrdersCount();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -228,7 +228,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

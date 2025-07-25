@@ -1,7 +1,4 @@
-/**
- * Logout confirmation functionality
- * This script provides a consistent logout confirmation across all interfaces
- */
+
 
 // Function to confirm logout
 function confirmLogout(logoutUrl) {

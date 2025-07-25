@@ -1,7 +1,4 @@
-/**
- * Password Toggle Visibility
- * Adds functionality to toggle password field visibility
- */
+
 document.addEventListener('DOMContentLoaded', function() {
     // Find all password fields
     const passwordFields = document.querySelectorAll('input[type="password"]');

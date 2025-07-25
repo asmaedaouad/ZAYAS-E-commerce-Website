@@ -7,16 +7,16 @@ class AdminProductModel {
         $this->conn = $db;
     }
 
-    // Get all products with optional filtering
+    
     public function getProducts($filters = []) {
-        // Base query
+        
         $query = "SELECT * FROM " . $this->table;
 
-        // Add filters
+       
         $conditions = [];
         $params = [];
 
-        // Filter by type
+       
         if (isset($filters['type']) && !empty($filters['type'])) {
             $conditions[] = "type = :type";
             $params[':type'] = $filters['type'];
@@ -43,7 +43,7 @@ class AdminProductModel {
             $params[':search'] = '%' . $filters['search'] . '%';
         }
 
-        // Add conditions to query
+        
         if (!empty($conditions)) {
             $query .= " WHERE " . implode(" AND ", $conditions);
         }
@@ -51,46 +51,46 @@ class AdminProductModel {
         // Add order by
         $query .= " ORDER BY id ASC";
 
-        // Prepare statement
+       
         $stmt = $this->conn->prepare($query);
 
-        // Bind parameters
+        
         foreach ($params as $key => $value) {
             $stmt->bindValue($key, $value);
         }
 
-        // Execute query
+        
         $stmt->execute();
 
         return $stmt->fetchAll();
     }
 
-    // Get product by ID
+    
     public function getProductById($id) {
-        // Query
+        
         $query = "SELECT * FROM " . $this->table . " WHERE id = :id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Bind parameter
+        
         $stmt->bindParam(':id', $id);
 
-        // Execute query
+        
         $stmt->execute();
 
         return $stmt->fetch();
     }
 
-    // Get product types
+    
     public function getProductTypes() {
-        // Query
+        
         $query = "SELECT DISTINCT type FROM " . $this->table . " ORDER BY type";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Execute query
+        
         $stmt->execute();
 
         $types = [];
@@ -101,9 +101,9 @@ class AdminProductModel {
         return $types;
     }
 
-    // Create product
+    
     public function createProduct($data) {
-        // Insert query
+        
         $query = "INSERT INTO " . $this->table . "
                   SET name = :name,
                       type = :type,
@@ -114,7 +114,7 @@ class AdminProductModel {
                       is_new = :is_new,
                       quantity = :quantity";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
         // Sanitize and bind parameters
@@ -136,7 +136,7 @@ class AdminProductModel {
         $stmt->bindParam(':is_new', $isNew);
         $stmt->bindParam(':quantity', $quantity);
 
-        // Execute query
+        
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();
         }
@@ -144,9 +144,9 @@ class AdminProductModel {
         return false;
     }
 
-    // Update product
+    
     public function updateProduct($id, $data) {
-        // Update query
+        
         $query = "UPDATE " . $this->table . "
                   SET name = :name,
                       type = :type,
@@ -158,10 +158,10 @@ class AdminProductModel {
                       quantity = :quantity
                   WHERE id = :id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Sanitize and bind parameters
+        
         $name = htmlspecialchars(strip_tags($data['name']));
         $type = htmlspecialchars(strip_tags($data['type']));
         $description = htmlspecialchars(strip_tags($data['description']));
@@ -181,7 +181,7 @@ class AdminProductModel {
         $stmt->bindParam(':quantity', $quantity);
         $stmt->bindParam(':id', $id);
 
-        // Execute query
+       
         if ($stmt->execute()) {
             return true;
         }
@@ -189,18 +189,18 @@ class AdminProductModel {
         return false;
     }
 
-    // Delete product
+    
     public function deleteProduct($id) {
-        // Delete query
+        
         $query = "DELETE FROM " . $this->table . " WHERE id = :id";
 
-        // Prepare statement
+        
         $stmt = $this->conn->prepare($query);
 
-        // Bind parameter
+        
         $stmt->bindParam(':id', $id);
 
-        // Execute query
+        
         if ($stmt->execute()) {
             return true;
         }

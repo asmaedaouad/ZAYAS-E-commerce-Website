@@ -1,24 +1,24 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminDeliveryController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title and CSS
+
 $isEdit = isset($_GET['id']) && !empty($_GET['id']);
 $pageTitle = $isEdit ? 'Edit Delivery Personnel' : 'Add Delivery Personnel';
 $customCss = 'delivery.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new AdminDeliveryController($db);
 
 // Initialize variables
@@ -35,7 +35,7 @@ $personnel = [
 $formErrors = [];
 $successMessage = '';
 
-// If editing, get personnel data
+
 if ($isEdit) {
     $personnelId = (int)$_GET['id'];
     $personnel = $deliveryController->getDeliveryPersonnelById($personnelId);
@@ -45,7 +45,7 @@ if ($isEdit) {
     }
 }
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get form data
     $personnelData = [
@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // If no errors, create or update personnel
+   
     if (empty($formErrors)) {
         if ($isEdit) {
             // Update existing personnel
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -262,7 +262,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

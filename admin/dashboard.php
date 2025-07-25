@@ -1,30 +1,30 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminDashboardController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Dashboard';
 $customCss = 'dashboard.css';
 $customJs = 'dashboard.js';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create dashboard controller
+
 $dashboardController = new AdminDashboardController($db);
 
-// Get dashboard data
+
 $data = $dashboardController->getDashboardData();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 

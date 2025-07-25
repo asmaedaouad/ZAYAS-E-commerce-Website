@@ -51,8 +51,7 @@ class CartModel {
                 return $stmt->execute();
             }
         } catch (Exception $e) {
-            // Log error (in a production environment)
-            // error_log('Cart addition failed: ' . $e->getMessage());
+            
             return false;
         }
     }

@@ -4,7 +4,7 @@
  * This file stores the contact information for the website
  */
 
-// Return contact settings as an array
+ 
 return array (
   'address' => 'ENSAH (École Nationale des Sciences Appliquées), Al Hoceima, Morocco',
   'phone' => '+ 212 123 456-789',

@@ -1,5 +1,5 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
@@ -11,25 +11,25 @@ if (isLoggedIn() && isDelivery()) {
     redirect('/views/auth/logout.php');
 }
 
-// Set page title
+
 $customCss = 'product.css';
 
-// Get product ID
+
 $productId = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 if ($productId <= 0) {
     redirect('/views/home/shop.php');
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create controllers
+
 $homeController = new HomeController($db);
 $wishlistController = new WishlistController($db);
 
-// Get product details
+
 $data = $homeController->productDetails($productId);
 
 if (isset($data['error'])) {
@@ -39,13 +39,13 @@ if (isset($data['error'])) {
 $product = $data['product'];
 $relatedProducts = $data['related_products'];
 
-// Check if product is in wishlist
+
 $isInWishlist = isLoggedIn() ? $wishlistController->isInWishlist($productId) : false;
 
-// Set page title
+
 $pageTitle = $product['name'];
 
-// Include header
+
 include_once '../../includes/header.php';
 ?>
 

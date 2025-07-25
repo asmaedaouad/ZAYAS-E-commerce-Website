@@ -1,26 +1,26 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../controllers/AuthController.php';
 
-// Check if user is logged in and is delivery personnel
+
 if (!isLoggedIn() || !isDelivery()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'My Profile';
 $customCss = 'style.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create auth controller
+
 $authController = new AuthController($db);
 
-// Process profile update
+
 $profileData = [];
 if (isset($_POST['update_profile'])) {
     $profileData = $authController->updateProfile();
@@ -31,13 +31,13 @@ if (isset($_POST['update_profile'])) {
     ];
 }
 
-// Process password update
+
 $passwordData = [];
 if (isset($_POST['update_password'])) {
     $passwordData = $authController->updatePassword();
 }
 
-// Include header
+
 include_once '../includes/header.php';
 ?>
 
@@ -144,7 +144,7 @@ include_once '../includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once '../includes/footer.php';
 ?>
 

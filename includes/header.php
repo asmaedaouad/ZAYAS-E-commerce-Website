@@ -1,11 +1,11 @@
 <?php
-// Check if BASE_DIR is defined (when included from index.php)
+
 if (!defined('BASE_DIR')) {
-    // When accessed directly
+    
     require_once '../../config/config.php';
     require_once '../../config/Database.php';
 
-    // Include controllers if they exist
+    
     if (file_exists('../../controllers/CartController.php')) {
         require_once '../../controllers/CartController.php';
     }
@@ -13,7 +13,7 @@ if (!defined('BASE_DIR')) {
         require_once '../../controllers/WishlistController.php';
     }
 } else {
-    // When included from index.php
+    
     require_once BASE_DIR . '/config/Database.php';
 
     // Include controllers if they exist
@@ -25,13 +25,13 @@ if (!defined('BASE_DIR')) {
     }
 }
 
-// Initialize cart and wishlist counts
+
 $cartCount = 0;
 $wishlistCount = 0;
 
-// Get cart count if CartController exists
+
 if (class_exists('CartController')) {
-    // Create database connection if not already created
+    
     if (!isset($db)) {
         $database = new Database();
         $db = $database->getConnection();
@@ -40,9 +40,9 @@ if (class_exists('CartController')) {
     $cartCount = $cartController->getCartCount();
 }
 
-// Get wishlist count if user is logged in and WishlistController exists
+
 if (isset($_SESSION['user_id']) && class_exists('WishlistController')) {
-    // Create database connection for wishlist
+    
     if (!isset($db)) {
         $database = new Database();
         $db = $database->getConnection();
@@ -51,15 +51,15 @@ if (isset($_SESSION['user_id']) && class_exists('WishlistController')) {
     $wishlistCount = $wishlistController->getWishlistCount();
 }
 
-// Check if user is logged in
+
 $isLoggedIn = isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true;
 $firstName = $isLoggedIn ? $_SESSION['first_name'] : '';
 
-// Check if user is admin or delivery personnel
+
 $isAdmin = $isLoggedIn && isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
 $isDelivery = $isLoggedIn && isset($_SESSION['is_delivery']) && $_SESSION['is_delivery'] == 1;
 
-// Only regular users can access wishlist and cart
+
 $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
 ?>
 <!DOCTYPE html>
@@ -69,23 +69,23 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo isset($pageTitle) ? htmlspecialchars($pageTitle) . ' - ' : ''; ?>ZAYAS</title>
 
-    <!-- Bootstrap CSS -->
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Google Fonts -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <!-- Base CSS -->
+    
     <link rel="stylesheet" href="<?php echo url('/public/css/header.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('/public/css/footer.css'); ?>">
     <link rel="stylesheet" href="<?php echo url('/public/css/product-card.css'); ?>">
 
-    <!-- Page-specific CSS -->
+    
     <?php if (isset($customCss)): ?>
     <link rel="stylesheet" href="<?php echo url('/public/css/' . $customCss); ?>">
     <?php endif; ?>
@@ -284,4 +284,4 @@ $canAccessUserFeatures = $isLoggedIn && !$isAdmin && !$isDelivery;
 </header>
 
 
-<!-- Logout confirmation script is loaded in footer.php -->
+

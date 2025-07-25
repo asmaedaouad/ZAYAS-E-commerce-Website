@@ -1,27 +1,27 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/HomeController.php';
 
-// Check if user is delivery personnel and redirect to logout
+
 if (isLoggedIn() && isDelivery()) {
-    // Logout delivery personnel who try to access the store
+    
     redirect('/views/auth/logout.php');
 }
 
-// Set page title
+
 $pageTitle = 'Contact Us';
 $customCss = 'contact.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create home controller
+
 $homeController = new HomeController($db);
 
-// Get contact page data
+
 $data = $homeController->contact();
 
 // Include header
@@ -122,7 +122,6 @@ include_once '../../includes/header.php';
 </section>
 
 <?php
-// Include footer
 include_once '../../includes/footer.php';
 ?>
 

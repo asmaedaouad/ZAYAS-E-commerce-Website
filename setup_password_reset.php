@@ -1,16 +1,16 @@
 <?php
-// Include configuration
+
 require_once 'config/config.php';
 require_once 'config/Database.php';
 
-// Set page title
+
 $pageTitle = 'Setup Password Reset';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// SQL to create password_reset_tokens table
+
 $sql = "
 CREATE TABLE IF NOT EXISTS password_reset_tokens (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS password_reset_tokens (
 CREATE INDEX idx_password_reset_token ON password_reset_tokens(token);
 ";
 
-// Execute SQL
+
 $success = false;
 $error = '';
 

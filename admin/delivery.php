@@ -1,32 +1,32 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminDeliveryController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Set page title
+
 $pageTitle = 'Delivery Management';
 $customCss = 'delivery.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create delivery controller
+
 $deliveryController = new AdminDeliveryController($db);
 
-// Get all deliveries
+
 $deliveries = $deliveryController->getDeliveries();
 
-// Get delivery status counts
+
 $statusCounts = $deliveryController->getDeliveryStatusCounts();
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -157,7 +157,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

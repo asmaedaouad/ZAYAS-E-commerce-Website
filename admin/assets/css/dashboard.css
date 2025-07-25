@@ -1,6 +1,6 @@
-/* Dashboard Specific Styles */
 
-/* Stat Cards */
+
+
 .stat-card {
     position: relative;
     overflow: hidden;
@@ -37,14 +37,14 @@
     opacity: 1;
 }
 
-/* Chart Containers */
+
 .chart-container {
     padding: 15px;
     background-color: #fff;
     border-radius: 10px;
 }
 
-/* Equal Height Cards */
+
 .equal-height-row {
     display: flex;
     flex-wrap: wrap;
@@ -86,7 +86,7 @@
     justify-content: center;
 }
 
-/* Recent Orders Table */
+
 .recent-orders-header {
     display: flex;
     justify-content: space-between;
@@ -100,7 +100,7 @@
     font-weight: 600;
 }
 
-/* Full-width Recent Orders Card */
+
 .recent-orders-card {
     margin-bottom: 30px;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
@@ -127,7 +127,7 @@
     margin-left: 5px;
 }
 
-/* Status Badges */
+
 .badge-processing {
     background-color: #bbdefb;
     color: #0d47a1;
@@ -152,7 +152,7 @@
     font-size: 0.85rem;
 }
 
-/* Compact Select Containers for Statistics */
+
 .statistics-control-item .custom-select-container {
     padding: 8px 12px;
 }

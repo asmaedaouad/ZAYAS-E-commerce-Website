@@ -1,45 +1,45 @@
 <?php
-// Include configuration
+
 require_once '../config/config.php';
 require_once '../config/Database.php';
 require_once './controllers/AdminCustomerController.php';
 
-// Check if user is logged in and is admin
+
 if (!isLoggedIn() || !isAdmin()) {
     redirect('/views/auth/login.php');
 }
 
-// Check if ID is provided
+
 if (!isset($_GET['id']) || empty($_GET['id'])) {
     redirect('/admin/customers.php');
 }
 
-// Set page title
+
 $pageTitle = 'Customer Details';
 $customCss = 'customers.css';
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create customer controller
+
 $customerController = new AdminCustomerController($db);
 
-// Get customer ID
+
 $customerId = (int)$_GET['id'];
 
-// Get customer details
+
 $customer = $customerController->getCustomerById($customerId);
 
-// If customer not found, redirect
+
 if (!$customer) {
     redirect('/admin/customers.php');
 }
 
-// Get customer orders
+
 $customerOrders = $customerController->getCustomerOrders($customerId);
 
-// Include header
+
 include_once './includes/header.php';
 ?>
 
@@ -164,7 +164,7 @@ include_once './includes/header.php';
 </div>
 
 <?php
-// Include footer
+
 include_once './includes/footer.php';
 ?>
 

@@ -1,33 +1,33 @@
 <?php
-// Include configuration
+
 require_once '../../config/config.php';
 require_once '../../config/Database.php';
 require_once '../../controllers/AuthController.php';
 
-// Set page title
+
 $pageTitle = 'Register';
 $customCss = 'login_register.css';
 
-// Redirect if already logged in
+
 if (isLoggedIn()) {
     redirect('/index.php');
 }
 
-// Get database connection
+
 $database = new Database();
 $db = $database->getConnection();
 
-// Create auth controller
+
 $authController = new AuthController($db);
 
-// Handle registration
+
 $data = $authController->register();
 $errors = $data['errors'];
 $firstName = $data['first_name'];
 $lastName = $data['last_name'];
 $email = $data['email'];
 
-// Include header
+
 include_once '../../includes/header.php';
 ?>
 
