@@ -1,4 +1,4 @@
-ZAYAS E-commerce Website
+ZAYAS Simple E-commerce Website
 
 Developed by: Asmae Daouad and Zaynab Aitaddi
 
@@ -57,8 +57,10 @@ ZAYAS is a lightweight e-commerce platform designed for clothing retail, with a 
 - Update database connection in `config/Database.php`  
 - Run the provided SQL scripts if needed.
 
-👤 Default Accounts
-Admin Account
-Email: admin@zayas.com
-Password: 123456
+## 👤 Default Admin Account
+- **Email:** admin@zayas.com  
+- **Password:** 123456  
+
+---
+
 © 2025 ZAYAS Simple E-commerce
